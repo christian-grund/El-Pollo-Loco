@@ -46,19 +46,30 @@ class World {
   }
 
   // mo = movable object
+  // prüft, ob mo otherDirection gesetzt ist
   addToMap(mo) {
     if (mo.otherDirection) {
-      // prüft, ob mo otherDirection gesetzt ist
-      this.ctx.save(); // aktuelle Einstellungen/Eigenschaften von Context werden gespeichert ("Screenshot")
-      this.ctx.translate(mo.width, 0); // Element wird zur Seite verschoben, damit es beim spiegeln keinen Sprung gibt
-      this.ctx.scale(-1, 1); // Ab hier wird alles spiegelverkehrt eingefügt
-      mo.x = mo.x * -1;
+      this.flipImage(mo);
     }
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
+
+    // prüft, ob context im oberen Teil der Funktion verändert wurde
     if (mo.otherDirection) {
-      // prüft, ob context im oberen Teil der Funktion verändert wurde
-      mo.x = mo.x * -1; // Setzt Spiegelung zurück für nachfolgende Objekte
-      this.ctx.restore(); // Änderungen werden Rückgängig gemacht
+      this.flipImageBack(mo);
     }
+  }
+
+  flipImage(mo) {
+    this.ctx.save(); // aktuelle Einstellungen/Eigenschaften von Context werden gespeichert ("Screenshot")
+    this.ctx.translate(mo.width, 0); // Element wird zur Seite verschoben, damit es beim spiegeln keinen Sprung gibt
+    this.ctx.scale(-1, 1); // Ab hier wird alles spiegelverkehrt eingefügt
+    mo.x = mo.x * -1;
+  }
+
+  flipImageBack(mo) {
+    mo.x = mo.x * -1; // Setzt Spiegelung zurück für nachfolgende Objekte
+    this.ctx.restore(); // Änderungen werden Rückgängig gemacht
   }
 }
