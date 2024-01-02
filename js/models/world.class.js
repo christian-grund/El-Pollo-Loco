@@ -5,6 +5,7 @@ class World {
   ctx; // Sammlung/Framework von JS, mit dem man auf Canvas Objekte hinzufügen/malen kann
   keyboard;
   camera_x = 0;
+  statusBar = new Statusbar();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -35,11 +36,10 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.addToMap(this.statusBar);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
-    // this.addObjectsToMap(this.level.statusbar);
-
     this.ctx.translate(-this.camera_x, 0);
 
     // draw wird immer wieder aufgerufen
