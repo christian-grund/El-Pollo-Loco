@@ -23,14 +23,11 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
-          this.character.energy -= 5;
-          console.log('Collision with Character, energy= ', this.character.energy);
+          this.character.hit();
         }
       });
     }, 200);
   }
-
-  characterIsDead() {}
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -41,6 +38,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
+    // this.addObjectsToMap(this.level.statusbar);
 
     this.ctx.translate(-this.camera_x, 0);
 
