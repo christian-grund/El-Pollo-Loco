@@ -5,6 +5,12 @@ class MovableObject extends DrawableObject {
   acceleration = 2.5;
   energy = 100;
   lastHit = 0;
+  offset = {
+    top: 100,
+    left: 25,
+    bottom: 110,
+    right: 50,
+  };
 
   applyGravity() {
     setInterval(() => {
@@ -44,10 +50,22 @@ class MovableObject extends DrawableObject {
     this.speedY = 30;
   }
 
-  // character.isColliding(chicken)
   isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+    return (
+      this.x + this.offset.left + this.width - this.offset.right >= mo.x + mo.offset.left &&
+      this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
+      this.x + this.offset.left <= mo.x + mo.offset.left + mo.width - mo.offset.right &&
+      this.y + this.offset.top <= mo.y + mo.offset.top + mo.height - mo.offset.bottom
+    );
   }
+
+  // character.isColliding(chicken)
+  // isColliding(mo) {
+  //   return this.x + this.width > mo.x &&
+  //   this.y + this.height > mo.y &&
+  //   this.x < mo.x &&
+  //   this.y < mo.y + mo.height;
+  // }
 
   hit() {
     this.energy -= 5;

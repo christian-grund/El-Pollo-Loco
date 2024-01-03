@@ -27,12 +27,29 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  drawFrame(ctx) {
+  drawBlueFrame(ctx) {
     if (this instanceof Character || this instanceof Chicken) {
       ctx.beginPath();
       ctx.lineWidth = '5';
       ctx.strokeStyle = 'blue';
       ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  drawRedFrame(ctx) {
+    if (this instanceof Character) {
+      //  || this instanceof Chicken
+      ctx.beginPath();
+      ctx.lineWidth = '5';
+      ctx.strokeStyle = 'red';
+      ctx.rect(
+        this.x + this.offset.left,
+        this.y + this.offset.top,
+        this.width - this.offset.right,
+        this.height - this.offset.bottom
+      );
+      //   ctx.rect(this.offset.left + this.width, this.offset.bottom + this.height, this.offset.right, this.offset.top);
       ctx.stroke();
     }
   }

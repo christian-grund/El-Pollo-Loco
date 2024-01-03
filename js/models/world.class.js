@@ -43,7 +43,6 @@ class World {
     if (this.keyboard.D) {
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
-      console.log('Button D pressed!');
     }
   }
 
@@ -59,7 +58,7 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Forward
 
     this.addToMap(this.character);
-    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.enemies); //
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
@@ -87,7 +86,8 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    mo.drawBlueFrame(this.ctx);
+    mo.drawRedFrame(this.ctx);
 
     // prüft, ob context im oberen Teil der Funktion verändert wurde
     if (mo.otherDirection) {
