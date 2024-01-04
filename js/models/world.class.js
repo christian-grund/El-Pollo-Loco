@@ -5,7 +5,9 @@ class World {
   ctx; // Sammlung/Framework von JS, mit dem man auf Canvas Objekte hinzufügen/malen kann
   keyboard;
   camera_x = 0;
-  statusBar = new Statusbar();
+  statusBarHealth = new StatusBarHealth();
+  statusBarCoin = new StatusBarCoin();
+  statusBarBottle = new StatusBarBottle();
   throwableObjects = [new ThrowableObject()];
 
   constructor(canvas, keyboard) {
@@ -33,11 +35,13 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        this.statusBarHealth.setPercentage(this.character.energy);
         console.log('character.energy:', this.character.energy);
       }
     });
   }
+
+  checkCollection() {}
 
   checkThrowObjects() {
     if (this.keyboard.D) {
@@ -54,12 +58,15 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0); // Back
     // - - - - - Space for fixed Objects - - - - -
-    this.addToMap(this.statusBar);
+    this.addToMap(this.statusBarHealth);
+    this.addToMap(this.statusBarCoin);
+    this.addToMap(this.statusBarBottle);
     this.ctx.translate(this.camera_x, 0); // Forward
 
     this.addToMap(this.character);
-    this.addObjectsToMap(this.level.enemies); //
+    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.collectableBottles);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
 

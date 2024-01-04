@@ -6,10 +6,10 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
   offset = {
-    top: 100,
-    left: 25,
-    bottom: 110,
-    right: 50,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   };
 
   applyGravity() {
@@ -56,16 +56,9 @@ class MovableObject extends DrawableObject {
       this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
       this.x + this.offset.left <= mo.x + mo.offset.left + mo.width - mo.offset.right &&
       this.y + this.offset.top <= mo.y + mo.offset.top + mo.height - mo.offset.bottom
-    );
+      // && mo.onCollisionCourse
+    ); // optional: check if object is moving in right direction. Only then we collide. Usefull for objects you can stand on.
   }
-
-  // character.isColliding(chicken)
-  // isColliding(mo) {
-  //   return this.x + this.width > mo.x &&
-  //   this.y + this.height > mo.y &&
-  //   this.x < mo.x &&
-  //   this.y < mo.y + mo.height;
-  // }
 
   hit() {
     this.energy -= 5;
@@ -87,15 +80,10 @@ class MovableObject extends DrawableObject {
     return this.energy == 0; // returns true or false
   }
 
-  // Bessere Formel zur Kollisionsberechnung (Genauer)
-  // character.isColliding(chicken)
-  // isColliding(obj) {
-  //   return (
-  //     this.X + this.width >= obj.X &&
-  //     this.X <= obj.X + obj.width &&
-  //     this.Y + this.offsetY + this.height >= obj.Y &&
-  //     this.Y + this.offsetY <= obj.Y + obj.height &&
-  //     obj.onCollisionCourse
-  //   ); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+  // isIdle() {
+  //   let lastInput = new Date().getTime();
+  //   let timepassed = new Date().getTime() - lastInput; // Difference in ms
+  //   timepassed = timepassed / 1000; // Difference in s
+  //   return timepassed < 1;
   // }
 }

@@ -24,11 +24,21 @@ class DrawableObject {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    try {
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    } catch (e) {
+      console.warn('Error loading Image', e);
+      console.log('Could not load image:', this.img.src);
+    }
   }
 
   drawBlueFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken) {
+    if (
+      this instanceof Character ||
+      this instanceof ChickenNormal ||
+      this instanceof ChickenSmall ||
+      this instanceof CollectableBottles
+    ) {
       ctx.beginPath();
       ctx.lineWidth = '5';
       ctx.strokeStyle = 'blue';
@@ -38,7 +48,7 @@ class DrawableObject {
   }
 
   drawRedFrame(ctx) {
-    if (this instanceof Character) {
+    if (this instanceof Character || this instanceof CollectableBottles) {
       //  || this instanceof Chicken
       ctx.beginPath();
       ctx.lineWidth = '5';
@@ -49,7 +59,6 @@ class DrawableObject {
         this.width - this.offset.right,
         this.height - this.offset.bottom
       );
-      //   ctx.rect(this.offset.left + this.width, this.offset.bottom + this.height, this.offset.right, this.offset.top);
       ctx.stroke();
     }
   }
