@@ -8,8 +8,11 @@ class StatusBarBottle extends DrawableObject {
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
   ];
 
-  percentage = 100;
+  percentageBottles = 0;
 
+  /**
+   * Constructs a new status bar for bottles with default attributes and loads initial image
+   */
   constructor() {
     super().loadImages(this.IMAGES_BOTTLE);
     this.x = 50;
@@ -17,29 +20,55 @@ class StatusBarBottle extends DrawableObject {
     this.width = 200;
     this.height = 60;
 
-    this.setPercentage(0);
+    this.setpercentageBottles();
   }
 
-  // setPercentage(50);
-  setPercentage(percentage) {
-    this.percentage = percentage; // 0 ... 5;
+  // setpercentageBottles(50);
+  setpercentageBottles() {
+    // this.percentageBottles = percentageBottles; // 0 ... 5;
     let path = this.IMAGES_BOTTLE[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Resolves number of image in IMAGES_BOTTLE array dependent on the percentage of collected bottles
+   */
   resolveImageIndex() {
-    if (this.percentage == 100) {
+    if (this.percentageBottles == 100) {
       return 5;
-    } else if (this.percentage > 80) {
+    } else if (this.percentageBottles >= 80) {
       return 4;
-    } else if (this.percentage > 60) {
+    } else if (this.percentageBottles >= 60) {
       return 3;
-    } else if (this.percentage > 40) {
+    } else if (this.percentageBottles >= 40) {
       return 2;
-    } else if (this.percentage > 20) {
+    } else if (this.percentageBottles >= 20) {
       return 1;
     } else {
       return 0;
     }
+  }
+
+  /**
+   * Increases the percentage of collected bottles and updates the bottle status bar image
+   */
+  collectBottle() {
+    this.percentageBottles += 20;
+    if (this.percentageBottles > 100) {
+      this.percentageBottles = 100;
+    }
+    this.setpercentageBottles();
+    console.log('this.percentageBottles', this.percentageBottles);
+  }
+
+  bottleThrown() {
+    this.bottleAmount--;
+    this.percentageBottles -= 20;
+    if (this.percentageBottles < 0) {
+      this.percentageBottles = 0;
+    }
+    this.setpercentageBottles();
+    console.log('this.percentageBottles', this.percentageBottles);
+    console.log('bottleAmount:', this.bottleAmount);
   }
 }

@@ -37,7 +37,7 @@ class DrawableObject {
       this instanceof Character ||
       this instanceof ChickenNormal ||
       this instanceof ChickenSmall ||
-      this instanceof CollectableBottles
+      this instanceof Bottle
     ) {
       ctx.beginPath();
       ctx.lineWidth = '5';
@@ -48,7 +48,7 @@ class DrawableObject {
   }
 
   drawRedFrame(ctx) {
-    if (this instanceof Character || this instanceof CollectableBottles) {
+    if (this instanceof Character || this instanceof Bottle) {
       //  || this instanceof Chicken
       ctx.beginPath();
       ctx.lineWidth = '5';
