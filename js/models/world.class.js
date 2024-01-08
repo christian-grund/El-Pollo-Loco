@@ -8,8 +8,9 @@ class World {
   statusBarHealth = new StatusBarHealth();
   statusBarCoin = new StatusBarCoin();
   statusBarBottle = new StatusBarBottle();
-  throwableObjects = [new ThrowableObject()];
+  throwableObjects = [];
   bottleAmount = 0;
+  intervalIDs = [];
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -20,10 +21,20 @@ class World {
     this.setWorld();
     this.addObjects();
     this.run();
+    this.world = this;
   }
 
   setWorld() {
     this.character.world = this;
+  }
+
+  setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    this.intervalIDs.push(id);
+  }
+
+  stopGame() {
+    this.intervalIDs.forEach(clearInterval);
   }
 
   addObjects() {
@@ -45,7 +56,16 @@ class World {
         this.statusBarHealth.setPercentage(this.character.energy);
         console.log('character.energy:', this.character.energy);
       }
+      if (this.character.isAboveGround()) {
+        console.log('character.isAboveGround');
+        // this.enemyKilled();
+        // console.log('Enemy killed:', enemy);
+      }
     });
+  }
+
+  enemyKilled() {
+    return true;
   }
 
   checkCollection() {
@@ -71,8 +91,7 @@ class World {
   collectBottle(index) {
     this.bottleAmount++;
     this.removeBottle(index);
-    this.statusBarBottle.collectBottle();
-    console.log('bottleAmount:', this.bottleAmount);
+    this.statusBarBottle.bottleCollected();
   }
 
   /**
@@ -85,10 +104,16 @@ class World {
 
   checkThrowObjects() {
     if (this.keyboard.D && this.bottleAmount > 0) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
-      this.statusBarBottle.bottleThrown();
-      console.log('this.throwableObjects:', this.throwableObjects);
+      // Überprüfe, ob this.world.character definiert ist
+      if (this.world && this.world.character) {
+        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        bottle.throw(this.character.otherDirection);
+        this.throwableObjects.push(bottle);
+        this.statusBarBottle.bottleThrown();
+        this.bottleAmount--;
+      } else {
+        console.error("Error: 'this.world.character' is undefined.");
+      }
     }
   }
 
@@ -166,7 +191,6 @@ class World {
       const bottle = new Bottle();
       bottle.x = 500 + i * 350;
       level1.collectableObjects.push(bottle);
-      console.log('level1.collectableObjects:', level1.collectableObjects);
       this.addToMap(bottle);
     }
   }

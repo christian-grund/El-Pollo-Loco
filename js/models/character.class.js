@@ -2,6 +2,8 @@ class Character extends MovableObject {
   height = 250;
   y = 180;
   speed = 10;
+  idleCounter = 0;
+  IDLE_LIMIT = 5000;
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -94,20 +96,28 @@ class Character extends MovableObject {
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-        this.walking_sound.play();
-      }
-
-      if (this.world.keyboard.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.otherDirection = true;
-        this.walking_sound.play();
-      }
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+      }
+
+      if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D) {
+        if (this.idleCounter > this.IDLE_LIMIT) {
+          this.idleCounter = 0;
+        }
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+          this.moveRight();
+          this.otherDirection = false;
+          this.walking_sound.play();
+        }
+
+        if (this.world.keyboard.LEFT && this.x > 0) {
+          this.moveLeft();
+          this.otherDirection = true;
+          this.walking_sound.play();
+        }
+      } else {
+        this.idleCounter += 1000 / 60;
       }
 
       this.world.camera_x = -this.x + 100;
@@ -121,13 +131,15 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
+      } else if (this.idleCounter > this.IDLE_LIMIT) {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        // RIGHT true or LEFT true
+        // Walk animation
+        this.playAnimation(this.IMAGES_WALKING);
       } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          // RIGHT true or LEFT true
-          // Walk animation
-          this.playAnimation(this.IMAGES_WALKING);
-        }
+        this.playAnimation(this.IMAGES_IDLE);
       }
-    }, 100);
+    }, 150);
   }
 }

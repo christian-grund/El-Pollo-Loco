@@ -1,13 +1,14 @@
 let canvas;
 let world;
+
 let keyboard = new Keyboard();
 
-function init() {
+window.onload = function init() {
   initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
-}
+};
 
 window.addEventListener('keydown', (e) => {
   if (e.keyCode == 39) {

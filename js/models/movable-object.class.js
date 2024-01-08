@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   acceleration = 2.5;
   energy = 100;
+  enemyEnergy = 100;
 
   lastHit = 0;
   offset = {
@@ -26,9 +27,11 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject) {
       // Throwable Object should always fall
       if (this.y < 340) {
+        // console.log('isAboveGround-true this.y', this.y);
         return true;
       }
     } else {
+      // console.log('isAboveGround-false this.y', this.y);
       return this.y < 180;
     }
   }
@@ -39,6 +42,13 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+  }
+
+  playAnimationOnce(images) {
+    for (let i = 0; i < images.length; i++) {
+      let path = images[i];
+      this.img = this.imageCache[path];
+    }
   }
 
   moveRight() {
@@ -58,7 +68,7 @@ class MovableObject extends DrawableObject {
       this.x + this.offset.left + this.width - this.offset.right >= mo.x + mo.offset.left &&
       this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
       this.x + this.offset.left <= mo.x + mo.offset.left + mo.width - mo.offset.right &&
-      this.y + this.offset.top <= mo.y + mo.offset.top + mo.height - mo.offset.bottom
+      this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top
       // && mo.onCollisionCourse
     ); // optional: check if object is moving in right direction. Only then we collide. Usefull for objects you can stand on.
   }
@@ -82,11 +92,4 @@ class MovableObject extends DrawableObject {
   isDead() {
     return this.energy == 0; // returns true or false
   }
-
-  // isIdle() {
-  //   let lastInput = new Date().getTime();
-  //   let timepassed = new Date().getTime() - lastInput; // Difference in ms
-  //   timepassed = timepassed / 1000; // Difference in s
-  //   return timepassed < 1;
-  // }
 }
