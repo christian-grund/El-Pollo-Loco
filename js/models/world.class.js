@@ -10,7 +10,6 @@ class World {
   statusBarBottle = new StatusBarBottle();
   throwableObjects = [];
   bottleAmount = 0;
-  intervalIDs = [];
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -28,45 +27,82 @@ class World {
     this.character.world = this;
   }
 
-  setStoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    this.intervalIDs.push(id);
-  }
-
-  stopGame() {
-    this.intervalIDs.forEach(clearInterval);
-  }
-
   addObjects() {
     this.addBottles();
   }
 
   run() {
     setInterval(() => {
-      this.checkCollisions();
+      this.checkEnemyCollisions();
       this.checkCollection();
       this.checkThrowObjects();
+      this.jumpOnChicken();
     }, 200);
   }
 
-  checkCollisions() {
+  checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp())) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
         console.log('character.energy:', this.character.energy);
       }
-      if (this.character.isAboveGround()) {
-        console.log('character.isAboveGround');
-        // this.enemyKilled();
-        // console.log('Enemy killed:', enemy);
-      }
     });
   }
 
-  enemyKilled() {
-    return true;
+  jumpOnChicken() {
+    // this.level.enemies.forEach((enemy) => {
+    //   if (
+    //     this.character.isColliding(enemy) &&
+    //     this.character.isJumpingDown() &&
+    //     !this.character.isHurt() &&
+    //     !enemy.chickenIsDead
+    //   ) {
+    //     this.killChicken(enemy);
+    //   }
+    // });
   }
+
+  killChicken(enemy) {
+    this.character.jump();
+    enemy.chickenIsDead = true;
+    enemy.animateDeadChicken();
+    this.deathChickenFallDown(enemy);
+  }
+
+  deathChickenFallDown(enemy) {
+    setTimeout(() => {
+      enemy.applyGravity();
+    }, 1000);
+  }
+
+  chickenKilled(enemy) {
+    enemy.Energy = 0;
+    // this.checkChickenDeadOrAlive();
+    // this.enemyFallDown(enemy);
+  }
+
+  checkChickenDeadOrAlive() {
+    if (this.isDead) {
+      setInterval(() => {
+        this.playAnimation(this.IMAGE_DEAD);
+        console.log('this.playAnimation(this.IMAGE_DEAD)');
+      }, 100);
+    } else {
+      this.playAnimation(this.IMAGES_WALKING);
+      console.log('this.playAnimation(this.IMAGES_WALKING)');
+    }
+  }
+
+  getDeadChickenID() {}
+
+  isDead() {
+    return this.energy == 0;
+  }
+
+  // deathAnimation() {
+  //   this.playAnimation(this.IMAGES_DEAD);
+  // }
 
   checkCollection() {
     this.level.collectableObjects.forEach((bottle, index) => {

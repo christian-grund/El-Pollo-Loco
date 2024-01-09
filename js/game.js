@@ -1,7 +1,7 @@
 let canvas;
 let world;
-
 let keyboard = new Keyboard();
+let intervalIDs = [];
 
 window.onload = function init() {
   initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
@@ -9,6 +9,16 @@ window.onload = function init() {
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
 };
+
+function setStoppableInterval(fn, time) {
+  let id = setInterval(fn, time);
+  this.intervalIDs.push(id);
+  console.log('intervalIDs', intervalIDs);
+}
+
+function stopGame() {
+  this.intervalIDs.forEach(clearInterval);
+}
 
 window.addEventListener('keydown', (e) => {
   if (e.keyCode == 39) {

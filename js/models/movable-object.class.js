@@ -4,7 +4,6 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   acceleration = 2.5;
   energy = 100;
-  enemyEnergy = 100;
 
   lastHit = 0;
   offset = {
@@ -16,9 +15,10 @@ class MovableObject extends DrawableObject {
 
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
+      if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+        console.log('speedY:', this.speedY);
       }
     }, 1000 / 25);
   }
@@ -27,13 +27,23 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject) {
       // Throwable Object should always fall
       if (this.y < 340) {
-        // console.log('isAboveGround-true this.y', this.y);
+        console.log('isAboveGround-true this.y', this.y);
         return true;
       }
     } else {
       // console.log('isAboveGround-false this.y', this.y);
       return this.y < 180;
     }
+  }
+
+  deadChickenFallsDown() {
+    if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
+      return this.y < 1000;
+    }
+  }
+
+  jump() {
+    this.speedY = 25;
   }
 
   playAnimation(images) {
@@ -59,18 +69,24 @@ class MovableObject extends DrawableObject {
     this.x -= this.speed;
   }
 
-  jump() {
-    this.speedY = 30;
-  }
-
   isColliding(mo) {
-    return (
-      this.x + this.offset.left + this.width - this.offset.right >= mo.x + mo.offset.left &&
-      this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
-      this.x + this.offset.left <= mo.x + mo.offset.left + mo.width - mo.offset.right &&
-      this.y + this.offset.top + this.height - this.offset.bottom >= mo.y + mo.offset.top
-      // && mo.onCollisionCourse
-    ); // optional: check if object is moving in right direction. Only then we collide. Usefull for objects you can stand on.
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+    // return (
+    //   this.x + this.width + this.offset.left - this.offset.right > mo.x + mo.offset.left &&
+    //   this.y + this.height + this.offset.top - this.offset.bottom > mo.y + mo.offset.top &&
+    //   this.x + this.offset.left < mo.x + mo.width + mo.offset.left - mo.offset.right &&
+    //   this.y + this.offset.top + this.height - this.offset.bottom < mo.y + mo.height - mo.offset.bottom
+    // );
+    // return (
+    //   this.x + this.width - this.offset.right >= mo.x + mo.offset.left &&
+    //   this.y + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
+    //   this.x + this.offset.left <= mo.x + mo.width - mo.offset.right &&
+    //   this.y + this.offset.top >= mo.y + mo.height - mo.offset.bottom
+    // );
+    // + this.offset.left
+    // + this.offset.top
+    // + mo.offset.left
+    // + this.height - this.offset.bottom
   }
 
   hit() {
@@ -91,5 +107,17 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.energy == 0; // returns true or false
+  }
+
+  isOnGround() {
+    return this.speedY == 0;
+  }
+
+  isJumpingUp() {
+    return this.speedY > 0;
+  }
+
+  isJumpingDown() {
+    return this.speedY < 0;
   }
 }

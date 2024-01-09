@@ -3,6 +3,7 @@ class ThrowableObject extends MovableObject {
   break = false;
   world;
   speedX = 25;
+  world;
 
   IMAGES_BOTTLE_ROTATION = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -57,7 +58,8 @@ class ThrowableObject extends MovableObject {
     this.speedY = 30;
     this.applyGravity();
 
-    setInterval(() => {
+    // if (world) {
+    setStoppableInterval(() => {
       if (this.isAboveGround()) {
         if (otherDirection) {
           this.x -= this.speedX;
@@ -67,4 +69,5 @@ class ThrowableObject extends MovableObject {
       }
     }, 75);
   }
+  //   }
 }

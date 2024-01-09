@@ -48,7 +48,7 @@ class DrawableObject {
   }
 
   drawRedFrame(ctx) {
-    if (this instanceof Character || this instanceof Bottle) {
+    if (this instanceof Character || this instanceof Bottle || this instanceof ChickenNormal) {
       //  || this instanceof Chicken
       ctx.beginPath();
       ctx.lineWidth = '5';
@@ -56,8 +56,8 @@ class DrawableObject {
       ctx.rect(
         this.x + this.offset.left,
         this.y + this.offset.top,
-        this.width - this.offset.right,
-        this.height - this.offset.bottom
+        this.width - this.offset.right - this.offset.left,
+        this.height - this.offset.bottom - this.offset.top
       );
       ctx.stroke();
     }

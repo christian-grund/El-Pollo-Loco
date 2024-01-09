@@ -4,6 +4,13 @@ class Character extends MovableObject {
   speed = 10;
   idleCounter = 0;
   IDLE_LIMIT = 5000;
+  world;
+  offset = {
+    top: 100,
+    left: 20,
+    bottom: 10,
+    right: 20,
+  };
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -68,15 +75,6 @@ class Character extends MovableObject {
     'img/2_character_pepe/4_hurt/H-43.png',
   ];
 
-  world;
-
-  offset = {
-    top: 100,
-    left: 25,
-    bottom: 110,
-    right: 50,
-  };
-
   walking_sound = new Audio('audio/running.mp3');
   jumping_sound = new Audio('audio/jump.mp3');
 
@@ -105,21 +103,20 @@ class Character extends MovableObject {
         if (this.idleCounter > this.IDLE_LIMIT) {
           this.idleCounter = 0;
         }
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-          this.moveRight();
-          this.otherDirection = false;
-          this.walking_sound.play();
-        }
+      }
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+        this.moveRight();
+        this.otherDirection = false;
+        this.walking_sound.play();
+      }
 
-        if (this.world.keyboard.LEFT && this.x > 0) {
-          this.moveLeft();
-          this.otherDirection = true;
-          this.walking_sound.play();
-        }
+      if (this.world.keyboard.LEFT && this.x > 0) {
+        this.moveLeft();
+        this.otherDirection = true;
+        this.walking_sound.play();
       } else {
         this.idleCounter += 1000 / 60;
       }
-
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
