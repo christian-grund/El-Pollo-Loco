@@ -53,6 +53,7 @@ class DrawableObject {
       this instanceof Character ||
       this instanceof Bottle ||
       this instanceof ChickenNormal ||
+      this instanceof ChickenSmall ||
       this instanceof Endboss
     ) {
       //  || this instanceof Chicken

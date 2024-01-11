@@ -83,6 +83,7 @@ class MovableObject extends DrawableObject {
 
     if (this.energy < 0) {
       this.energy = 0;
+      gameOver();
     } else {
       this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;
     }

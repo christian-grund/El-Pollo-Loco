@@ -4,12 +4,12 @@ class ChickenNormal extends MovableObject {
   width = 60;
   chickenIsDead = false;
   world;
-  // offset = {
-  //   top: 20,
-  //   right: 10,
-  //   bottom: 0,
-  //   left: 10,
-  // };
+  offset = {
+    top: -15,
+    right: 0,
+    bottom: -15,
+    left: 0,
+  };
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -46,11 +46,11 @@ class ChickenNormal extends MovableObject {
   animateDeadChicken() {
     if (this.chickenIsDead) {
       this.loadImage(this.IMAGE_DEAD);
-      this.removeDeadChicken();
+      this.removeDeadChickenInterval();
     }
   }
 
-  removeDeadChicken() {
+  removeDeadChickenInterval() {
     clearInterval(this.moveLeftInterval);
     clearInterval(this.walkAnimationInterval);
   }

@@ -31,16 +31,90 @@ h1 {
   height: 480px;
 }
 
-#startscreen-btns-top {
+.startscreen-btns-top {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 50px;
   width: 100%;
+  padding-top: 32px;
+}
+
+.startscreen-btns-top button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 198, 0);
 }
 
 .play-btn {
-  height: 32px;
-  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  width: 100px;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(255, 220, 0);
+  color: white;
+  border-color: white;
+  border-style: solid;
+}
+
+.play-btn img {
+  height: 24px;
+}
+
+#endscreen {
+  width: 720px;
+  height: 480px;
+  justify-content: center;
+  background-image: url('img/5_background/second_half_background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.endscreen-text {
+  position: absolute;
+  width: 720px;
+  height: 480px;
+  /* z-index: 1; */
+}
+
+.endscreen-btns-top {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 50px;
+  width: 100%;
+  padding-top: 32px;
+}
+
+.endscreen-btns-top button:hover {
+  cursor: pointer;
+  background-color: rgb(255, 198, 0);
+}
+
+.restart-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  width: 140px;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(255, 220, 0);
+  color: white;
+  border-color: white;
+  border-style: solid;
+  z-index: 2;
+}
+
+.restart-btn-img {
+  height: 28px;
 }
 
 /* important for responsive design */

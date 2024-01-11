@@ -3,21 +3,33 @@ let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
 
-// window.onload =
-function startScreen() {
-  // const img = document.createElement('IMG');
-  // img.src = './img/9_intro_outro_screens/start/startscreen_1.png';
-  let startscreen = document.getElementById('startscreen');
-  startscreen.innerHTML = <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="" />;
-
-  // startScreen.innerHTML = '<img src="./img/9_intro_outro_screens/start/startscreen_1.png">';
-}
-
-function init() {
+window.onload = function init() {
+  showCanvas();
   initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
+};
+
+function gameOver() {
+  console.log('Game Over!');
+  // showEndscreen();
+  // this.stopGame();
+}
+
+function showCanvas() {
+  document.getElementById('startscreen').style.display = 'none';
+  document.getElementById('canvas').style.display = 'block';
+}
+
+function showEndscreen() {
+  document.getElementById('canvas').style.display = 'none';
+  document.getElementById('endscreen').style.display = 'flex';
+}
+
+function showStartscreen() {
+  document.getElementById('endscreen').style.display = 'none';
+  document.getElementById('startscreen').style.display = 'flex';
 }
 
 function setStoppableInterval(fn, time) {

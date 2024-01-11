@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
     <link rel="stylesheet" href="el_pollo_locco.css" />
-    <link rel="icon" type="image/x-icon" href="img/5_background/sombrero.png" />
+    <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
-  <body onload="startScreen()">
+  <body>
     <h1>El pollo loco</h1>
 
     <!-- Startscreen -->
-    <div id="startscreen" style="display: flex">
-      <div id="startscreen-btns-top">
-        <button class="play-btn" onclick="init()">Play</button>
+    <section id="startscreen" style="display: none">
+      <div class="startscreen-btns-top">
+        <!-- <button class="play-btn" onclick="init()"> -->
+        <button class="play-btn">
+          <img src="img/10_other/play.png" alt="play-png" />
+          Play
+        </button>
       </div>
-    </div>
+    </section>
 
-    <canvas id="canvas" width="720" height="480" style="display: none"></canvas>
+    <canvas id="canvas" width="720" height="480" style="display: block"></canvas>
+
+    <!-- Endscreen -->
+    <section id="endscreen" style="display: none">
+      <img class="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+      <div class="endscreen-btns-top">
+        <button class="restart-btn" onclick="showStartscreen()">
+          <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+          Try again
+        </button>
+      </div>
+    </section>
 
     <script src="js/models/keyboard.class.js"></script>
     <script src="js/game.js"></script>
