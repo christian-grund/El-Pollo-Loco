@@ -8,6 +8,7 @@ class World {
   statusBarHealth = new StatusBarHealth();
   statusBarCoin = new StatusBarCoin();
   statusBarBottle = new StatusBarBottle();
+  statusBarEndboss = new StatusBarEndboss();
   throwableObjects = [];
   bottleAmount = 0;
 
@@ -37,7 +38,9 @@ class World {
       this.checkCollection();
       this.checkThrowObjects();
       this.jumpOnChicken();
-    }, 200);
+      // this.resetCharacterSpeedY();
+      this.checkThrowColissions();
+    }, 100);
   }
 
   checkEnemyCollisions() {
@@ -48,53 +51,56 @@ class World {
         console.log('character.energy:', this.character.energy);
       }
     });
+
+    this.level.endboss.forEach((endboss) => {
+      if (this.character.isColliding(endboss)) {
+        this.character.hit();
+        console.log('character.energy:', this.character.energy);
+      }
+    });
   }
 
   jumpOnChicken() {
-    // this.level.enemies.forEach((enemy) => {
-    //   if (
-    //     this.character.isColliding(enemy) &&
-    //     this.character.isJumpingDown() &&
-    //     !this.character.isHurt() &&
-    //     !enemy.chickenIsDead
-    //   ) {
-    //     this.killChicken(enemy);
-    //   }
-    // });
+    this.level.enemies.forEach((enemy, index) => {
+      if (
+        this.character.isColliding(enemy, index) &&
+        this.character.isJumpingDown() &&
+        !this.character.isHurt() &&
+        !enemy.chickenIsDead
+      ) {
+        this.killChicken(enemy);
+        this.character.jump();
+        this.removeDeadChicken(index);
+      }
+    });
   }
 
   killChicken(enemy) {
-    this.character.jump();
     enemy.chickenIsDead = true;
     enemy.animateDeadChicken();
-    this.deathChickenFallDown(enemy);
+    this.deadChickenFallDown(enemy);
   }
 
-  deathChickenFallDown(enemy) {
-    setTimeout(() => {
-      enemy.applyGravity();
-    }, 1000);
+  deadChickenFallDown(enemy) {
+    enemy.applyGravity();
   }
 
-  chickenKilled(enemy) {
-    enemy.Energy = 0;
-    // this.checkChickenDeadOrAlive();
-    // this.enemyFallDown(enemy);
-  }
-
-  checkChickenDeadOrAlive() {
-    if (this.isDead) {
-      setInterval(() => {
-        this.playAnimation(this.IMAGE_DEAD);
-        console.log('this.playAnimation(this.IMAGE_DEAD)');
-      }, 100);
+  removeDeadChicken(index) {
+    // setTimeout(() => {
+    if (typeof index === 'number') {
+      this.level.enemies.splice(index, 1);
     } else {
-      this.playAnimation(this.IMAGES_WALKING);
-      console.log('this.playAnimation(this.IMAGES_WALKING)');
+      this.level.enemies.splice(this.level.enemies.indexOf(index), 1);
+    }
+    // }, 600);
+  }
+
+  resetCharacterY() {
+    if (this.character.y < 180) {
+      console.log('character.y:', this.character.y);
+      this.character.y == 180;
     }
   }
-
-  getDeadChickenID() {}
 
   isDead() {
     return this.energy == 0;
@@ -106,8 +112,11 @@ class World {
 
   checkCollection() {
     this.level.collectableObjects.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
-        this.collectBottle(index);
+      if (this.character.isColliding(bottle, index)) {
+        this.bottleAmount++;
+        this.removeCollectedBottle(index);
+        this.statusBarBottle.bottleCollected();
+        // console.log('checkCollection', index);
       }
     });
   }
@@ -122,35 +131,57 @@ class World {
   }
 
   /**
-   *
-   */
-  collectBottle(index) {
-    this.bottleAmount++;
-    this.removeBottle(index);
-    this.statusBarBottle.bottleCollected();
-  }
-
-  /**
    * Removes a bottle from the collectable objects array
    * @param {number} index - The index of the bottle in the collectable objects array
    */
-  removeBottle(index) {
+  removeCollectedBottle(index) {
+    // console.log('removeBottle(index)', index);
     this.level.collectableObjects.splice(index, 1);
   }
 
   checkThrowObjects() {
     if (this.keyboard.D && this.bottleAmount > 0) {
-      // Überprüfe, ob this.world.character definiert ist
-      if (this.world && this.world.character) {
-        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-        bottle.throw(this.character.otherDirection);
-        this.throwableObjects.push(bottle);
-        this.statusBarBottle.bottleThrown();
-        this.bottleAmount--;
-      } else {
-        console.error("Error: 'this.world.character' is undefined.");
-      }
+      let bottleIndex;
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
+      bottle.throw(this.character.otherDirection);
+      this.throwableObjects.push(bottle);
+      this.statusBarBottle.bottleThrown();
+      this.bottleAmount--;
     }
+  }
+
+  checkThrowColissions() {
+    this.throwableObjects.forEach((ThrowableObject, index) => {
+      this.level.enemies.forEach((enemy) => {
+        if (enemy.isColliding(ThrowableObject)) {
+          ThrowableObject.splashingBottle();
+          enemy.animateDeadChicken();
+          setTimeout(() => {
+            this.killChicken(enemy);
+          }, 1000);
+          this.removeDeadChicken(enemy);
+          console.log('level1.enemies:', level1.enemies);
+        }
+      });
+
+      this.level.endboss.forEach((endboss) => {
+        if (endboss.isColliding(ThrowableObject)) {
+          setTimeout(() => endboss.endbossIsHit(), 500);
+          console.log('Endboss hit with bottle!');
+        }
+      });
+
+      if (!ThrowableObject.isAboveGround()) {
+        ThrowableObject.splashingBottle();
+        this.removeThrownBottle(index);
+      }
+    });
+  }
+
+  removeThrownBottle(index) {
+    setTimeout(() => {
+      this.throwableObjects.splice(index, 1);
+    }, 500);
   }
 
   draw() {
@@ -177,11 +208,13 @@ class World {
     this.addToMap(this.statusBarHealth);
     this.addToMap(this.statusBarCoin);
     this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarEndboss);
   }
 
   addLevelObjectsToMap() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.collectableObjects);
   }
@@ -225,7 +258,7 @@ class World {
   addBottles() {
     for (let i = 0; i < 3; i++) {
       const bottle = new Bottle();
-      bottle.x = 500 + i * 350;
+      bottle.x = 200 + i * 150;
       level1.collectableObjects.push(bottle);
       this.addToMap(bottle);
     }

@@ -3,12 +3,22 @@ let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
 
-window.onload = function init() {
+// window.onload =
+function startScreen() {
+  // const img = document.createElement('IMG');
+  // img.src = './img/9_intro_outro_screens/start/startscreen_1.png';
+  let startscreen = document.getElementById('startscreen');
+  startscreen.innerHTML = <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="" />;
+
+  // startScreen.innerHTML = '<img src="./img/9_intro_outro_screens/start/startscreen_1.png">';
+}
+
+function init() {
   initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
-};
+}
 
 function setStoppableInterval(fn, time) {
   let id = setInterval(fn, time);

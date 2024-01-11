@@ -6,6 +6,7 @@
  */
 class Level {
   enemies;
+  endboss;
   clouds;
   backgroundObjects;
   collectableObjects;
@@ -18,8 +19,9 @@ class Level {
    * @param {Array} backgroundObjects An array of background objects in the level
    * @param {Array} collectableObjects - An array of collectable objects in the level
    */
-  constructor(enemies, clouds, backgroundObjects, collectableObjects) {
+  constructor(enemies, endboss, clouds, backgroundObjects, collectableObjects) {
     this.enemies = enemies;
+    this.endboss = endboss;
     this.clouds = clouds;
     this.backgroundObjects = backgroundObjects;
     this.collectableObjects = collectableObjects;

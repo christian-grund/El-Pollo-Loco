@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
     <link rel="stylesheet" href="el_pollo_locco.css" />
-    <link rel="icon" type="image/x-icon" href="img/4_enemie_boss_chicken/1_walk/G1.png" />
+    <link rel="icon" type="image/x-icon" href="img/5_background/sombrero.png" />
   </head>
-  <body>
+  <body onload="startScreen()">
     <h1>El pollo loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <!-- Startscreen -->
+    <div id="startscreen" style="display: flex">
+      <div id="startscreen-btns-top">
+        <button class="play-btn" onclick="init()">Play</button>
+      </div>
+    </div>
+
+    <canvas id="canvas" width="720" height="480" style="display: none"></canvas>
 
     <script src="js/models/keyboard.class.js"></script>
     <script src="js/game.js"></script>
@@ -23,6 +30,7 @@
     <script src="js/models/statusbar-coin.class.js"></script>
     <script src="js/models/statusbar-bottle.class.js"></script>
     <script src="js/models/statusbar-health.class.js"></script>
+    <script src="js/models/statusbar-endboss.class.js"></script>
     <script src="js/models/bottle.class.js"></script>
     <script src="js/models/collectable-object.class.js"></script>
 

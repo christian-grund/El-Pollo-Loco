@@ -8,8 +8,8 @@ class Character extends MovableObject {
   offset = {
     top: 100,
     left: 20,
-    bottom: 10,
-    right: 20,
+    bottom: 100,
+    right: 35,
   };
 
   IMAGES_IDLE = [

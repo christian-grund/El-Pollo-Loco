@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   acceleration = 2.5;
   energy = 100;
+  energyEndboss = 100;
 
   lastHit = 0;
   offset = {
@@ -18,7 +19,6 @@ class MovableObject extends DrawableObject {
       if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
-        console.log('speedY:', this.speedY);
       }
     }, 1000 / 25);
   }
@@ -26,8 +26,7 @@ class MovableObject extends DrawableObject {
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       // Throwable Object should always fall
-      if (this.y < 340) {
-        console.log('isAboveGround-true this.y', this.y);
+      if (this.y < 350) {
         return true;
       }
     } else {
@@ -43,7 +42,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 25;
+    this.speedY = 22.5;
   }
 
   playAnimation(images) {
@@ -70,23 +69,13 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
-    // return (
-    //   this.x + this.width + this.offset.left - this.offset.right > mo.x + mo.offset.left &&
-    //   this.y + this.height + this.offset.top - this.offset.bottom > mo.y + mo.offset.top &&
-    //   this.x + this.offset.left < mo.x + mo.width + mo.offset.left - mo.offset.right &&
-    //   this.y + this.offset.top + this.height - this.offset.bottom < mo.y + mo.height - mo.offset.bottom
-    // );
-    // return (
-    //   this.x + this.width - this.offset.right >= mo.x + mo.offset.left &&
-    //   this.y + this.height - this.offset.bottom >= mo.y + mo.offset.top &&
-    //   this.x + this.offset.left <= mo.x + mo.width - mo.offset.right &&
-    //   this.y + this.offset.top >= mo.y + mo.height - mo.offset.bottom
-    // );
-    // + this.offset.left
-    // + this.offset.top
-    // + mo.offset.left
-    // + this.height - this.offset.bottom
+    // return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+    return (
+      this.x + this.width - this.offset.right > mo.x + mo.offset.left && // R->L // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && // T->B // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
+      this.x + this.offset.left < mo.x + mo.width - mo.offset.right && // L->R // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom // B->T // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
+    );
   }
 
   hit() {

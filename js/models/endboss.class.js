@@ -3,6 +3,16 @@ class Endboss extends MovableObject {
   width = 250;
   y = 55;
   world;
+  energy = 100;
+  endbossIsDead = false;
+  endbossIsHurt = false;
+  firstContact = false;
+  offset = {
+    top: 90,
+    left: 10,
+    bottom: 100,
+    right: 10,
+  };
 
   IMAGES_WALKING = [
     'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -52,19 +62,49 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 2500;
+    this.x = 1000;
+    this.speed = 5;
 
     this.animate();
   }
 
   animate() {
-    if (world) {
-      setStoppableInterval(() => {
-        if (world.character.x >= 2200) {
-          console.log('world.character.x:', world.character.x);
-          this.playAnimation(this.IMAGES_DEAD);
-        }
-      }, 200);
+    this.endbossAnimation = setInterval(() => {
+      if (world.character.x < 2200) {
+        this.playAnimation(this.IMAGES_WALKING);
+      } else if (world.character.x >= 500) {
+        this.playAnimation(this.IMAGES_ALERT);
+      } else if (world.character.x > 650) {
+        this.playAnimation(this.IMAGES_WALKING);
+        this.firstContact = true;
+        this.moveLeft();
+      } else if (this.endbossIsHit()) {
+        this.playAnimation(this.IMAGES_HURT);
+      }
+    }, 300);
+  }
+
+  endbossIsHit() {
+    this.energy -= 4;
+    console.log('Endboss Energy', this.energy);
+    if (this.energy <= 0) {
+      this.energy = 0;
+      this.endbossDead = true;
+      this.endbossIsKilled();
+    }
+    this.setStatusBarEndboss();
+  }
+
+  setStatusBarEndboss() {
+    world.statusBarEndboss.setPercentage(this.energy);
+  }
+
+  endbossIsKilled() {
+    if (this.endbossDead) {
+      clearInterval(this.endbossAnimation);
+      setInterval(() => this.playAnimation(this.IMAGES_DEAD), 1000);
+      setTimeout(() => world.level.endboss.splice(0, 1), 5000);
+      console.log('Endboss dead!');
     }
   }
 }

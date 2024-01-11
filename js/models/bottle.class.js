@@ -8,9 +8,9 @@ class Bottle extends DrawableObject {
   BOTTLE_RIGHT = 'img/6_salsa_bottle/w_salsa_bottle_on_ground.png';
 
   offset = {
-    top: 15,
+    top: -15,
     left: 15,
-    bottom: 15,
+    bottom: -15,
     right: 15,
   };
 
