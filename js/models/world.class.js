@@ -19,17 +19,12 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.addObjects();
     this.run();
     this.world = this;
   }
 
   setWorld() {
     this.character.world = this;
-  }
-
-  addObjects() {
-    this.addBottles();
   }
 
   run() {
@@ -51,7 +46,6 @@ class World {
         console.log('character.energy:', this.character.energy);
       }
     });
-
     this.level.endboss.forEach((endboss) => {
       if (this.character.isColliding(endboss)) {
         this.character.hit();
@@ -61,16 +55,16 @@ class World {
   }
 
   jumpOnChicken() {
-    this.level.enemies.forEach((enemy, index) => {
+    this.level.enemies.forEach((enemy) => {
       if (
-        this.character.isColliding(enemy, index) &&
+        this.character.isColliding(enemy) &&
         this.character.isJumpingDown() &&
         !this.character.isHurt() &&
         !enemy.chickenIsDead
       ) {
         this.killChicken(enemy);
         this.character.jump();
-        this.removeDeadChicken(index);
+        this.removeDeadChicken(enemy);
       }
     });
   }
@@ -78,21 +72,27 @@ class World {
   killChicken(enemy) {
     enemy.chickenIsDead = true;
     enemy.animateDeadChicken();
-    this.deadChickenFallDown(enemy);
+    setTimeout(() => this.deadChickenFallDown(enemy), 1000);
   }
 
   deadChickenFallDown(enemy) {
     enemy.applyGravity();
   }
 
-  removeDeadChicken(index) {
-    // setTimeout(() => {
-    if (typeof index === 'number') {
-      this.level.enemies.splice(index, 1);
-    } else {
-      this.level.enemies.splice(this.level.enemies.indexOf(index), 1);
+  removeDeadChicken(enemy) {
+    const index = this.world.level.enemies.indexOf(enemy);
+    setTimeout(() => {});
+    if (index > -1) {
+      this.world.level.enemies.splice(index, 1);
     }
-    // }, 600);
+
+    // setTimeout(() => {
+    //   if (typeof index === 'number') {
+    //     this.level.enemies.splice(index, 1);
+    //   } else {
+    //     this.level.enemies.splice(this.level.enemies.indexOf(index), 1);
+    //   }
+    // }, 2500);
   }
 
   resetCharacterY() {
@@ -116,6 +116,7 @@ class World {
         this.bottleAmount++;
         this.removeCollectedBottle(index);
         this.statusBarBottle.bottleCollected();
+        console.log('');
         // console.log('checkCollection', index);
       }
     });
@@ -126,9 +127,9 @@ class World {
    * @param {Object} CollectableObject - The collectable object to check
    * @return {boolean} - True if the collectable object is a bottle, false otherwise
    */
-  collectingBottle(collectableObject) {
-    return collectableObject instanceof Bottle;
-  }
+  // collectingBottle(collectableObject) {
+  //   return collectableObject instanceof Bottle;
+  // }
 
   /**
    * Removes a bottle from the collectable objects array
@@ -154,19 +155,20 @@ class World {
     this.throwableObjects.forEach((ThrowableObject, index) => {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(ThrowableObject)) {
-          ThrowableObject.splashingBottle();
+          ThrowableObject.splashingBottle(ThrowableObject);
+
           enemy.animateDeadChicken();
           setTimeout(() => {
             this.killChicken(enemy);
           }, 1000);
           this.removeDeadChicken(enemy);
-          console.log('level1.enemies:', level1.enemies);
         }
       });
 
       this.level.endboss.forEach((endboss) => {
         if (endboss.isColliding(ThrowableObject)) {
-          setTimeout(() => endboss.endbossIsHit(), 500);
+          // setTimeout(() => endboss.endbossIsHit(), 500);
+          endboss.endbossIsHit();
           console.log('Endboss hit with bottle!');
         }
       });
@@ -181,16 +183,16 @@ class World {
   removeThrownBottle(index) {
     setTimeout(() => {
       this.throwableObjects.splice(index, 1);
-    }, 500);
+    }, 1000);
   }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
-    this.addLevelObjectsToMap();
+    this.addMovableObjectsToMap();
     this.ctx.translate(-this.camera_x, 0); // Back
     // - - - - - Space for fixed Objects - - - - -
-    this.addStatusbarsToMap();
+    this.addFixedObjectsToMap();
     this.ctx.translate(this.camera_x, 0); // Forward
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
@@ -204,14 +206,17 @@ class World {
     });
   }
 
-  addStatusbarsToMap() {
+  addFixedObjectsToMap() {
     this.addToMap(this.statusBarHealth);
     this.addToMap(this.statusBarCoin);
     this.addToMap(this.statusBarBottle);
-    this.addToMap(this.statusBarEndboss);
+
+    if (this.statusBarEndboss.visible) {
+      this.addToMap(this.statusBarEndboss);
+    }
   }
 
-  addLevelObjectsToMap() {
+  addMovableObjectsToMap() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.endboss);
@@ -234,7 +239,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawBlueFrame(this.ctx);
+    // mo.drawBlueFrame(this.ctx);
     mo.drawRedFrame(this.ctx);
 
     // prüft, ob context im oberen Teil der Funktion verändert wurde
@@ -253,14 +258,5 @@ class World {
   flipImageBack(mo) {
     mo.x = mo.x * -1; // Setzt Spiegelung zurück für nachfolgende Objekte
     this.ctx.restore(); // Änderungen werden Rückgängig gemacht
-  }
-
-  addBottles() {
-    for (let i = 0; i < 3; i++) {
-      const bottle = new Bottle();
-      bottle.x = 200 + i * 150;
-      level1.collectableObjects.push(bottle);
-      this.addToMap(bottle);
-    }
   }
 }

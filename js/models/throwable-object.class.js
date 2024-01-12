@@ -36,9 +36,6 @@ class ThrowableObject extends MovableObject {
     setInterval(() => {
       this.flyingBottle();
     }, 150);
-    // setInterval(() => {
-    //   this.splashingBottle();
-    // }, 300);
   }
 
   flyingBottle() {
@@ -47,15 +44,12 @@ class ThrowableObject extends MovableObject {
     }
   }
 
-  splashingBottle(throwableObjects, index) {
-    if (world) {
-      this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-      setTimeout(() => world.throwableObjects.splice(index, 1), 500);
-    }
+  splashingBottle() {
+    this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
   }
 
   throw(otherDirection) {
-    this.speedY = 10;
+    this.speedY = 20;
     this.applyGravity();
 
     if (world) {

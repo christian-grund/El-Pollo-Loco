@@ -62,7 +62,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 1000;
+    this.x = 2500;
     this.speed = 5;
 
     this.animate();
@@ -81,11 +81,11 @@ class Endboss extends MovableObject {
       } else if (this.endbossIsHit()) {
         this.playAnimation(this.IMAGES_HURT);
       }
-    }, 300);
+    }, 500);
   }
 
   endbossIsHit() {
-    this.energy -= 4;
+    this.energy -= 100;
     console.log('Endboss Energy', this.energy);
     if (this.energy <= 0) {
       this.energy = 0;

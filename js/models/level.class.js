@@ -8,22 +8,22 @@ class Level {
   enemies;
   endboss;
   clouds;
-  backgroundObjects;
   collectableObjects;
-  level_end_x = 2200;
+  backgroundObjects;
+  level_end_x = 3680;
 
   /**
    * Creates a new instance of the level class
-   * @param {Array} enemies - An array of enemies in the level
+   * @param {Array} enemies - An array of enemies (containing normal and small chicken) in the level
    * @param {Array} clouds - An array of clouds in the level
+   * @param {Array} collectableObjects - An Array of collectableObjects (containing bottles and coins) in the level
    * @param {Array} backgroundObjects An array of background objects in the level
-   * @param {Array} collectableObjects - An array of collectable objects in the level
    */
-  constructor(enemies, endboss, clouds, backgroundObjects, collectableObjects) {
+  constructor(enemies, endboss, clouds, collectableObjects, backgroundObjects) {
     this.enemies = enemies;
     this.endboss = endboss;
     this.clouds = clouds;
-    this.backgroundObjects = backgroundObjects;
     this.collectableObjects = collectableObjects;
+    this.backgroundObjects = backgroundObjects;
   }
 }

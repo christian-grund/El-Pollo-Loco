@@ -1,6 +1,26 @@
 @font-face {
+  font-family: 'mexikana';
+  src: url('fonts/mexicana.ttf');
+}
+
+@font-face {
   font-family: 'zabars';
   src: url('fonts/zabars.ttf');
+}
+
+@font-face {
+  font-family: 'tacomodern';
+  src: url('fonts/tacomodern.TTF');
+}
+
+@font-face {
+  font-family: 'patternsanddots';
+  src: url('fonts/patternsanddots.TTF');
+}
+
+@font-face {
+  font-family: 'tacobox';
+  src: url('fonts/tacobox.TTF');
 }
 
 body {
@@ -9,6 +29,7 @@ body {
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  text-align: center;
   /* background-image: url('img/5_background/desert.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -16,7 +37,9 @@ body {
 }
 
 h1 {
-  font-size: 64px;
+  font-family: 'tacobox', Arial, Helvetica, sans-serif;
+  font-size: 80px;
+  color: rgb(21, 85, 48);
   letter-spacing: 3px;
   text-shadow: 8px 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -31,21 +54,44 @@ h1 {
   height: 480px;
 }
 
-.startscreen-btns-top {
+.start-top {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   width: 100%;
-  padding-top: 32px;
+  padding-top: 16px;
+  position: relative;
 }
 
-.startscreen-btns-top button:hover {
+.image-container {
+  position: relative;
+}
+
+.image {
+  height: 48px;
+}
+
+.hover-text {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  font-size: 24px;
+  /* transition: opacity 0.15s ease-in-out; */
+}
+
+.image-container:hover .hover-text {
+  opacity: 1;
+}
+
+.image-container:hover {
+  transform: scale(1.1);
   cursor: pointer;
-  background-color: rgb(255, 198, 0);
 }
 
-.play-btn {
+/* .play-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,11 +105,11 @@ h1 {
   color: white;
   border-color: white;
   border-style: solid;
-}
+} */
 
-.play-btn img {
+/* .play-btn img {
   height: 24px;
-}
+} */
 
 #endscreen {
   width: 720px;
@@ -120,6 +166,9 @@ h1 {
 /* important for responsive design */
 canvas {
   background-color: black;
+  border-radius: 24px;
+  border: 5px solid rgba(0, 0, 0, 0.5);
+
   /* display: block; // important for responsive design */
 }
 

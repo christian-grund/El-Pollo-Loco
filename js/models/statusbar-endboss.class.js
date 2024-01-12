@@ -16,7 +16,7 @@ class StatusBarEndboss extends DrawableObject {
     this.y = 7;
     this.width = 200;
     this.height = 60;
-
+    this.visible = false;
     this.setPercentage(100);
   }
 
@@ -24,6 +24,7 @@ class StatusBarEndboss extends DrawableObject {
     this.percentage = percentage; // 0 ... 5;
     let path = this.IMAGES_LIFE_ENDBOSS[this.resolveImageIndex()];
     this.img = this.imageCache[path];
+    this.visible = this.percentage < 100;
   }
 
   resolveImageIndex() {

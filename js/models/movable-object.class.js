@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2.5;
   energy = 100;
   energyEndboss = 100;
+  world;
 
   lastHit = 0;
   offset = {
@@ -16,7 +17,7 @@ class MovableObject extends DrawableObject {
 
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown()) {
+      if (this.isAboveGround() || this.speedY > 0 || this.chickenSmallJumpUp() || this.deadChickenFallsDown()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -35,8 +36,17 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  chickenSmallJumpUp() {
+    if (this instanceof ChickenSmall) {
+      if (this.y < 330) {
+        return this.y < 340;
+      }
+    }
+  }
+
   deadChickenFallsDown() {
-    if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
+    if (this instanceof ChickenNormal) {
+      // || this instanceof ChickenSmall
       return this.y < 1000;
     }
   }
