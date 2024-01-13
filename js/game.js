@@ -2,14 +2,16 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
+let mute = false;
 
-window.onload = function init() {
+// window.onload =
+function init() {
   showCanvas();
   initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
-};
+}
 
 function gameOver() {
   console.log('Game Over!');
@@ -30,6 +32,10 @@ function showEndscreen() {
 function showStartscreen() {
   document.getElementById('endscreen').style.display = 'none';
   document.getElementById('startscreen').style.display = 'flex';
+}
+
+function toggleMute() {
+  mute = !mute;
 }
 
 function setStoppableInterval(fn, time) {

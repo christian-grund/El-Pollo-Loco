@@ -11,6 +11,9 @@ class World {
   statusBarEndboss = new StatusBarEndboss();
   throwableObjects = [];
   bottleAmount = 0;
+  coinAmount = 0;
+  coin_collect_sound = new Audio('audio/coin.mp3');
+  bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -35,7 +38,7 @@ class World {
       this.jumpOnChicken();
       // this.resetCharacterSpeedY();
       this.checkThrowColissions();
-    }, 100);
+    }, 150);
   }
 
   checkEnemyCollisions() {
@@ -72,6 +75,7 @@ class World {
   killChicken(enemy) {
     enemy.chickenIsDead = true;
     enemy.animateDeadChicken();
+    enemy.playChickenSound();
     setTimeout(() => this.deadChickenFallDown(enemy), 1000);
   }
 
@@ -111,13 +115,23 @@ class World {
   // }
 
   checkCollection() {
-    this.level.collectableObjects.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle, index)) {
-        this.bottleAmount++;
-        this.removeCollectedBottle(index);
-        this.statusBarBottle.bottleCollected();
-        console.log('');
-        // console.log('checkCollection', index);
+    this.level.collectableObjects.forEach((object, index) => {
+      if (this.collectingBottle(object)) {
+        if (this.character.isColliding(object, index)) {
+          this.bottleAmount++;
+          this.bottle_collect_sound.play();
+          this.removeCollectedObject(index);
+          this.statusBarBottle.bottleCollected();
+        }
+      } else {
+        if (this.collectingCoin(object)) {
+          if (this.character.isColliding(object, index)) {
+            this.coinAmount++;
+            this.coin_collect_sound.play();
+            this.removeCollectedObject(index);
+            this.statusBarCoin.coinCollected();
+          }
+        }
       }
     });
   }
@@ -127,16 +141,24 @@ class World {
    * @param {Object} CollectableObject - The collectable object to check
    * @return {boolean} - True if the collectable object is a bottle, false otherwise
    */
-  // collectingBottle(collectableObject) {
-  //   return collectableObject instanceof Bottle;
-  // }
+  collectingBottle(collectableObject) {
+    return collectableObject instanceof Bottle;
+  }
 
   /**
-   * Removes a bottle from the collectable objects array
-   * @param {number} index - The index of the bottle in the collectable objects array
+   *  Checks if the collectable object is a coin
+   * @param {Object} CollectableObject - The collectable object to check
+   * @return {boolean} - True if the collectable object is a coin, false otherwise
    */
-  removeCollectedBottle(index) {
-    // console.log('removeBottle(index)', index);
+  collectingCoin(collectableObject) {
+    return collectableObject instanceof Coin;
+  }
+
+  /**
+   * Removes a bottle or a coin from the collectable objects array
+   * @param {number} index - The index of the bottle or the coin in the collectable objects array
+   */
+  removeCollectedObject(index) {
     this.level.collectableObjects.splice(index, 1);
   }
 
@@ -156,7 +178,6 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle(ThrowableObject);
-
           enemy.animateDeadChicken();
           setTimeout(() => {
             this.killChicken(enemy);

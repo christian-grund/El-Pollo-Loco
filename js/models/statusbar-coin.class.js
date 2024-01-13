@@ -8,8 +8,11 @@ class StatusBarCoin extends DrawableObject {
     'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
   ];
 
-  percentage = 100;
+  percentageCoins = 0;
 
+  /**
+   * Constructs a new status bar for coins with default attributes and loads initial image
+   */
   constructor() {
     super().loadImages(this.IMAGES_COIN);
     this.x = 50;
@@ -17,29 +20,42 @@ class StatusBarCoin extends DrawableObject {
     this.width = 200;
     this.height = 60;
 
-    this.setPercentage(0);
+    this.setPercentageCoins();
   }
 
-  // setPercentage(50);
-  setPercentage(percentage) {
-    this.percentage = percentage; // 0 ... 5;
+  setPercentageCoins() {
+    // this.percentage = percentage; // 0 ... 5;
     let path = this.IMAGES_COIN[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
-
+  /**
+   * Resolves number of image in IMAGES_BOTTLE array dependent on the percentage of collected coins
+   */
   resolveImageIndex() {
-    if (this.percentage == 100) {
+    if (this.percentageCoins == 100) {
       return 5;
-    } else if (this.percentage > 80) {
+    } else if (this.percentageCoins >= 80) {
       return 4;
-    } else if (this.percentage > 60) {
+    } else if (this.percentageCoins >= 60) {
       return 3;
-    } else if (this.percentage > 40) {
+    } else if (this.percentageCoins >= 40) {
       return 2;
-    } else if (this.percentage > 20) {
+    } else if (this.percentageCoins >= 20) {
       return 1;
     } else {
       return 0;
     }
+  }
+
+  /**
+   * Increases the percentage of collected coins and updates the bottle status bar image
+   */
+  coinCollected() {
+    this.percentageCoins += 20;
+    if (this.percentageCoins > 100) {
+      this.percentageCoins = 100;
+    }
+
+    this.setPercentageCoins();
   }
 }

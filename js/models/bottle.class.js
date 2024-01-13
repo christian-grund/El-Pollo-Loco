@@ -1,11 +1,13 @@
 /**
  * Class representing a salsa bottle object in the game
  */
-class Bottle extends DrawableObject {
-  bottleAmount = 0;
-
+class Bottle extends CollectableObject {
   BOTTLE_LEFT = 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png';
-  BOTTLE_RIGHT = 'img/6_salsa_bottle/w_salsa_bottle_on_ground.png';
+  BOTTLE_RIGHT = 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png';
+  IMAGES_BOTTLE = [
+    'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+    'img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
+  ];
 
   offset = {
     top: -15,
@@ -19,13 +21,14 @@ class Bottle extends DrawableObject {
    */
   constructor() {
     super().loadImage(this.BOTTLE_LEFT);
-    this.x = 400 + Math.random() * 1500;
+    this.loadImages(this.IMAGES_BOTTLE);
+    this.x = 400 + Math.random() * 3000;
     this.y = 330;
     this.height = 100;
     this.width = 60;
-  }
-}
 
-//   IMAGES_COIN = ['img/8_coin/coin_1.png', 'img/8_coin/coin_2.png'];
-// this.loadImage(this.BOTTLE_RIGHT);
-// this.loadImages(this.IMAGES_COIN);
+    this.animate();
+  }
+
+  animate() {}
+}

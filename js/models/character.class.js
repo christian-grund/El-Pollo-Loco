@@ -11,6 +11,8 @@ class Character extends MovableObject {
     bottom: 100,
     right: 35,
   };
+  walking_sound = new Audio('audio/running.mp3');
+  jumping_sound = new Audio('audio/jump.mp3');
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -75,9 +77,6 @@ class Character extends MovableObject {
     'img/2_character_pepe/4_hurt/H-43.png',
   ];
 
-  walking_sound = new Audio('audio/running.mp3');
-  jumping_sound = new Audio('audio/jump.mp3');
-
   constructor() {
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_IDLE);
@@ -97,6 +96,7 @@ class Character extends MovableObject {
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+        // this.jumping_sound.play();
       }
 
       if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D) {

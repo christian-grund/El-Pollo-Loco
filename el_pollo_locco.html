@@ -11,16 +11,21 @@
     <h1>El pollo loco</h1>
 
     <!-- Startscreen -->
-    <section id="startscreen" style="display: none">
+    <section id="startscreen" style="display: flex">
       <div class="start-top">
         <div class="image-container">
           <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
           <p class="hover-text">Play</p>
         </div>
+        <div class="image-container">
+          <img class="image" id="volume-image" src="img/10_other/volume_up.svg" alt="volume-button" onclick="init()" />
+          <p class="hover-text">Mute</p>
+        </div>
       </div>
     </section>
 
-    <canvas id="canvas" width="720" height="480" style="display: block"></canvas>
+    <!-- Play Game -->
+    <canvas id="canvas" width="720" height="480" style="display: none"></canvas>
 
     <!-- Endscreen -->
     <section id="endscreen" style="display: none">
@@ -44,8 +49,9 @@
     <script src="js/models/statusbar-bottle.class.js"></script>
     <script src="js/models/statusbar-health.class.js"></script>
     <script src="js/models/statusbar-endboss.class.js"></script>
-    <script src="js/models/bottle.class.js"></script>
     <script src="js/models/collectable-object.class.js"></script>
+    <script src="js/models/bottle.class.js"></script>
+    <script src="js/models/coin.class.js"></script>
     <script src="js/models/chicken-small.class.js"></script>
     <script src="js/models/cloud.class.js"></script>
     <script src="js/models/background-object.class.js"></script>

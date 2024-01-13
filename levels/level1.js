@@ -10,7 +10,16 @@ function initLevel() {
   );
 
   function createEnemies() {
-    return [new ChickenNormal(), new ChickenNormal(), new ChickenNormal(), new ChickenSmall()];
+    return [
+      new ChickenNormal(),
+      new ChickenNormal(),
+      new ChickenNormal(),
+      new ChickenNormal(),
+      new ChickenSmall(),
+      new ChickenSmall(),
+      new ChickenSmall(),
+      new ChickenSmall(),
+    ];
   }
 
   function createEndboss() {
@@ -18,11 +27,22 @@ function initLevel() {
   }
 
   function createClouds() {
-    return [new Cloud(), new Cloud()];
+    return [new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud()];
   }
 
   function createCollectableObjects() {
-    return [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle()];
+    return [
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+    ];
   }
 
   function createBackgroundObjects() {

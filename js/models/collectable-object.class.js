@@ -1,3 +1,5 @@
-class CollectableObject extends DrawableObject {
-  amoundCoins = 0;
+class CollectableObject extends MovableObject {
+  constructor() {
+    super();
+  }
 }
