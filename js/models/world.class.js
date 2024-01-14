@@ -43,7 +43,7 @@ class World {
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && (this.character.isOnGround() || this.character.isJumpingUp())) {
+      if (this.character.isColliding(enemy) && (!this.character.isAboveGround() || this.character.isJumpingUp())) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
         console.log('character.energy:', this.character.energy);
@@ -119,17 +119,21 @@ class World {
       if (this.collectingBottle(object)) {
         if (this.character.isColliding(object, index)) {
           this.bottleAmount++;
-          this.bottle_collect_sound.play();
           this.removeCollectedObject(index);
           this.statusBarBottle.bottleCollected();
+          if (!mute) {
+            this.bottle_collect_sound.play();
+          }
         }
       } else {
         if (this.collectingCoin(object)) {
           if (this.character.isColliding(object, index)) {
             this.coinAmount++;
-            this.coin_collect_sound.play();
             this.removeCollectedObject(index);
             this.statusBarCoin.coinCollected();
+            if (!mute) {
+              this.coin_collect_sound.play();
+            }
           }
         }
       }

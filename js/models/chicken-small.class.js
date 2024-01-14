@@ -61,7 +61,9 @@ class ChickenSmall extends MovableObject {
   }
 
   playChickenSound() {
-    this.chick_defeated.play();
+    if (!mute) {
+      this.chick_defeated.play();
+    }
   }
 
   removeDeadChickenInterval() {

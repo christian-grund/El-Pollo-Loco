@@ -1,3 +1,4 @@
+/* === Global === */
 @font-face {
   font-family: 'mexikana';
   src: url('fonts/mexicana.ttf');
@@ -24,6 +25,8 @@
 }
 
 body {
+  margin: 0;
+  overflow: hidden;
   font-family: 'zabars', Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
@@ -44,17 +47,31 @@ h1 {
   text-shadow: 8px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* === Game Container === */
+#game-container {
+  position: relative;
+  width: 100vw; /* Ändere die Breite auf 100vw */
+  height: 100vh; /* Ändere die Höhe auf 100vh */
+  max-width: 720px; /* Setze eine maximale Breite */
+  max-height: 480px; /* Setze eine maximale Höhe */
+  margin: 0 auto; /* Zentriere den Container */
+  /* height: 480px;
+  width: 720px; */
+}
+
+/* === Startscreen === */
 #startscreen {
+  position: relative;
   justify-content: center;
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 720px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
 }
 
-.start-top {
+/* .start-top {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,6 +80,17 @@ h1 {
   padding-top: 16px;
   position: relative;
   gap: 32px;
+} */
+
+.start-top {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .image-container {
@@ -71,6 +99,24 @@ h1 {
 
 .image {
   height: 48px;
+}
+
+.ingame-top-button {
+}
+
+.ingame-top-button button {
+  background-size: 48px 48px;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+}
+
+#fullscreen-button {
+  background-image: url('img/10_other/fullscreen_open.svg');
 }
 
 .hover-text {
@@ -92,29 +138,27 @@ h1 {
   cursor: pointer;
 }
 
-/* .play-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  height: 40px;
-  width: 100px;
-  border-radius: 16px;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: rgb(255, 220, 0);
-  color: white;
-  border-color: white;
-  border-style: solid;
-} */
+/* === Canvas === */
+#canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-/* .play-btn img {
-  height: 24px;
-} */
+canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  border-radius: 24px;
+  border: 5px solid rgba(0, 0, 0, 0.5);
+}
 
+/* === Endscreen === */
 #endscreen {
-  width: 720px;
-  height: 480px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   background-image: url('img/5_background/second_half_background.png');
   background-size: cover;
@@ -124,8 +168,8 @@ h1 {
 
 .endscreen-text {
   position: absolute;
-  width: 720px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
   /* z-index: 1; */
 }
 
@@ -162,15 +206,6 @@ h1 {
 
 .restart-btn-img {
   height: 28px;
-}
-
-/* important for responsive design */
-canvas {
-  background-color: black;
-  border-radius: 24px;
-  border: 5px solid rgba(0, 0, 0, 0.5);
-
-  /* display: block; // important for responsive design */
 }
 
 /* Smartphones - - - - - - - - - - */

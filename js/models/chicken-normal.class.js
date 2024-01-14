@@ -50,7 +50,9 @@ class ChickenNormal extends MovableObject {
   }
 
   playChickenSound() {
-    this.chicken_defeated.play();
+    if (!mute) {
+      this.chicken_defeated.play();
+    }
   }
 
   removeDeadChickenInterval() {

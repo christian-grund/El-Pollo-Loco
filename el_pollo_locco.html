@@ -10,33 +10,55 @@
   <body>
     <h1>El pollo loco</h1>
 
-    <!-- Startscreen -->
-    <section id="startscreen" style="display: flex">
-      <div class="start-top">
-        <div class="image-container">
-          <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
-          <p class="hover-text">Play</p>
-        </div>
-        <div class="image-container">
-          <img class="image" id="volume-image" src="img/10_other/volume_up.svg" alt="volume-button" onclick="init()" />
-          <p class="hover-text">Mute</p>
-        </div>
+    <div class="start-top">
+      <div class="image-container">
+        <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
+        <p class="hover-text">Play</p>
       </div>
-    </section>
-
-    <!-- Play Game -->
-    <canvas id="canvas" width="720" height="480" style="display: none"></canvas>
-
-    <!-- Endscreen -->
-    <section id="endscreen" style="display: none">
-      <img class="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
-      <div class="endscreen-btns-top">
-        <button class="restart-btn" onclick="showStartscreen()">
-          <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
-          Try again
-        </button>
+      <div class="image-container">
+        <img
+          class="image"
+          id="sound-button"
+          src="img/10_other/sound_on.svg"
+          alt="volume-button"
+          onclick="toggleMute()"
+        />
+        <p class="hover-text">Mute</p>
       </div>
-    </section>
+      <div class="ingame-top-button">
+        <button class="image" id="fullscreen-button" alt="Toggle Fullscreen" onclick="toggleFullscreen()" />
+        <p class="hover-text">Fullscreen</p>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-container">
+      <!-- Startscreen -->
+      <section id="startscreen" style="display: flex">
+        <!-- <div class="start-top">
+          <div class="image-container">
+            <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
+            <p class="hover-text">Play</p>
+          </div>
+        </div> -->
+      </section>
+
+      <!-- Play Game -->
+      <div id="canvas-container" style="display: none">
+        <canvas id="canvas" width="720" height="480"></canvas>
+      </div>
+
+      <!-- Endscreen -->
+      <section id="endscreen" style="display: none">
+        <img class="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+        <div class="endscreen-btns-top">
+          <button class="restart-btn" onclick="showStartscreen()">
+            <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+            Try again
+          </button>
+        </div>
+      </section>
+    </div>
 
     <script src="js/models/keyboard.class.js"></script>
     <script src="js/game.js"></script>

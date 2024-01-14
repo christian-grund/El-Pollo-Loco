@@ -47,14 +47,18 @@ class ThrowableObject extends MovableObject {
   }
 
   splashingBottle() {
-    this.bottle_splash_sound.play();
+    if (!mute) {
+      this.bottle_splash_sound.play();
+    }
     this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
   }
 
   throw(otherDirection) {
     this.speedY = 20;
     this.applyGravity();
-    this.throwing_sound.play();
+    if (!mute) {
+      this.throwing_sound.play();
+    }
 
     if (world) {
       setInterval(() => {

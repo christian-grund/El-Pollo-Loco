@@ -102,7 +102,9 @@ class Endboss extends MovableObject {
 
   endbossIsKilled() {
     if (this.endbossDead) {
-      this.endboss_defeated.play();
+      if (!mute) {
+        this.endboss_defeated.play();
+      }
       clearInterval(this.endbossAnimation);
       setInterval(() => this.playAnimation(this.IMAGES_DEAD), 1000);
       setTimeout(() => world.level.endboss.splice(0, 1), 5000);
