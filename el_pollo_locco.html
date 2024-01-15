@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
-    <link rel="stylesheet" href="el_pollo_locco.css" />
+    <link rel="stylesheet" href="el_pollo_locco.css?version=1" />
     <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
   <body>
     <h1>El pollo loco</h1>
 
-    <div class="start-top">
+    <!-- <div class="start-top" style="display: none">
       <div class="image-container">
         <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
         <p class="hover-text">Play</p>
@@ -26,39 +26,39 @@
         <p class="hover-text">Mute</p>
       </div>
       <div class="ingame-top-button">
-        <button class="image" id="fullscreen-button" alt="Toggle Fullscreen" onclick="toggleFullscreen()" />
+        <button class="image" id="fullscreen-button" alt="Toggle Fullscreen" onclick="full()" />
         <p class="hover-text">Fullscreen</p>
       </div>
-    </div>
+    </div> -->
 
     <!-- Game Screen -->
-    <div id="game-container">
-      <!-- Startscreen -->
-      <section id="startscreen" style="display: flex">
-        <!-- <div class="start-top">
+
+    <!-- Startscreen -->
+    <!-- <section id="startscreen" style="display: none"></section> -->
+    <!-- <div class="start-top">
           <div class="image-container">
             <img class="image" src="img/10_other/play.svg" alt="play-button" onclick="init()" />
             <p class="hover-text">Play</p>
           </div>
         </div> -->
-      </section>
 
+    <div id="game-container">
       <!-- Play Game -->
-      <div id="canvas-container" style="display: none">
+      <div id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
       </div>
-
-      <!-- Endscreen -->
-      <section id="endscreen" style="display: none">
-        <img class="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
-        <div class="endscreen-btns-top">
-          <button class="restart-btn" onclick="showStartscreen()">
-            <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
-            Try again
-          </button>
-        </div>
-      </section>
     </div>
+
+    <!-- Endscreen -->
+    <section id="endscreen" style="display: none">
+      <img class="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+      <div class="endscreen-btns-top">
+        <button class="restart-btn" onclick="showStartscreen()">
+          <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+          Try again
+        </button>
+      </div>
+    </section>
 
     <script src="js/models/keyboard.class.js"></script>
     <script src="js/game.js"></script>

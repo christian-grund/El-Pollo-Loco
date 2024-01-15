@@ -5,16 +5,18 @@ let intervalIDs = [];
 let mute = false;
 let fullscreenEnabled = false;
 
-// window.onload =
-function init() {
-  showCanvas();
-  initLevel(); // Load when game is started after start screen, then enemies, clouds etc. are loaded
+window.onload = function init() {
   canvas = document.getElementById('canvas');
+  // updateCanvasSize(); // Funktion hinzufügen
+  // showCanvas();
+  initLevel();
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
-  // Setze die Canvas-Größe auf die Bildschirmgröße
-  // canvas.width = window.innerWidth;
-  // canvas.height = window.innerHeight;
+};
+
+function updateCanvasSize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
 
 function gameOver() {
@@ -52,30 +54,18 @@ function toggleMute() {
 }
 
 function toggleFullscreen() {
-  let element = document.getElementById('game-container');
-  let button = document.getElementById('fullscreen-button');
+  let fullscreen = document.getElementById('game-container');
 
-  var canvasContainer = document.getElementById('game-container');
-
-  if (!document.fullscreenElement) {
-    canvasContainer.requestFullscreen().catch((err) => {
-      console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-    });
+  if (!fullscreenEnabled) {
+    enterFullscreen(fullscreen);
+    // button.style.backgroundImage = 'img/10_other/fullscreen_close.svg';
   } else {
-    document.exitFullscreen();
+    exitFullscreen();
+    // button.style.backgroundImage = 'img/10_other/fullscreen_open.svg';
   }
-
-  // if (!fullscreenEnabled) {
-  //   enterFullscreen(element);
-  //   button.style.backgroundImage = 'img/10_other/fullscreen_close.svg';
-  // } else {
-  //   exitFullscreen();
-  //   button.style.backgroundImage = 'img/10_other/fullscreen_open.svg';
-  // }
-  // fullscreenEnabled = !fullscreenEnabled;
+  fullscreenEnabled = !fullscreenEnabled;
 }
 
-// Funktion zum Betreten des Fullscreens
 function enterFullscreen(element) {
   if (element.requestFullscreen) {
     element.requestFullscreen();
@@ -88,27 +78,13 @@ function enterFullscreen(element) {
   }
 }
 
-// Funktion zum Verlassen des Fullscreens
 function exitFullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen();
   }
-  // document.getElementById('canvas').style = 'width: 720, height: 480';
 }
-
-// Funktion zum Anpassen der Canvas-Größe im Vollbildmodus
-function resizeCanvas() {
-  let canvas = document.getElementById('canvas');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-// Event-Listener für Änderungen im Vollbildmodus
-document.addEventListener('fullscreenchange', resizeCanvas);
-document.addEventListener('webkitfullscreenchange', resizeCanvas);
-document.addEventListener('MSFullscreenChange', resizeCanvas);
 
 function setStoppableInterval(fn, time) {
   let id = setInterval(fn, time);
