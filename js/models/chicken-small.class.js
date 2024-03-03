@@ -26,9 +26,9 @@ class ChickenSmall extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
 
     // this.x = -1000 + Math.random() * 500;
-    this.x = 400 + Math.random() * 2500;
-    this.speed = 0.15 + Math.random() * 0.5;
-    this.enemyEnergy = 100;
+    // this.x = 400 + Math.random() * 2500;
+    this.x = 400 + Math.random() * 100;
+    this.speed = 0.11 + Math.random() * 0.1;
     this.animate();
     this.animateDeadChicken();
   }
@@ -42,17 +42,20 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_WALKING);
     }, 200);
 
-    // setInterval(() => {
-    //   // this.chickenSmallJump();
-    //   this.speedY = 15;
-    //   this.applyGravity();
-    // }, 1000);
+    setInterval(() => {
+      this.chickenSmallJump();
+    }, 1000);
   }
 
-  // chickenSmallJump() {
-  //   this.speedY = 15;
-  //   this.applyGravity();
-  // }
+  chickenSmallJump() {
+    this.speedY = 15;
+    console.log('this.speedY:', this.speedY);
+    console.log('this.y:', this.y);
+    // this.applyGravity();
+    // if (this.y <= 335) {
+    //   this.applyGravity();
+    // }
+  }
 
   animateDeadChicken() {
     if (this.chickenIsDead) {

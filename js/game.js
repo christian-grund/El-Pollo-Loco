@@ -42,6 +42,10 @@ function showEndscreen() {
   document.getElementById('endscreen').style.display = 'flex';
 }
 
+function closeEndscreen() {
+  document.getElementById('endscreen').style.display = 'none';
+}
+
 function toggleMute() {
   mute = !mute;
   console.log('mute:', mute);

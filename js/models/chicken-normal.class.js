@@ -26,8 +26,7 @@ class ChickenNormal extends MovableObject {
 
     // this.x = 750;
     this.x = 500 + Math.random() * 2500;
-    this.speed = 0.15 + Math.random() * 0.5;
-    this.enemyEnergy = 100;
+    this.speed = 1 + Math.random() * 1;
     this.animate();
     this.animateDeadChicken();
   }

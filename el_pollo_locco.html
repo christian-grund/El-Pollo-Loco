@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
-    <link rel="stylesheet" href="el_pollo_locco.css?version=1" />
+    <link rel="stylesheet" href="el_pollo_locco.css?version=11" />
     <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
   <body>
@@ -36,9 +36,13 @@
     <section id="endscreen" style="display: none">
       <img id="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
       <div class="endscreen-top-buttons">
-        <button class="restart-btn" onclick="showStartscreen()">
-          <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
-          Try again
+        <button class="endscreen-button" onclick="showStartscreen()">
+          <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="home symbol" />
+          <p>HOME</p>
+        </button>
+        <button class="endscreen-button" onclick="closeEndscreen(), init()">
+          <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+          <p>RESTART</p>
         </button>
       </div>
     </section>
