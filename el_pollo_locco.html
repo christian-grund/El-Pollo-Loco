@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Pollo Locco</title>
+    <link rel="stylesheet" href="el_pollo_locco.css?version=1" />
+    <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
+  </head>
+  <body>
+    <h1>El pollo loco</h1>
+
+    <!-- Game Screen -->
+
+    <!-- Startscreen -->
+    <section id="startscreen" style="display: flex">
+      <div class="startscreen-top-buttons">
+        <button onclick="init()">Play</button>
+        <button>Controls</button>
+      </div>
+    </section>
+
+    <!-- Play Game -->
+    <section id="game-container" style="display: none">
+      <div class="ingame-top-buttons">
+        <button id="pause-button" alt="Pause Game"></button>
+        <button id="fullscreen-button" alt="Toggle Fullscreen" onclick="toggleFullscreen()" />
+        <button id="mute-button" alt="Mute Game" onclick="toggleMute()"></button>
+      </div>
+      <div id="canvas-container">
+        <canvas id="canvas" width="720" height="480"></canvas>
+      </div>
+    </section>
+
+    <!-- Endscreen -->
+    <section id="endscreen" style="display: none">
+      <img id="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+      <div class="endscreen-top-buttons">
+        <button class="restart-btn" onclick="showStartscreen()">
+          <img class="restart-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+          Try again
+        </button>
+      </div>
+    </section>
+
+    <script src="js/models/keyboard.class.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/models/world.class.js"></script>
+    <script src="js/models/drawable-object.class.js"></script>
+    <script src="js/models/movable-object.class.js"></script>
+    <script src="js/models/chicken-normal.class.js"></script>
+    <script src="js/models/character.class.js"></script>
+    <script src="js/models/statusbar-coin.class.js"></script>
+    <script src="js/models/statusbar-bottle.class.js"></script>
+    <script src="js/models/statusbar-health.class.js"></script>
+    <script src="js/models/statusbar-endboss.class.js"></script>
+    <script src="js/models/collectable-object.class.js"></script>
+    <script src="js/models/bottle.class.js"></script>
+    <script src="js/models/coin.class.js"></script>
+    <script src="js/models/chicken-small.class.js"></script>
+    <script src="js/models/cloud.class.js"></script>
+    <script src="js/models/background-object.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="js/models/level.class.js"></script>
+    <script src="js/models/endboss.class.js"></script>
+    <script src="js/models/throwable-object.class.js"></script>
+  </body>
+</html>
