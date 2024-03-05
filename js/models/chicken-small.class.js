@@ -3,6 +3,7 @@ class ChickenSmall extends MovableObject {
   height = 80;
   width = 60;
   chickenIsDead = false;
+  jumpInterval = null;
   // speedY = 15;
   world;
   offset = {
@@ -42,19 +43,25 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_WALKING);
     }, 200);
 
-    setInterval(() => {
-      this.chickenSmallJump();
-    }, 1000);
+    // if (!this.jumpInterval) {
+    //   this.jumpInterval = setInterval(() => {
+    //     this.chickenSmallJump();
+    //   }, 2000);
+    // }
   }
 
   chickenSmallJump() {
     this.speedY = 15;
-    console.log('this.speedY:', this.speedY);
+    this.applyGravity();
+
+    // Prüfen, ob das Huhn den Boden erreicht hat und das Intervall beenden
+    if (this.y <= 335) {
+      clearInterval(this.jumpInterval);
+      this.jumpInterval = null; // Intervall beendet, setzen Sie die Flagge zurück
+      this.animate();
+    }
+
     console.log('this.y:', this.y);
-    // this.applyGravity();
-    // if (this.y <= 335) {
-    //   this.applyGravity();
-    // }
   }
 
   animateDeadChicken() {

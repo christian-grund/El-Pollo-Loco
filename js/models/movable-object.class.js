@@ -18,7 +18,6 @@ class MovableObject extends DrawableObject {
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0 || this.chickenSmallJumpUp() || this.deadChickenFallsDown()) {
-        console.log('chickenSmallJumpUp');
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -36,12 +35,20 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  // chickenIsJumping() {
+  //   console.log('chickenIsJumping this.height:', this.height);
+  //   return this.y < this.height;
+  // }
+
   chickenSmallJumpUp() {
     if (this instanceof ChickenSmall) {
-      if (this.y < 330) {
-        return this.y < 340;
+      if (this.y <= 335) {
+        // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
+        console.log('chickenSmallJumpUp this.y:', this.y);
+        return true; // Huhn ist noch in der Luft
       }
     }
+    return false; // Huhn ist nicht mehr in der Luft
   }
 
   deadChickenFallsDown() {

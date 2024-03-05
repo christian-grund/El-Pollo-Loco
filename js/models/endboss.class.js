@@ -73,11 +73,7 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAnimation = setInterval(() => {
-      if (world.character.x < 2200) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else if (world.character.x >= 500) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (world.character.x > 650) {
+      if (world.character.x > 3500) {
         this.playAnimation(this.IMAGES_WALKING);
         this.firstContact = true;
         this.moveLeft();
