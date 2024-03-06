@@ -58,4 +58,9 @@ class StatusBarCoin extends DrawableObject {
 
     this.setPercentageCoins();
   }
+
+  tradedCoinsToRefillBottles() {
+    this.percentageCoins = 0;
+    this.setPercentageCoins();
+  }
 }

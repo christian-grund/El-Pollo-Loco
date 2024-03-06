@@ -15,8 +15,8 @@ function initLevel() {
       // new ChickenNormal(),
       // new ChickenNormal(),
       // new ChickenNormal(),
-      new ChickenSmall(),
-      new ChickenSmall(),
+      // new ChickenSmall(),
+      // new ChickenSmall(),
       // new ChickenSmall(),
       // new ChickenSmall(),
     ];
@@ -37,11 +37,11 @@ function initLevel() {
       new Bottle(),
       new Bottle(),
       new Bottle(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
+      // new Coin(),
+      // new Coin(),
+      // new Coin(),
+      // new Coin(),
+      // new Coin(),
     ];
   }
 

@@ -4,8 +4,9 @@ class Endboss extends MovableObject {
   y = 55;
   world;
   energy = 100;
-  endbossIsDead = false;
+
   endbossIsHurt = false;
+  endbossIsDead = false;
   firstContact = false;
   offset = {
     top: 90,
@@ -14,6 +15,7 @@ class Endboss extends MovableObject {
     right: 10,
   };
   endboss_attak = new Audio('audio/endboss_attak.mp3');
+  endboss_hurt = new Audio('audio/endboss_hurt.mp3');
   endboss_defeated = new Audio('audio/endboss_defeated.mp3');
   game_won = new Audio('audio/game_won.mp3');
 
@@ -65,30 +67,66 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 4000;
-    this.speed = 5;
+    // this.x = 4000;
+    this.x = 1500;
+    this.speed = 20;
 
     this.animate();
   }
 
   animate() {
     this.endbossAnimation = setInterval(() => {
-      if (world.character.x > 3500) {
-        this.playAnimation(this.IMAGES_WALKING);
+      // if (world.character.x < 1100) {
+      //   this.playAnimation(this.IMAGES_ALERT);
+      // } else
+
+      if (world.character.x > 1100) {
         this.firstContact = true;
-        this.moveLeft();
-      } else if (this.endbossIsHit()) {
-        this.playAnimation(this.IMAGES_HURT);
       }
-    }, 500);
+      if (this.firstContact) {
+        if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 300) {
+          console.log('left', world.level.endboss[0].x - world.character.x);
+          this.moveLeft();
+          this.playAnimation(this.IMAGES_WALKING);
+        } else if (
+          world.character.x - world.level.endboss[0].x <= 800 &&
+          world.character.x - world.level.endboss[0].x >= 450
+        ) {
+          console.log('right:', world.character.x - world.level.endboss[0].x);
+          this.moveRight();
+          this.playAnimation(this.IMAGES_WALKING);
+        } else if (
+          world.level.endboss[0].x - world.character.x <= 350 &&
+          world.level.endboss[0].x - world.character.x >= 0
+        ) {
+          this.moveLeft();
+          this.playAnimation(this.IMAGES_ATTAK);
+        } else if (
+          world.character.x - world.level.endboss[0].x <= 450 &&
+          world.character.x - world.level.endboss[0].x >= 0
+        ) {
+          this.moveRight();
+          this.playAnimation(this.IMAGES_ATTAK);
+        } else if (this.endbossIsHurt) {
+          this.playAnimation(this.IMAGES_HURT);
+          this.speed = 0;
+          setTimeout(() => (this.speed = 20), 1500);
+        }
+      }
+    }, 200);
   }
 
   endbossIsHit() {
-    this.energy -= 100;
-    console.log('Endboss Energy', this.energy);
+    this.energy -= 10;
+    this.endboss_hurt.play();
+    this.endbossIsHurt = true;
+    setTimeout(() => (this.endbossIsHurt = false), 1500);
+
+    console.log('endbossIsHurt:', this.endbossIsHurt);
     if (this.energy <= 0) {
       this.energy = 0;
       this.endbossDead = true;
+      console.log('endbossDead:', this.endbossDead);
       this.endbossIsKilled();
     }
     this.setStatusBarEndboss();
@@ -105,8 +143,8 @@ class Endboss extends MovableObject {
         setTimeout(() => this.game_won.play(), 2000);
       }
       clearInterval(this.endbossAnimation);
-      setInterval(() => this.playAnimation(this.IMAGES_DEAD), 250);
-      setTimeout(() => world.level.endboss.splice(0, 1), 2000);
+      setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
+      setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);
     }
   }

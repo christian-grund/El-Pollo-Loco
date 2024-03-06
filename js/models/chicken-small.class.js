@@ -29,7 +29,7 @@ class ChickenSmall extends MovableObject {
     // this.x = -1000 + Math.random() * 500;
     // this.x = 400 + Math.random() * 2500;
     this.x = 400 + Math.random() * 100;
-    this.speed = 0.11 + Math.random() * 0.1;
+    this.speed = 0.1 + Math.random() * 0.2;
     this.animate();
     this.animateDeadChicken();
   }

@@ -10,7 +10,8 @@ class Level {
   clouds;
   collectableObjects;
   backgroundObjects;
-  level_end_x = 3680;
+  // level_end_x = 3680;
+  level_end_x = 4500;
 
   /**
    * Creates a new instance of the level class

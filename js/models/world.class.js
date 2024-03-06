@@ -5,6 +5,7 @@ class World {
   ctx; // Sammlung/Framework von JS, mit dem man auf Canvas Objekte hinzufügen/malen kann
   keyboard;
   camera_x = 0;
+  levelEnd = false;
   statusBarHealth = new StatusBarHealth();
   statusBarCoin = new StatusBarCoin();
   statusBarBottle = new StatusBarBottle();
@@ -38,6 +39,7 @@ class World {
       this.jumpOnChicken();
       // this.resetCharacterSpeedY();
       this.checkThrowColissions();
+      this.checkTradeCoinsToRefillBottles();
     }, 150);
   }
 
@@ -54,7 +56,7 @@ class World {
       }
     });
     this.level.endboss.forEach((endboss) => {
-      if (this.character.isColliding(endboss)) {
+      if (this.character.isColliding(endboss) && !endboss.endbossIsDead) {
         this.character.hit();
         console.log('character.energy:', this.character.energy);
       }
@@ -184,7 +186,8 @@ class World {
 
       this.level.endboss.forEach((endboss) => {
         if (endboss.isColliding(ThrowableObject)) {
-          // setTimeout(() => endboss.endbossIsHit(), 500);
+          ThrowableObject.splashingBottle();
+          this.removeThrownBottle(index);
           endboss.endbossIsHit();
         }
       });
@@ -202,6 +205,17 @@ class World {
     }, 1000);
   }
 
+  checkTradeCoinsToRefillBottles() {
+    if (this.coinAmount == 5) {
+      if (this.keyboard.R) {
+        this.coinAmount = 0;
+        this.bottleAmount = 5;
+        this.statusBarBottle.tradedCoinsToRefillBottles();
+        this.statusBarCoin.tradedCoinsToRefillBottles();
+      }
+    }
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
@@ -213,6 +227,12 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
+
+    if (this.coinAmount == 5 && !this.keyboard.R) {
+      this.ctx.fillStyle = 'white';
+      this.ctx.font = '24px zabars';
+      this.ctx.fillText('Press R to refill bottles!', 260, 87);
+    }
 
     // draw wird immer wieder aufgerufen
     // this kann nicht in der Funktion selbst stehen, deshalb wird es mit Zuweisung einer Variable deklariert

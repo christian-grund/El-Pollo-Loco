@@ -126,6 +126,10 @@ window.addEventListener('keydown', (e) => {
   if (e.keyCode == 68) {
     keyboard.D = true;
   }
+
+  if (e.keyCode == 82) {
+    keyboard.R = true;
+  }
 });
 
 window.addEventListener('keyup', (e) => {

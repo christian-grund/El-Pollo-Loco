@@ -1,6 +1,7 @@
 class ThrowableObject extends MovableObject {
   direction;
   splash = false;
+  bottleRefill = false;
   world;
   speedX = 25;
   world;
