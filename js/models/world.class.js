@@ -23,6 +23,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.paused = false;
     this.run();
     this.world = this;
   }
@@ -32,7 +33,7 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    this.runInterval = setInterval(() => {
       this.checkEnemyCollisions();
       this.checkCollection();
       this.checkThrowObjects();
@@ -41,6 +42,18 @@ class World {
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
     }, 150);
+  }
+
+  togglePause() {
+    if (!this.paused) {
+      clearInterval(this.runInterval);
+      clearInterval(this.level.endboss.endbossAnimation);
+      this.level.endboss.stopEndbossAnimation();
+      this.paused = true;
+    } else {
+      this.run(); // Fortsetzen des Intervalls
+      this.paused = false;
+    }
   }
 
   checkEnemyCollisions() {

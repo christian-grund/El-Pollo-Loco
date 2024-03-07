@@ -76,6 +76,8 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAnimation = setInterval(() => {
+      console.log('endbossAnimation');
+
       // if (world.character.x < 1100) {
       //   this.playAnimation(this.IMAGES_ALERT);
       // } else
@@ -144,9 +146,15 @@ class Endboss extends MovableObject {
         setTimeout(() => this.game_won.play(), 2000);
       }
       clearInterval(this.endbossAnimation);
-      setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
+      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);
+      clearInterval(this.endbossDeadAnimation);
     }
+  }
+
+  stopEndbossAnimation() {
+    console.log('stopEndbossAnimation');
+    // clearInterval(this.endbossAnimation);
   }
 }

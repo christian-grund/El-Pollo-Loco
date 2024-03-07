@@ -23,6 +23,8 @@ function gameOver() {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
     game_lost_sound.play();
   }
+  clearInterval(world.runInterval);
+
   showEndscreen();
   // this.stopGame();
 }
@@ -62,6 +64,16 @@ function toggleMute() {
   }
 }
 
+// function togglePause() {
+//   if (!world.paused) {
+//     world.run();
+//     world.paused = false;
+//   } else {
+//     clearInterval(world.runInterval);
+//     world.paused = true;
+//   }
+// }
+
 function toggleFullscreen() {
   let fullscreen = document.getElementById('game-container');
   let fullscreenButton = document.getElementById('fullscreen-button');
@@ -97,6 +109,7 @@ function exitFullscreen() {
 }
 
 function setStoppableInterval(fn, time) {
+  console.log('setStoppableInterval fn, time:', fn, time);
   let id = setInterval(fn, time);
   this.intervalIDs.push(id);
   console.log('intervalIDs', intervalIDs);
