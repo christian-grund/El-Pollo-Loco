@@ -30,15 +30,19 @@ function gameOver() {
 function showStartscreen() {
   document.getElementById('endscreen').style.display = 'none';
   document.getElementById('startscreen').style.display = 'flex';
+  document.getElementById('top-left-buttons').style.display = 'flex';
+  document.getElementById('startscreen-top-button').style.display = 'flex';
 }
 
 function showCanvas() {
   document.getElementById('startscreen').style.display = 'none';
-  document.getElementById('game-container').style.display = 'flex';
+  document.getElementById('top-left-buttons').style.display = 'none';
+  document.getElementById('startscreen-top-button').style.display = 'none';
+  document.getElementById('canvas-container').style.display = 'flex';
 }
 
 function showEndscreen() {
-  document.getElementById('game-container').style.display = 'none';
+  document.getElementById('canvas-container').style.display = 'none';
   document.getElementById('endscreen').style.display = 'flex';
 }
 

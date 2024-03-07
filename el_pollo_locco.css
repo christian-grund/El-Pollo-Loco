@@ -51,12 +51,18 @@ p {
   font-family: 'zabars', Arial, Helvetica, sans-serif;
 }
 
+/* === Game Container === */
+#game-container {
+  position: relative;
+  /* width: 720px;
+  height: 480px; */
+}
+
 /* === Startscreen === */
 #startscreen {
   position: relative;
   width: 720px;
   height: 480px;
-  /* justify-content: center; */
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
   background-size: cover;
   background-position: center;
@@ -65,18 +71,18 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.startscreen-top-buttons {
+.startscreen-top-button {
   position: absolute;
   display: flex;
   justify-content: center;
-  width: 100%;
-  padding-top: 32px;
+  /* width: 100%; */
+  margin-top: 24px;
+  left: 40%;
   /* height: 100px; */
-  gap: 48px;
   z-index: 2;
 }
 
-.startscreen-top-buttons button {
+.startscreen-top-button button {
   padding: 16px 40px;
   font-size: 24px;
   color: white;
@@ -93,56 +99,78 @@ p {
   background-color: rgb(255, 186, 0);
 }
 
-/* === Game Container === */
-#game-container {
+/* === Game  === */
+#game {
   position: relative;
   width: 720px;
   height: 480px;
-  /* margin: 0 auto; Zentriere den Container */
 }
 
 /* === Ingame Top Buttons === */
-.ingame-top-buttons {
+.top-buttons {
   position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 2 * 16px);
+  padding: 0 16px;
   height: 50px;
+  padding-top: 8px;
   z-index: 2;
-  gap: 16px;
+  gap: 12px;
 }
 
-.ingame-top-buttons button {
-  background-size: 40px 40px;
+.top-buttons button {
+  background-size: 32px 32px;
   background-position: top;
   background-repeat: no-repeat;
   background-color: transparent;
   border: none;
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   cursor: pointer;
 }
 
-#pause-button {
-  background-image: url('img/10_other/pause.svg');
+.top-right-buttons {
+  position: absolute;
+  right: 16px;
 }
 
-#fullscreen-button {
-  background-image: url('img/10_other/fullscreen_open.svg');
+#info-button {
+  background-image: url('img/10_other/info_circle.svg');
+}
+
+#control-button {
+  background-image: url('img/10_other/control.svg');
 }
 
 #mute-button {
   background-image: url('img/10_other/sound_on.svg');
 }
 
+#pause-button {
+  background-image: url('img/10_other/pause_circle.svg');
+}
+
+#fullscreen-button {
+  background-image: url('img/10_other/fullscreen_open.svg');
+}
+
+#info-button:hover,
+#control-button:hover,
+#mute-button:hover,
+#fullscreen-button:hover,
+#pause-button:hover {
+  filter: invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%);
+}
+
 /* === Canvas === */
 #canvas-container {
   position: relative;
-  width: 100%;
-  height: 100%;
-  /* width: 720px;
-  height: 480px; */
+  /* width: 100%;
+  height: 100%; */
+  width: 720px;
+  height: 480px;
 }
 
 canvas {

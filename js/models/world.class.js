@@ -52,13 +52,12 @@ class World {
       ) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
-        console.log('character.energy:', this.character.energy);
       }
     });
     this.level.endboss.forEach((endboss) => {
       if (this.character.isColliding(endboss) && !endboss.endbossIsDead) {
         this.character.hit();
-        console.log('character.energy:', this.character.energy);
+        this.statusBarHealth.setPercentage(this.character.energy);
       }
     });
   }

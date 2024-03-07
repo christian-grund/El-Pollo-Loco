@@ -84,7 +84,7 @@ class Endboss extends MovableObject {
         this.firstContact = true;
       }
       if (this.firstContact) {
-        if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 300) {
+        if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 250) {
           console.log('left', world.level.endboss[0].x - world.character.x);
           this.moveLeft();
           this.playAnimation(this.IMAGES_WALKING);
@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
           this.moveRight();
           this.playAnimation(this.IMAGES_WALKING);
         } else if (
-          world.level.endboss[0].x - world.character.x <= 350 &&
+          world.level.endboss[0].x - world.character.x <= 250 &&
           world.level.endboss[0].x - world.character.x >= 0
         ) {
           this.moveLeft();
@@ -107,22 +107,23 @@ class Endboss extends MovableObject {
         ) {
           this.moveRight();
           this.playAnimation(this.IMAGES_ATTAK);
-        } else if (this.endbossIsHurt) {
+        }
+        if (this.endbossIsHurt) {
+          console.log('endbossIsHurt:', this.endbossIsHurt);
           this.playAnimation(this.IMAGES_HURT);
           this.speed = 0;
-          setTimeout(() => (this.speed = 20), 1500);
+          setTimeout(() => (this.speed = 20), 1000);
         }
       }
     }, 200);
   }
 
   endbossIsHit() {
-    this.energy -= 10;
+    this.energy -= 7.5;
     this.endboss_hurt.play();
     this.endbossIsHurt = true;
-    setTimeout(() => (this.endbossIsHurt = false), 1500);
+    setTimeout(() => (this.endbossIsHurt = false), 1000);
 
-    console.log('endbossIsHurt:', this.endbossIsHurt);
     if (this.energy <= 0) {
       this.energy = 0;
       this.endbossDead = true;

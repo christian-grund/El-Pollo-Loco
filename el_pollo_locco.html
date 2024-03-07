@@ -10,41 +10,45 @@
   <body>
     <h1>El pollo loco</h1>
 
-    <!-- Game Screen -->
-
     <!-- Startscreen -->
-    <section id="startscreen" style="display: flex">
-      <div class="startscreen-top-buttons">
-        <button onclick="init()">Play</button>
-        <button>Controls</button>
+    <section id="game-container">
+      <div class="top-buttons">
+        <div class="top-left-buttons" id="top-left-buttons">
+          <button id="info-button" alt="About Game" onclick="showInfo()"></button>
+          <button id="control-button" alt="Control Game" onclick="showInstructions()"></button>
+        </div>
+        <div class="top-right-buttons" id="top-right-buttons">
+          <button id="mute-button" alt="Mute Game" onclick="toggleMute()"></button>
+          <button id="fullscreen-button" alt="Toggle Fullscreen" onclick="toggleFullscreen()"></button>
+          <button id="pause-button" alt="Pause Game"></button>
+        </div>
       </div>
-    </section>
+      <div id="game-screen"></div>
 
-    <!-- Play Game -->
-    <section id="game-container" style="display: none">
-      <div class="ingame-top-buttons">
-        <button id="pause-button" alt="Pause Game"></button>
-        <button id="fullscreen-button" alt="Toggle Fullscreen" onclick="toggleFullscreen()" />
-        <button id="mute-button" alt="Mute Game" onclick="toggleMute()"></button>
+      <div class="startscreen-top-button" id="startscreen-top-button">
+        <button onclick="init()">Play</button>
       </div>
-      <div id="canvas-container">
+      <div id="startscreen" style="display: flex"></div>
+
+      <!-- <section id="game" style="display: none"> -->
+      <div id="canvas-container" style="display: none">
         <canvas id="canvas" width="720" height="480"></canvas>
       </div>
-    </section>
+      <!-- </section> -->
 
-    <!-- Endscreen -->
-    <section id="endscreen" style="display: none">
-      <img id="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
-      <div class="endscreen-top-buttons">
-        <button class="endscreen-button" onclick="showStartscreen()">
-          <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="home symbol" />
-          <p>HOME</p>
-        </button>
-        <button class="endscreen-button" onclick="closeEndscreen(), init()">
-          <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
-          <p>RESTART</p>
-        </button>
-      </div>
+      <section id="endscreen" style="display: none">
+        <img id="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+        <div class="endscreen-top-buttons">
+          <button class="endscreen-button" onclick="showStartscreen()">
+            <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="home symbol" />
+            <p>HOME</p>
+          </button>
+          <button class="endscreen-button" onclick="closeEndscreen(), init()">
+            <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
+            <p>RESTART</p>
+          </button>
+        </div>
+      </section>
     </section>
 
     <script src="js/models/keyboard.class.js"></script>
