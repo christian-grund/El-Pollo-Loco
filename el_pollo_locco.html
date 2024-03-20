@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
-    <link rel="stylesheet" href="el_pollo_locco.css?version=11" />
+    <link rel="stylesheet" href="el_pollo_locco.css?version=22" />
     <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
-  <body>
+  <body onload="startScreenSound()">
     <h1>El pollo loco</h1>
 
     <!-- Startscreen -->
@@ -31,13 +31,19 @@
       <div id="startscreen" style="display: flex"></div>
 
       <!-- <section id="game" style="display: none"> -->
-      <div id="canvas-container" style="display: none">
-        <canvas id="canvas" width="720" height="480"></canvas>
-      </div>
+      <!-- <div id="canvas-container" style="display: none"> -->
+      <canvas id="canvas" width="720" height="480" style="display: none"></canvas>
+      <!-- </div> -->
       <!-- </section> -->
 
       <section id="endscreen" style="display: none">
-        <img id="endscreen-text" src="img/9_intro_outro_screens/game_over/game over!.png" alt="game over!" />
+        <img
+          id="endscreen-text"
+          src="img/9_intro_outro_screens/game_over/game over!.png"
+          alt="Game won!"
+          style="display: none"
+        />
+
         <div class="endscreen-top-buttons">
           <button class="endscreen-button" onclick="showStartscreen()">
             <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="home symbol" />
@@ -47,6 +53,19 @@
             <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
             <p>RESTART</p>
           </button>
+        </div>
+      </section>
+      <section class="mobile-btns">
+        <div class="mobile-btns-left">
+          <div class="mobile-btn" id="btnLeft"><</div>
+          <div class="mobile-btn" id="btnRight">></div>
+        </div>
+        <div class="mobile-btns-right">
+          <div class="mobile-btn" id="btnRefill">R</div>
+          <div class="mobile-btn" id="btnJump"><</div>
+          <div class="mobile-btn" id="btnThrow">
+            <img class="mobile-btn-throw" src="img/10_other/throw.svg" alt="" />
+          </div>
         </div>
       </section>
     </section>

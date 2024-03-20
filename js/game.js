@@ -2,17 +2,24 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
-let mute = false;
+let mute = true;
 let fullscreenEnabled = false;
+let start_screen_sound = new Audio('audio/del-rio-bravo.mp3');
 let game_lost_sound = new Audio('audio/game_lost.mp3');
 
 // window.onload =
+function startScreenSound() {
+  start_screen_sound.play();
+}
+
 function init() {
   canvas = document.getElementById('canvas');
   showCanvas();
   initLevel();
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
+  mute = false;
+  start_screen_sound.pause();
 }
 
 function gameOver() {
@@ -24,6 +31,7 @@ function gameOver() {
     game_lost_sound.play();
   }
   clearInterval(world.runInterval);
+  clearAllIntervals();
 
   showEndscreen();
   // this.stopGame();
@@ -34,17 +42,18 @@ function showStartscreen() {
   document.getElementById('startscreen').style.display = 'flex';
   document.getElementById('top-left-buttons').style.display = 'flex';
   document.getElementById('startscreen-top-button').style.display = 'flex';
+  start_screen_sound.play();
 }
 
 function showCanvas() {
   document.getElementById('startscreen').style.display = 'none';
   document.getElementById('top-left-buttons').style.display = 'none';
   document.getElementById('startscreen-top-button').style.display = 'none';
-  document.getElementById('canvas-container').style.display = 'flex';
+  document.getElementById('canvas').style.display = 'block';
 }
 
 function showEndscreen() {
-  document.getElementById('canvas-container').style.display = 'none';
+  document.getElementById('canvas').style.display = 'none';
   document.getElementById('endscreen').style.display = 'flex';
 }
 
@@ -109,14 +118,18 @@ function exitFullscreen() {
 }
 
 function setStoppableInterval(fn, time) {
-  console.log('setStoppableInterval fn, time:', fn, time);
+  console.log('intervalIDs:', intervalIDs);
   let id = setInterval(fn, time);
-  this.intervalIDs.push(id);
+  intervalIDs.push(id);
   console.log('intervalIDs', intervalIDs);
 }
 
 function stopGame() {
   this.intervalIDs.forEach(clearInterval);
+}
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 window.addEventListener('keydown', (e) => {

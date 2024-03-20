@@ -30,15 +30,18 @@ class ChickenSmall extends MovableObject {
     // this.x = 400 + Math.random() * 2500;
     this.x = 400 + Math.random() * 100;
     this.speed = 0.1 + Math.random() * 0.2;
+    this.applyGravity();
+
     this.animate();
     this.animateDeadChicken();
   }
 
   animate() {
-    setStoppableInterval(this.moveLeft(), 1000 / 60);
-    // this.moveLeftInterval = setInterval(() => {
-    //     this.moveLeft();
-    // }, 1000 / 60);
+    // setStoppableInterval(this.moveLeftFunction, 1000 / 60);
+    // setStoppableInterval(this.moveLeft, 1000 / 60);
+    this.moveLeftInterval = setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
 
     this.walkAnimationInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING);
@@ -49,6 +52,10 @@ class ChickenSmall extends MovableObject {
     //     this.chickenSmallJump();
     //   }, 2000);
     // }
+  }
+
+  moveLeftFunction() {
+    super.moveLeft();
   }
 
   chickenSmallJump() {

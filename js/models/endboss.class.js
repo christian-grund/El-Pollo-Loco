@@ -7,7 +7,7 @@ class Endboss extends MovableObject {
 
   endbossIsHurt = false;
   endbossIsDead = false;
-  firstContact = false;
+  hadFirstContact = false;
   offset = {
     top: 90,
     left: 10,
@@ -68,7 +68,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     // this.x = 4000;
-    this.x = 1500;
+    this.x = 10500;
     this.speed = 20;
 
     this.animate();
@@ -83,9 +83,9 @@ class Endboss extends MovableObject {
       // } else
 
       if (world.character.x > 1100) {
-        this.firstContact = true;
+        this.hadFirstContact = true;
       }
-      if (this.firstContact) {
+      if (this.hadFirstContact) {
         if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 250) {
           console.log('left', world.level.endboss[0].x - world.character.x);
           this.moveLeft();
@@ -155,6 +155,6 @@ class Endboss extends MovableObject {
 
   stopEndbossAnimation() {
     console.log('stopEndbossAnimation');
-    // clearInterval(this.endbossAnimation);
+    clearInterval(this.endbossAnimation);
   }
 }
