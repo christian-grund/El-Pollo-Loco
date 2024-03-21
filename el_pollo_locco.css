@@ -333,11 +333,13 @@ canvas {
     display: flex !important;
   }
 
-  #startscreen {
+  #startscreen,
+  #endscreen {
     /* max-width: 720px; */
     width: 100vw;
     height: 100vh;
-    background-size: 100vw 100%;
+    /* background-size: 100vw 100%; */
+    background-size: cover;
     border-radius: 0;
   }
 }

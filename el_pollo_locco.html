@@ -10,7 +10,6 @@
   <body onload="startScreenSound()">
     <h1>El pollo loco</h1>
 
-    <!-- Startscreen -->
     <section id="game-container">
       <div class="top-buttons">
         <div class="top-left-buttons" id="top-left-buttons">
@@ -23,11 +22,13 @@
           <button id="pause-button" alt="Pause Game" onclick="world.togglePause()"></button>
         </div>
       </div>
+
       <div id="game-screen"></div>
 
       <div class="startscreen-top-button" id="startscreen-top-button">
         <button onclick="init()">Play</button>
       </div>
+
       <div id="startscreen" style="display: flex"></div>
 
       <!-- <section id="game" style="display: none"> -->
@@ -37,12 +38,7 @@
       <!-- </section> -->
 
       <section id="endscreen" style="display: none">
-        <img
-          id="endscreen-text"
-          src="img/9_intro_outro_screens/game_over/game over!.png"
-          alt="Game won!"
-          style="display: none"
-        />
+        <img id="endscreen-text" alt="Game won!" />
 
         <div class="endscreen-top-buttons">
           <button class="endscreen-button" onclick="showStartscreen()">
@@ -66,6 +62,29 @@
           <div class="mobile-btn" id="btnThrow">
             <img class="mobile-btn-throw" src="img/10_other/throw.svg" alt="" />
           </div>
+        </div>
+      </section>
+
+      <section class="keyboard-settings">
+        <div class="keyboard-key">
+          <img src="" alt="" />
+          <p>Move Left</p>
+        </div>
+        <div class="keyboard-key">
+          <img src="" alt="" />
+          <p>Move Right</p>
+        </div>
+        <div class="keyboard-key">
+          <img src="" alt="" />
+          <p>Jump</p>
+        </div>
+        <div class="keyboard-key">
+          <img src="" alt="" />
+          <p>Throw Bottle</p>
+        </div>
+        <div class="keyboard-key">
+          <img src="" alt="" />
+          <p>Refill Bottles (you need to collect all coins!)</p>
         </div>
       </section>
     </section>

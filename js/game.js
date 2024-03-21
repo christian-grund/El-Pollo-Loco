@@ -29,9 +29,18 @@ function gameOver() {
   if (world.character.energy <= 0) {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
     game_lost_sound.play();
+    setTimeout(() => {
+      game_lost_sound.pause();
+      start_screen_sound.play();
+    }, 6000);
+  } else {
+    endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
+    start_screen_sound.play();
   }
-  clearInterval(world.runInterval);
-  clearAllIntervals();
+  // clearInterval(world.runInterval);
+  setTimeout(() => {
+    clearAllIntervals();
+  }, 7010);
 
   showEndscreen();
   // this.stopGame();
