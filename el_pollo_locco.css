@@ -33,10 +33,10 @@ body {
   flex-direction: column;
   height: 100vh;
   text-align: center;
-  /* background-image: url('img/5_background/desert.png');
+  background-image: url('img/10_other/wallpaper/background.webp');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; */
+  background-size: cover;
 }
 
 h1 {

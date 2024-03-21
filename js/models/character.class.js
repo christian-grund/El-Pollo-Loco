@@ -14,6 +14,7 @@ class Character extends MovableObject {
   walking_sound = new Audio('audio/running.mp3');
   jumping_sound = new Audio('audio/jump.mp3');
   hurt_sound = new Audio('audio/hurt.mp3');
+  snoring_sound = new Audio('audio/snoring.mp3');
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -137,6 +138,9 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.idleCounter > this.IDLE_LIMIT) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
+        if (!mute) {
+          this.snoring_sound.play();
+        }
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         // RIGHT true or LEFT true
         // Walk animation
