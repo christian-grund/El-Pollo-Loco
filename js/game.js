@@ -70,6 +70,31 @@ function closeEndscreen() {
   document.getElementById('endscreen').style.display = 'none';
 }
 
+function toggleInstructions() {
+  let instructions = document.getElementById('keyboard-instructions');
+  let instructionsButton = document.getElementById('control-button');
+  if (instructions.style.display === 'none') {
+    instructions.style.display = 'flex';
+    instructionsButton.style.filter =
+      'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
+    document.addEventListener('click', closeInstructionsOutside);
+  } else {
+    instructions.style.display = 'none';
+    instructionsButton.style.filter = '';
+    document.removeEventListener('click', closeInstructionsOutside);
+  }
+}
+
+function closeInstructionsOutside(event) {
+  let instructions = document.getElementById('keyboard-instructions');
+  let instructionsButton = document.getElementById('control-button');
+  if (event.target !== instructions && event.target !== instructionsButton && !instructions.contains(event.target)) {
+    instructions.style.display = 'none';
+    instructionsButton.style.filter = '';
+    document.removeEventListener('click', closeInstructionsOutside);
+  }
+}
+
 function toggleMute() {
   mute = !mute;
   console.log('mute:', mute);

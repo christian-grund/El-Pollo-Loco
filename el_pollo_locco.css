@@ -49,6 +49,8 @@ h1 {
 
 p {
   font-family: 'zabars', Arial, Helvetica, sans-serif;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 /* === Game Container === */
@@ -295,6 +297,50 @@ canvas {
 .mobile-btn:hover {
   cursor: pointer;
   background-color: rgb(255, 198, 0);
+}
+
+.keyboard-instructions {
+  position: absolute;
+  top: 75px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 220px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: rgb(255, 209, 16);
+}
+
+.keyboard-key {
+  display: flex;
+  align-items: center;
+  gap: 58px;
+  font-size: 24px;
+}
+
+.keyboard-key-space {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 24px;
+}
+
+.keyboard-key img,
+.keyboard-key-space img {
+  height: 36px;
+}
+
+.keyboard-key-r {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.keyboard-key-r span {
+  padding-left: 98px;
+  font-size: 20px;
 }
 
 /* Smartphones - - - - - - - - - - */

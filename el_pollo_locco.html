@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Locco</title>
-    <link rel="stylesheet" href="el_pollo_locco.css?version=22" />
+    <link rel="stylesheet" href="el_pollo_locco.css?version=23" />
     <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
   <body onload="startScreenSound()">
@@ -14,7 +14,7 @@
       <div class="top-buttons">
         <div class="top-left-buttons" id="top-left-buttons">
           <button id="info-button" alt="About Game" onclick="showInfo()"></button>
-          <button id="control-button" alt="Control Game" onclick="showInstructions()"></button>
+          <button id="control-button" alt="Control Game" onclick="toggleInstructions()"></button>
         </div>
         <div class="top-right-buttons" id="top-right-buttons">
           <button id="mute-button" alt="Mute Game" onclick="toggleMute()"></button>
@@ -65,26 +65,30 @@
         </div>
       </section>
 
-      <section class="keyboard-settings">
+      <section class="keyboard-instructions" id="keyboard-instructions" style="display: none">
         <div class="keyboard-key">
-          <img src="" alt="" />
+          <img src="img/10_other/keyboard/left-arrow-button-icon.svg" alt="" />
           <p>Move Left</p>
         </div>
         <div class="keyboard-key">
-          <img src="" alt="" />
+          <img src="img/10_other/keyboard/right-arrow-button-icon.svg" alt="" />
           <p>Move Right</p>
         </div>
-        <div class="keyboard-key">
-          <img src="" alt="" />
+        <div class="keyboard-key-space">
+          <img src="img/10_other/keyboard/space-button-icon.svg" alt="" />
           <p>Jump</p>
         </div>
         <div class="keyboard-key">
-          <img src="" alt="" />
+          <img src="img/10_other/keyboard/d-button-icon.svg" alt="" />
           <p>Throw Bottle</p>
         </div>
-        <div class="keyboard-key">
-          <img src="" alt="" />
-          <p>Refill Bottles (you need to collect all coins!)</p>
+        <div class="keyboard-key-r">
+          <div class="keyboard-key">
+            <img src="img/10_other/keyboard/r-button-icon.svg" alt="" />
+            <p>Refill Bottles </p>
+          </div>
+          <span>(you need to collect</span>
+          <span> all coins first!)</span>
         </div>
       </section>
     </section>
