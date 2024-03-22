@@ -24,10 +24,11 @@
   src: url('fonts/tacobox.TTF');
 }
 
-body {
+.game-body {
   margin: 0;
   overflow: hidden;
   font-family: 'zabars', Arial, Helvetica, sans-serif;
+  font-weight: lighter;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -147,6 +148,10 @@ p {
   background-image: url('img/10_other/control.svg');
 }
 
+#privacy-button {
+  background-image: url('img/10_other/policy.svg');
+}
+
 #mute-button {
   background-image: url('img/10_other/sound_on.svg');
 }
@@ -161,6 +166,7 @@ p {
 
 #info-button:hover,
 #control-button:hover,
+#privacy-button:hover,
 #mute-button:hover,
 #fullscreen-button:hover,
 #pause-button:hover {
@@ -343,6 +349,50 @@ canvas {
   font-size: 20px;
 }
 
+.game-story {
+  position: absolute;
+  top: 50px;
+  left: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 620px;
+  /* height: 480px;
+  overflow-y: auto; */
+  padding: 16px;
+  border-radius: 16px;
+  background-color: rgb(255, 209, 16);
+}
+
+.game-story p {
+  font-size: 28px;
+  font-family: 'zabars';
+  letter-spacing: 1.1;
+}
+
+.imprint-body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(255, 186, 0);
+}
+
+.imprintAndDataPrivacy {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  margin: 100px 24px 0 24px;
+}
+
+.imprintAndDataPrivacy p {
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 8px;
+}
+
 /* Smartphones - - - - - - - - - - */
 @media only screen and (max-width: 720px) {
   h1 {
@@ -393,6 +443,10 @@ canvas {
 @media (max-width: 600px) {
   .mobile-btns {
     display: none;
+  }
+
+  .imprintAndDataPrivacy {
+    margin: 50px 12px 0 12px;
   }
 }
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="el_pollo_locco.css?version=23" />
     <link rel="icon" type="image/x-icon" href="img/10_other/sombrero.png" />
   </head>
-  <body onload="startScreenSound()">
+  <body class="game-body" onload="startScreenSound()">
     <h1>El pollo loco</h1>
 
     <section id="game-container">
@@ -15,6 +15,7 @@
         <div class="top-left-buttons" id="top-left-buttons">
           <button id="info-button" alt="About Game" onclick="showInfo()"></button>
           <button id="control-button" alt="Control Game" onclick="toggleInstructions()"></button>
+          <a href="./imprint_and_data_privacy.html" target="_blank"><button id="privacy-button"></button></a>
         </div>
         <div class="top-right-buttons" id="top-right-buttons">
           <button id="mute-button" alt="Mute Game" onclick="toggleMute()"></button>
@@ -26,7 +27,7 @@
       <div id="game-screen"></div>
 
       <div class="startscreen-top-button" id="startscreen-top-button">
-        <button onclick="init()">Play</button>
+        <button id="play-button" onclick="init()">Play</button>
       </div>
 
       <div id="startscreen" style="display: flex"></div>
@@ -90,6 +91,26 @@
           <span>(you need to collect</span>
           <span> all coins first!)</span>
         </div>
+      </section>
+
+      <section class="game-story" style="display: none">
+        <h2>Welcome to "El Pollo Loco"!</h2>
+
+        <p
+          >Join Pepe, our brave hero, as he journeys through the sunny Mexican desert! Help Pepe overcome challenges and
+          find the treasure of El Pollo Loco – the crazy chicken.</p
+        >
+
+        <p
+          >In "El Pollo Loco," Pepe faces different enemies, from small chickens to big boss ones! Guide Pepe safely
+          through the desert by jumping over small chickens or stomping on them. But watch out for the big ones – they
+          need special tricks to beat!</p
+        >
+
+        <p
+          >Ready for adventure? Come along with Pepe, collect coins, refill Tabasco bottles, and let's beat the crazy
+          chicken together!</p
+        >
       </section>
     </section>
 
