@@ -371,6 +371,22 @@ canvas {
   letter-spacing: 1.1;
 }
 
+.game-story h2 {
+  margin-top: -8px;
+}
+
+.game-story-close {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.game-story-close img {
+  height: 24px;
+  cursor: pointer;
+  margin-bottom: -100px;
+  z-index: 2;
+}
+
 .imprint-body {
   margin: 0;
   display: flex;

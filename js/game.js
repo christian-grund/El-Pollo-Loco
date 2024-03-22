@@ -95,6 +95,43 @@ function closeInstructionsOutside(event) {
   }
 }
 
+function toggleStory() {
+  let story = document.getElementById('game-story');
+  let storyButton = document.getElementById('info-button');
+  let playButton = document.getElementById('play-button');
+
+  if (story.style.display === 'none') {
+    story.style.display = 'flex';
+    storyButton.style.filter =
+      'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
+    playButton.style.display = 'none';
+    document.addEventListener('click', closeStoryOutside);
+  } else {
+    story.style.display = 'none';
+    storyButton.style.filter = '';
+    document.removeEventListener('click', closeStoryOutside);
+    playButton.style.display = 'flex';
+  }
+}
+
+function closeStoryOutside(event) {
+  let story = document.getElementById('game-story');
+  let storyButton = document.getElementById('info-button');
+  let playButton = document.getElementById('play-button');
+
+  if (event.target !== story && event.target !== storyButton && !story.contains(event.target)) {
+    story.style.display = 'none';
+    storyButton.style.filter = '';
+    document.removeEventListener('click', closeStoryOutside);
+    playButton.style.display = 'flex';
+  }
+}
+
+function closeStory() {
+  document.getElementById('game-story').style.display = 'none';
+  document.getElementById('info-button').style.filter = '';
+}
+
 function toggleMute() {
   mute = !mute;
   console.log('mute:', mute);

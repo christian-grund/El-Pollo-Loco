@@ -13,7 +13,7 @@
     <section id="game-container">
       <div class="top-buttons">
         <div class="top-left-buttons" id="top-left-buttons">
-          <button id="info-button" alt="About Game" onclick="showInfo()"></button>
+          <button id="info-button" alt="About Game" onclick="toggleStory()"></button>
           <button id="control-button" alt="Control Game" onclick="toggleInstructions()"></button>
           <a href="./imprint_and_data_privacy.html" target="_blank"><button id="privacy-button"></button></a>
         </div>
@@ -93,7 +93,10 @@
         </div>
       </section>
 
-      <section class="game-story" style="display: none">
+      <section class="game-story" id="game-story" style="display: none">
+        <div class="game-story-close">
+          <img src="img/10_other/close.svg" id="game-story-close" onclick="closeStory()" />
+        </div>
         <h2>Welcome to "El Pollo Loco"!</h2>
 
         <p
