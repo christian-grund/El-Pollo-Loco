@@ -41,7 +41,8 @@ class World {
       // this.resetCharacterSpeedY();
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
-    }, 150);
+      console.log('world.run');
+    }, 100);
   }
 
   togglePause() {
@@ -109,33 +110,12 @@ class World {
 
     if (index > -1) {
       setTimeout(() => this.world.level.enemies.splice(index, 1), 3000);
-    } else {
-      console.warn('chicken could not be removed!');
-    }
-
-    // setTimeout(() => {
-    //   if (typeof index === 'number') {
-    //     this.level.enemies.splice(index, 1);
-    //   } else {
-    //     this.level.enemies.splice(this.level.enemies.indexOf(index), 1);
-    //   }
-    // }, 2500);
-  }
-
-  resetCharacterY() {
-    if (this.character.y < 180) {
-      console.log('character.y:', this.character.y);
-      this.character.y == 180;
     }
   }
 
   isDead() {
     return this.energy == 0;
   }
-
-  // deathAnimation() {
-  //   this.playAnimation(this.IMAGES_DEAD);
-  // }
 
   checkCollection() {
     this.level.collectableObjects.forEach((object, index) => {

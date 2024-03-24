@@ -135,8 +135,6 @@ class MovableObject extends DrawableObject {
   }
 
   isJumpingDown() {
-    console.log('isJumpingDown speedY:', this.speedY);
-
     if (this.speedY <= -25) {
       this.speedY = 0;
       this.isOnGround();

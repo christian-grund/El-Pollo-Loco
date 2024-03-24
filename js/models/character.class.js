@@ -138,9 +138,9 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.idleCounter > this.IDLE_LIMIT) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        if (!mute) {
-          this.snoring_sound.play();
-        }
+        // if (!mute) {
+        //   this.snoring_sound.play();
+        // }
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         // RIGHT true or LEFT true
         // Walk animation

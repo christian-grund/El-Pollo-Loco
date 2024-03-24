@@ -9,7 +9,7 @@ let game_lost_sound = new Audio('audio/game_lost.mp3');
 
 // window.onload =
 function startScreenSound() {
-  start_screen_sound.play();
+  // start_screen_sound.play();
 }
 
 function init() {
@@ -31,11 +31,11 @@ function gameOver() {
     game_lost_sound.play();
     setTimeout(() => {
       game_lost_sound.pause();
-      start_screen_sound.play();
+      // start_screen_sound.play();
     }, 6000);
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
-    start_screen_sound.play();
+    // start_screen_sound.play();
   }
   // clearInterval(world.runInterval);
   setTimeout(() => {
@@ -51,7 +51,7 @@ function showStartscreen() {
   document.getElementById('startscreen').style.display = 'flex';
   document.getElementById('top-left-buttons').style.display = 'flex';
   document.getElementById('startscreen-top-button').style.display = 'flex';
-  start_screen_sound.play();
+  // start_screen_sound.play();
 }
 
 function showCanvas() {

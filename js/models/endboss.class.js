@@ -68,7 +68,6 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 4000;
-    // this.x = 1500;
     this.speed = 20;
 
     this.animate();
@@ -76,23 +75,19 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAnimation = setInterval(() => {
-      // if (world.character.x < 1100) {
-      //   this.playAnimation(this.IMAGES_ALERT);
-      // } else
-
-      if (world.character.x > 3400) {
+      if (world.character.x < 3400) {
+        this.playAnimation(this.IMAGES_ALERT);
+      } else if (world.character.x > 3400) {
         this.hadFirstContact = true;
       }
       if (this.hadFirstContact) {
         if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 250) {
-          // console.log('left', world.level.endboss[0].x - world.character.x);
           this.moveLeft();
           this.playAnimation(this.IMAGES_WALKING);
         } else if (
           world.character.x - world.level.endboss[0].x <= 800 &&
           world.character.x - world.level.endboss[0].x >= 450
         ) {
-          // console.log('right:', world.character.x - world.level.endboss[0].x);
           this.moveRight();
           this.playAnimation(this.IMAGES_WALKING);
         } else if (
@@ -109,7 +104,6 @@ class Endboss extends MovableObject {
           this.playAnimation(this.IMAGES_ATTAK);
         }
         if (this.endbossIsHurt) {
-          console.log('endbossIsHurt:', this.endbossIsHurt);
           this.playAnimation(this.IMAGES_HURT);
           this.speed = 0;
           setTimeout(() => (this.speed = 20), 1000);
@@ -119,15 +113,16 @@ class Endboss extends MovableObject {
   }
 
   endbossIsHit() {
-    this.energy -= 7.5;
+    console.log('endbossIsHit');
+    this.energy -= 5;
     this.endboss_hurt.play();
     this.endbossIsHurt = true;
+
     setTimeout(() => (this.endbossIsHurt = false), 1000);
 
     if (this.energy <= 0) {
       this.energy = 0;
       this.endbossDead = true;
-      console.log('endbossDead:', this.endbossDead);
       this.endbossIsKilled();
     }
     this.setStatusBarEndboss();
@@ -139,12 +134,13 @@ class Endboss extends MovableObject {
 
   endbossIsKilled() {
     if (this.endbossDead) {
+      clearInterval(world.runInterval);
+      clearInterval(this.endbossAnimation);
       if (!mute) {
         this.endboss_defeated.play();
         setTimeout(() => this.game_won.play(), 2000);
       }
-      clearInterval(this.endbossAnimation);
-      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 400);
+      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 700);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);
