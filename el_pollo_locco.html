@@ -27,7 +27,10 @@
       <div id="game-screen"></div>
 
       <div class="startscreen-top-button" id="startscreen-top-button">
-        <button id="play-button" onclick="init()">Play</button>
+        <button id="play-button" onclick="init()">
+          <img src="img/10_other/play.svg" alt="Play" />
+          <p>Play!</p>
+        </button>
       </div>
 
       <div id="startscreen" style="display: flex"></div>
@@ -43,12 +46,12 @@
 
         <div class="endscreen-top-buttons">
           <button class="endscreen-button" onclick="showStartscreen()">
-            <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="home symbol" />
-            <p>HOME</p>
+            <img class="endscreen-btn-img" src="img/10_other/home.svg" alt="home symbol" />
+            <p>Home</p>
           </button>
           <button class="endscreen-button" onclick="closeEndscreen(), init()">
-            <img class="endscreen-btn-img" src="img/10_other/restart.png" alt="restart symbol" />
-            <p>RESTART</p>
+            <img class="endscreen-btn-img" src="img/10_other/restart.svg" alt="restart symbol" />
+            <p>Restart</p>
           </button>
         </div>
       </section>
@@ -88,8 +91,8 @@
             <img src="img/10_other/keyboard/r-button-icon.svg" alt="" />
             <p>Refill Bottles </p>
           </div>
-          <span>(you need to collect</span>
-          <span> all coins first!)</span>
+          <span>(Collect all </span>
+          <span>coins first!)</span>
         </div>
       </section>
 
@@ -97,7 +100,7 @@
         <div class="game-story-close">
           <img src="img/10_other/close.svg" id="game-story-close" onclick="closeStory()" />
         </div>
-        <h2>Welcome to "El Pollo Loco"!</h2>
+        <h2>Welcome to El Pollo Loco!</h2>
 
         <p
           >Join Pepe, our brave hero, as he journeys through the sunny Mexican desert! Help Pepe overcome challenges and

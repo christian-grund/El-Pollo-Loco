@@ -24,10 +24,15 @@
   src: url('fonts/tacobox.TTF');
 }
 
+@font-face {
+  font-family: 'mayan';
+  src: url('fonts/mayan.ttf');
+}
+
 .game-body {
   margin: 0;
   overflow: hidden;
-  font-family: 'zabars', Arial, Helvetica, sans-serif;
+  font-family: 'mayan', Arial, Helvetica, sans-serif;
   font-weight: lighter;
   display: flex;
   align-items: center;
@@ -48,8 +53,13 @@ h1 {
   text-shadow: 8px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
 p {
-  font-family: 'zabars', Arial, Helvetica, sans-serif;
+  font-family: 'mayan', Arial, Helvetica, sans-serif;
   margin-block-start: 0;
   margin-block-end: 0;
 }
@@ -79,28 +89,38 @@ p {
   position: absolute;
   display: flex;
   justify-content: center;
-  /* width: 100%; */
   margin-top: 24px;
   left: 40%;
-  /* height: 100px; */
   z-index: 2;
 }
 
 .startscreen-top-button button {
-  padding: 16px 40px;
-  font-size: 24px;
-  color: white;
+  display: flex;
+  align-items: center;
+  padding: 14px 24px 10px 24px;
+  font-size: 28px;
   font-weight: bold;
   background-color: rgb(255, 209, 16);
   border-radius: 16px;
   border-width: 0;
+  gap: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.startscreen-top-buttons button:hover {
-  transform: scale(1.05);
-  cursor: pointer;
+.startscreen-top-button button:hover {
+  /* transform: scale(1.05);
   background-color: rgb(255, 186, 0);
+  font-size: 30px; */
+  transform: translateY(-3px); /* Hebt den Button leicht an */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Vergrößerter Schatten */
+  background-color: rgb(255, 186, 0);
+}
+
+#play-button img {
+  height: 32px;
+  padding-bottom: 4px;
 }
 
 /* === Game  === */
@@ -228,6 +248,9 @@ canvas {
 .endscreen-top-buttons button:hover {
   cursor: pointer;
   background-color: rgb(255, 198, 0);
+  transform: translateY(-3px); /* Hebt den Button leicht an */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Vergrößerter Schatten */
+  background-color: rgb(255, 186, 0);
 }
 
 .endscreen-button {
@@ -236,21 +259,24 @@ canvas {
   align-items: center;
   gap: 8px;
   padding: 16px 40px;
-  /* height: 40px;
-  width: 140px; */
   border-radius: 16px;
   border-width: 0;
-  font-size: 36px;
-  /* font-weight: bold; */
+  font-size: 30px;
   background-color: rgb(255, 220, 0);
-  /* color: wshite; */
   border-color: white;
   border-style: solid;
   z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .endscreen-btn-img {
-  height: 28px;
+  height: 34px;
+  padding-bottom: 4px;
+}
+
+.endscreen-btn-img:first-child {
+  padding-bottom: 6px;
 }
 
 .mobile-btns {
@@ -313,7 +339,7 @@ canvas {
   flex-direction: column;
   gap: 12px;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  width: 220px;
+  width: 240px;
   padding: 16px;
   border-radius: 16px;
   background-color: rgb(255, 209, 16);
@@ -366,8 +392,8 @@ canvas {
 }
 
 .game-story p {
-  font-size: 28px;
-  font-family: 'zabars';
+  font-size: 24px;
+  /* font-family: 'mayan'; */
   letter-spacing: 1.1;
 }
 
