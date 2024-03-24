@@ -67,8 +67,8 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    // this.x = 4000;
-    this.x = 1500;
+    this.x = 4000;
+    // this.x = 1500;
     this.speed = 20;
 
     this.animate();
@@ -76,25 +76,23 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAnimation = setInterval(() => {
-      console.log('endbossAnimation');
-
       // if (world.character.x < 1100) {
       //   this.playAnimation(this.IMAGES_ALERT);
       // } else
 
-      if (world.character.x > 1100) {
+      if (world.character.x > 3400) {
         this.hadFirstContact = true;
       }
       if (this.hadFirstContact) {
         if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 250) {
-          console.log('left', world.level.endboss[0].x - world.character.x);
+          // console.log('left', world.level.endboss[0].x - world.character.x);
           this.moveLeft();
           this.playAnimation(this.IMAGES_WALKING);
         } else if (
           world.character.x - world.level.endboss[0].x <= 800 &&
           world.character.x - world.level.endboss[0].x >= 450
         ) {
-          console.log('right:', world.character.x - world.level.endboss[0].x);
+          // console.log('right:', world.character.x - world.level.endboss[0].x);
           this.moveRight();
           this.playAnimation(this.IMAGES_WALKING);
         } else if (
@@ -146,10 +144,10 @@ class Endboss extends MovableObject {
         setTimeout(() => this.game_won.play(), 2000);
       }
       clearInterval(this.endbossAnimation);
-      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
+      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 400);
+      setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);
-      clearInterval(this.endbossDeadAnimation);
     }
   }
 

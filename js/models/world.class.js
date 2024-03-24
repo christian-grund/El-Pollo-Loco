@@ -86,6 +86,9 @@ class World {
         this.killChicken(enemy);
         this.character.jump();
         this.removeDeadChicken(enemy);
+      } else if (this.character.y >= 180) {
+        this.character.speedY = 0;
+        this.character.y = 180;
       }
     });
   }
