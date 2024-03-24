@@ -130,7 +130,6 @@ class MovableObject extends DrawableObject {
   }
 
   isWalking() {
-    console.log('speed:', this.speed);
     return this.speed > 0;
   }
 

@@ -15,6 +15,7 @@ class World {
   coinAmount = 0;
   coin_collect_sound = new Audio('audio/coin.mp3');
   bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
+  bottle_refill_sound = new Audio('audio/bottles_refilled.mp3');
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -41,7 +42,6 @@ class World {
       // this.resetCharacterSpeedY();
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
-      console.log('world.run');
     }, 100);
   }
 
@@ -207,6 +207,7 @@ class World {
         this.bottleAmount = 5;
         this.statusBarBottle.tradedCoinsToRefillBottles();
         this.statusBarCoin.tradedCoinsToRefillBottles();
+        this.bottle_refill_sound.play();
       }
     }
   }
