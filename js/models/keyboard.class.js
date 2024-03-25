@@ -6,6 +6,7 @@ class Keyboard {
   SPACE = false;
   D = false;
   R = false;
+  dPressedLastInterval = false;
 
   THROW_REQUEST_STOP = new Date().getTime();
   THROW_REQUEST_START = 0;

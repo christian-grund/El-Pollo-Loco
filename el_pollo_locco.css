@@ -67,14 +67,14 @@ p {
 /* === Game Container === */
 #game-container {
   position: relative;
-  display: block;
+  /* display: block; */
   /* width: 720px;
   height: 480px; */
 }
 
 /* === Startscreen === */
 #startscreen {
-  position: relative;
+  /* position: relative; */
   width: 720px;
   height: 480px;
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
@@ -441,13 +441,14 @@ canvas {
     display: none;
   }
 
+  #game-container {
+    width: 100vw !important;
+  }
+
   #startscreen {
-    /* display: block; */
-    max-width: 720px;
-    /* width: 100vw; */
-    height: 100vh;
-    background-size: 100vw 100%;
-    border-radius: 0;
+    width: 100%;
+    /* height: auto;
+    max-height: 480px; */
   }
 
   canvas {
@@ -471,14 +472,24 @@ canvas {
     display: flex !important;
   }
 
-  #startscreen,
-  #endscreen {
-    /* max-width: 720px; */
-    width: 100vw;
+  #game-container {
     height: 100vh;
-    /* background-size: 100vw 100%; */
-    background-size: cover;
-    border-radius: 0;
+    width: auto;
+  }
+
+  #startscreen,
+  #enscreen {
+    height: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  #startscreen,
+  #endscreen,
+  canvas {
+    width: 100%;
+    height: calc((100vw / 720) * 480);
+    aspect-ratio: 720 / 480;
   }
 }
 

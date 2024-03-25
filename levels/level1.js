@@ -11,14 +11,14 @@ function initLevel() {
 
   function createEnemies() {
     return [
-      new ChickenNormal(),
-      new ChickenNormal(),
-      new ChickenNormal(),
-      new ChickenNormal(),
-      new ChickenSmall(),
-      new ChickenSmall(),
-      new ChickenSmall(),
-      new ChickenSmall(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenSmall(),
+      // new ChickenSmall(),
+      // new ChickenSmall(),
+      // new ChickenSmall(),
     ];
   }
 
@@ -32,6 +32,11 @@ function initLevel() {
 
   function createCollectableObjects() {
     return [
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
+      new Bottle(),
       new Bottle(),
       new Bottle(),
       new Bottle(),

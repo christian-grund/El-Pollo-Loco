@@ -37,11 +37,14 @@ class World {
     this.runInterval = setInterval(() => {
       this.checkEnemyCollisions();
       this.checkCollection();
-      this.checkThrowObjects();
+
       this.jumpOnChicken();
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
     }, 100);
+    this.throwInterval = setInterval(() => {
+      this.checkThrowObjects();
+    }, 50);
   }
 
   togglePause() {
@@ -185,6 +188,7 @@ class World {
         if (endboss.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle();
           this.removeThrownBottle(index);
+          console.log(index);
           endboss.endbossIsHit();
         }
       });
@@ -192,14 +196,16 @@ class World {
       if (!ThrowableObject.isAboveGround()) {
         ThrowableObject.splashingBottle();
         this.removeThrownBottle(index);
+        console.log(index);
       }
     });
   }
 
   removeThrownBottle(index) {
+    // console.log('removeThrownBottle:', index);
     setTimeout(() => {
       this.throwableObjects.splice(index, 1);
-    }, 1000);
+    }, 500);
   }
 
   checkTradeCoinsToRefillBottles() {
