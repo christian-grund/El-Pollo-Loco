@@ -39,7 +39,6 @@ class World {
       this.checkCollection();
       this.checkThrowObjects();
       this.jumpOnChicken();
-      // this.resetCharacterSpeedY();
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
     }, 100);
@@ -156,13 +155,16 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D && this.bottleAmount > 0) {
+    if (this.keyboard.D && this.bottleAmount > 0 && !this.keyboard.dPressedLastInterval) {
       let bottleIndex;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
       bottle.throw(this.character.otherDirection);
       this.throwableObjects.push(bottle);
       this.statusBarBottle.bottleThrown();
       this.bottleAmount--;
+      this.keyboard.dPressedLastInterval = true;
+    } else if (!this.keyboard.D) {
+      this.keyboard.dPressedLastInterval = false;
     }
   }
 

@@ -45,7 +45,7 @@
   background-size: cover;
 }
 
-h1 {
+.game-h1 {
   font-family: 'tacobox', Arial, Helvetica, sans-serif;
   font-size: 80px;
   color: rgb(21, 85, 48);
