@@ -44,7 +44,7 @@ class World {
     }, 100);
     this.throwInterval = setInterval(() => {
       this.checkThrowObjects();
-    }, 50);
+    }, 100);
   }
 
   togglePause() {
@@ -188,24 +188,23 @@ class World {
         if (endboss.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle();
           this.removeThrownBottle(index);
-          console.log(index);
           endboss.endbossIsHit();
         }
       });
 
       if (!ThrowableObject.isAboveGround()) {
         ThrowableObject.splashingBottle();
+        console.log('isAboveGround:', index);
         this.removeThrownBottle(index);
-        console.log(index);
       }
     });
   }
 
   removeThrownBottle(index) {
-    // console.log('removeThrownBottle:', index);
+    console.log('removeThrownBottle:', index);
     setTimeout(() => {
       this.throwableObjects.splice(index, 1);
-    }, 500);
+    }, 1000);
   }
 
   checkTradeCoinsToRefillBottles() {

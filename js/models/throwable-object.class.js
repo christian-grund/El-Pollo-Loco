@@ -60,7 +60,6 @@ class ThrowableObject extends MovableObject {
     if (!mute) {
       this.throwing_sound.play();
     }
-
     if (world) {
       setInterval(() => {
         if (this.isAboveGround()) {
