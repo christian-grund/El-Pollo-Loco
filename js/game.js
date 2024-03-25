@@ -156,14 +156,29 @@ function toggleMute() {
 
 function toggleFullscreen() {
   let fullscreen = document.getElementById('game-container');
+  let canvas = document.getElementById('canvas');
+  let startscreen = document.getElementById('startscreen');
+  let endscreen = document.getElementById('endscreen');
   let fullscreenButton = document.getElementById('fullscreen-button');
 
   if (!fullscreenEnabled) {
     enterFullscreen(fullscreen);
     fullscreenButton.style.backgroundImage = 'url("img/10_other/fullscreen_close.svg")';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    startscreen.style.width = '100vw';
+    startscreen.style.height = '100vh';
+    endscreen.style.width = '100vw';
+    endscreen.style.height = '100vh';
   } else {
     exitFullscreen();
     fullscreenButton.style.backgroundImage = 'url("img/10_other/fullscreen_open.svg")';
+    canvas.style.width = '';
+    canvas.style.height = '';
+    startscreen.style.width = '';
+    startscreen.style.height = '';
+    endscreen.style.width = '';
+    endscreen.style.height = '';
   }
   fullscreenEnabled = !fullscreenEnabled;
 }
