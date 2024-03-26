@@ -6,6 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   levelEnd = false;
+  throwNewBottleAllowedCheck = true;
   statusBarHealth = new StatusBarHealth();
   statusBarCoin = new StatusBarCoin();
   statusBarBottle = new StatusBarBottle();
@@ -156,17 +157,40 @@ class World {
     this.level.collectableObjects.splice(index, 1);
   }
 
+  // checkThrowObjects() {
+  //   if (this.keyboard.D && this.bottleAmount > 0 && !this.keyboard.dPressedLastInterval) {
+  //     let bottleIndex;
+  //     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
+  //     bottle.throw(this.character.otherDirection);
+  //     this.throwableObjects.push(bottle);
+  //     this.statusBarBottle.bottleThrown();
+  //     this.bottleAmount--;
+  //     this.keyboard.dPressedLastInterval = true;
+  //   } else if (!this.keyboard.D) {
+  //     this.keyboard.dPressedLastInterval = false;
+  //   }
+  // }
+
   checkThrowObjects() {
-    if (this.keyboard.D && this.bottleAmount > 0 && !this.keyboard.dPressedLastInterval) {
+    if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck) {
       let bottleIndex;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
+      this.throwNewBottleAllowed();
       bottle.throw(this.character.otherDirection);
       this.throwableObjects.push(bottle);
       this.statusBarBottle.bottleThrown();
       this.bottleAmount--;
-      this.keyboard.dPressedLastInterval = true;
     } else if (!this.keyboard.D) {
       this.keyboard.dPressedLastInterval = false;
+    }
+  }
+
+  throwNewBottleAllowed() {
+    if ((this.throwNewBottleAllowedCheck = true)) {
+      this.throwNewBottleAllowedCheck = false;
+      setInterval(() => {
+        this.throwNewBottleAllowedCheck = true;
+      }, 1500);
     }
   }
 
