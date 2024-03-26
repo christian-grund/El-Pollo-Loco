@@ -13,7 +13,7 @@ class World {
   throwableObjects = [];
   bottleAmount = 0;
   coinAmount = 0;
-  coin_collect_sound = new Audio('audio/coin.mp3');
+  coin_collect_sound = new Audio('audio/coin_collect.mp3');
   bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
   bottle_refill_sound = new Audio('audio/bottles_refilled.mp3');
 
@@ -37,7 +37,6 @@ class World {
     this.runInterval = setInterval(() => {
       this.checkEnemyCollisions();
       this.checkCollection();
-
       this.jumpOnChicken();
       this.checkThrowColissions();
       this.checkTradeCoinsToRefillBottles();
@@ -187,23 +186,24 @@ class World {
       this.level.endboss.forEach((endboss) => {
         if (endboss.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle();
-          this.removeThrownBottle(index);
+          this.removeThrownBottle(ThrowableObject);
           endboss.endbossIsHit();
         }
       });
 
       if (!ThrowableObject.isAboveGround()) {
         ThrowableObject.splashingBottle();
-        console.log('isAboveGround:', index);
-        this.removeThrownBottle(index);
+        this.removeThrownBottle(ThrowableObject);
       }
     });
   }
 
-  removeThrownBottle(index) {
-    console.log('removeThrownBottle:', index);
+  removeThrownBottle(ThrowableObject) {
     setTimeout(() => {
-      this.throwableObjects.splice(index, 1);
+      let index = this.throwableObjects.indexOf(ThrowableObject);
+      if (index !== -1) {
+        this.throwableObjects.splice(index, 1);
+      }
     }, 1000);
   }
 
