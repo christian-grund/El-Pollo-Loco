@@ -175,13 +175,11 @@ class World {
     if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck) {
       let bottleIndex;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
-      this.throwNewBottleAllowed();
       bottle.throw(this.character.otherDirection);
       this.throwableObjects.push(bottle);
       this.statusBarBottle.bottleThrown();
       this.bottleAmount--;
-    } else if (!this.keyboard.D) {
-      this.keyboard.dPressedLastInterval = false;
+      this.throwNewBottleAllowedCheck = false;
     }
   }
 
@@ -196,6 +194,14 @@ class World {
 
   checkThrowColissions() {
     this.throwableObjects.forEach((ThrowableObject, index) => {
+      this.throwNewBottleAllowedCheck = false;
+
+      if (!ThrowableObject.isAboveGround()) {
+        ThrowableObject.splashingBottle();
+        this.removeThrownBottle(ThrowableObject);
+        this.throwNewBottleAllowedCheck = true;
+      }
+
       this.level.enemies.forEach((enemy) => {
         if (enemy.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle(ThrowableObject);
@@ -204,6 +210,7 @@ class World {
             this.killChicken(enemy);
           }, 1000);
           this.removeDeadChicken(enemy);
+          this.throwNewBottleAllowedCheck = true;
         }
       });
 
@@ -212,13 +219,11 @@ class World {
           ThrowableObject.splashingBottle();
           this.removeThrownBottle(ThrowableObject);
           endboss.endbossIsHit();
+          ThrowableObject.speedY = 0;
+          ThrowableObject.speedX = 0;
+          setTimeout(() => (this.throwNewBottleAllowedCheck = true), 1000);
         }
       });
-
-      if (!ThrowableObject.isAboveGround()) {
-        ThrowableObject.splashingBottle();
-        this.removeThrownBottle(ThrowableObject);
-      }
     });
   }
 
@@ -228,7 +233,7 @@ class World {
       if (index !== -1) {
         this.throwableObjects.splice(index, 1);
       }
-    }, 1000);
+    }, 800);
   }
 
   checkTradeCoinsToRefillBottles() {
