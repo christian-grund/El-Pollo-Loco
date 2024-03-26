@@ -28,6 +28,8 @@ function gameOver() {
 
   if (world.character.energy <= 0) {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
+    clearInterval(world.runInterval);
+    clearInterval(world.level.endboss.endbossAnimation);
     game_lost_sound.play();
     setTimeout(() => {
       game_lost_sound.pause();
@@ -143,16 +145,6 @@ function toggleMute() {
     soundButton.style.backgroundImage = 'url("img/10_other/sound_on.svg")';
   }
 }
-
-// function togglePause() {
-//   if (!world.paused) {
-//     world.run();
-//     world.paused = false;
-//   } else {
-//     clearInterval(world.runInterval);
-//     world.paused = true;
-//   }
-// }
 
 function toggleFullscreen() {
   let fullscreen = document.getElementById('game-container');

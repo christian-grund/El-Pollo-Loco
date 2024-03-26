@@ -67,8 +67,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    // this.x = 3800;
-    this.x = 2000;
+    this.x = 3800;
     this.speed = 50;
 
     this.animate();
@@ -76,11 +75,9 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAnimation = setInterval(() => {
-      // if (world.character.x < 3400) {
-      if (world.character.x < 500) {
+      if (world.character.x < 3400) {
         this.playAnimation(this.IMAGES_ALERT);
-        // } else if (world.character.x > 3400) {
-      } else if (world.character.x > 500) {
+      } else if (world.character.x > 3400) {
         this.hadFirstContact = true;
       }
       if (this.hadFirstContact) {
@@ -88,12 +85,11 @@ class Endboss extends MovableObject {
           this.playAnimation(this.IMAGES_HURT);
           this.speed = 0;
           setTimeout(() => (this.speed = 50), 1000);
-          return; // Beende die Funktion hier, um andere Bedingungen zu überspringen
+          return;
         }
         if (world.level.endboss[0].x - world.character.x <= 600 && world.level.endboss[0].x - world.character.x > 250) {
           this.moveLeft();
           this.playAnimation(this.IMAGES_WALKING);
-          console.log('IMAGES_WALKING');
         } else if (
           world.character.x - world.level.endboss[0].x <= 800 &&
           world.character.x - world.level.endboss[0].x >= 450
@@ -106,7 +102,6 @@ class Endboss extends MovableObject {
         ) {
           this.moveLeft();
           this.playAnimation(this.IMAGES_ATTAK);
-          console.log('IMAGES_ATTAK');
         } else if (
           world.character.x - world.level.endboss[0].x <= 450 &&
           world.character.x - world.level.endboss[0].x >= 0
@@ -114,21 +109,11 @@ class Endboss extends MovableObject {
           this.moveRight();
           this.playAnimation(this.IMAGES_ATTAK);
         }
-        // else if (this.endbossIsHurt) {
-        //   // console.log('endbossIsHit');
-        //   this.playAnimation(this.IMAGES_HURT);
-        //   this.speed = 0;
-        //   setTimeout(() => (this.speed = 50), 1000);
-        //   // this.endbossIsHurt = false;
-        //   // setTimeout(() => (this.endbossIsHurt = false), 500);
-        // }
       }
-      console.log(this.endbossIsHurt);
     }, 200);
   }
 
   endbossIsHit() {
-    console.log(this.endbossIsHurt);
     this.energy -= 2.5;
     this.endboss_hurt.play();
     this.endbossIsHurt = true;
