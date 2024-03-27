@@ -199,9 +199,9 @@ class World {
           ThrowableObject.splashingBottle(ThrowableObject);
           enemy.animateDeadChicken();
           this.killChicken(enemy);
-          this.pauseRunInterval();
-          setTimeout(() => this.resumeRunInterval(), 2000);
           this.removeDeadChicken(enemy);
+          this.pauseRunInterval();
+          setTimeout(() => this.resumeRunInterval(), 100);
 
           this.throwNewBottleAllowedCheck = true;
         }
@@ -226,7 +226,7 @@ class World {
       if (index !== -1) {
         this.throwableObjects.splice(index, 1);
       }
-    }, 800);
+    }, 250);
   }
 
   checkTradeCoinsToRefillBottles() {

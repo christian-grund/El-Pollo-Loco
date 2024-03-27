@@ -29,10 +29,10 @@ class ChickenSmall extends MovableObject {
     this.y = 335;
     // this.acceleration = 4;
     // this.x = -1000 + Math.random() * 500;
-    // this.x = 1000 + Math.random() * 3000;
-    this.x = 600 + Math.random() * 100;
+    this.x = 500 + Math.random() * 3000;
+    // this.x = 600 + Math.random() * 100;
     this.speed = 1 + Math.random() * 1;
-    this.applyGravity(this.y);
+    // this.applyGravity(this.y);
 
     this.animate();
     this.animateDeadChicken();
@@ -99,6 +99,9 @@ class ChickenSmall extends MovableObject {
   playChickenSound() {
     if (!mute) {
       this.chick_defeated.play();
+      setTimeout(() => {
+        console.log('hello');
+      }, 1000);
     }
   }
 
