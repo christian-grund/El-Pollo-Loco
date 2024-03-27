@@ -6,6 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   levelEnd = false;
+  isRunIntervalPaused = false;
   throwNewBottleAllowedCheck = true;
   statusBarHealth = new StatusBarHealth();
   statusBarCoin = new StatusBarCoin();
@@ -36,15 +37,26 @@ class World {
 
   run() {
     this.runInterval = setInterval(() => {
-      this.checkEnemyCollisions();
-      this.checkCollection();
-      this.jumpOnChicken();
-      this.checkThrowColissions();
-      this.checkTradeCoinsToRefillBottles();
+      if (!this.isRunIntervalPaused) {
+        this.checkEnemyCollisions();
+        this.checkCollection();
+        this.jumpOnChicken();
+        this.checkThrowColissions();
+        this.checkTradeCoinsToRefillBottles();
+        // console.log('runInterval');
+      }
     }, 100);
     this.throwInterval = setInterval(() => {
       this.checkThrowObjects();
     }, 100);
+  }
+
+  pauseRunInterval() {
+    this.isRunIntervalPaused = true;
+  }
+
+  resumeRunInterval() {
+    this.isRunIntervalPaused = false;
   }
 
   togglePause() {
@@ -97,6 +109,7 @@ class World {
   }
 
   killChicken(enemy) {
+    console.log('killChicken enemy:', enemy);
     enemy.chickenIsDead = true;
     enemy.animateDeadChicken();
     enemy.playChickenSound();
@@ -104,15 +117,17 @@ class World {
   }
 
   deadChickenFallDown(enemy) {
-    setTimeout(() => enemy.applyGravity(), 1000);
+    setTimeout(() => enemy.applyGravity(), 750);
   }
 
   removeDeadChicken(enemy) {
-    const index = this.world.level.enemies.indexOf(enemy);
+    setTimeout(() => {
+      const index = this.world.level.enemies.indexOf(enemy);
 
-    if (index > -1) {
-      setTimeout(() => this.world.level.enemies.splice(index, 1), 3000);
-    }
+      if (index > -1) {
+        this.world.level.enemies.splice(index, 1);
+      }
+    }, 3000);
   }
 
   isDead() {
@@ -127,7 +142,7 @@ class World {
           this.removeCollectedObject(index);
           this.statusBarBottle.bottleCollected();
           if (!mute) {
-            this.bottle_collect_sound.play();
+            this.bottle_collect_sound.cloneNode(true).play();
           }
         }
       } else {
@@ -137,7 +152,7 @@ class World {
             this.removeCollectedObject(index);
             this.statusBarCoin.coinCollected();
             if (!mute) {
-              this.coin_collect_sound.play();
+              this.coin_collect_sound.cloneNode(true).play();
             }
           }
         }
@@ -157,20 +172,6 @@ class World {
     this.level.collectableObjects.splice(index, 1);
   }
 
-  // checkThrowObjects() {
-  //   if (this.keyboard.D && this.bottleAmount > 0 && !this.keyboard.dPressedLastInterval) {
-  //     let bottleIndex;
-  //     let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
-  //     bottle.throw(this.character.otherDirection);
-  //     this.throwableObjects.push(bottle);
-  //     this.statusBarBottle.bottleThrown();
-  //     this.bottleAmount--;
-  //     this.keyboard.dPressedLastInterval = true;
-  //   } else if (!this.keyboard.D) {
-  //     this.keyboard.dPressedLastInterval = false;
-  //   }
-  // }
-
   checkThrowObjects() {
     if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck) {
       let bottleIndex;
@@ -180,15 +181,6 @@ class World {
       this.statusBarBottle.bottleThrown();
       this.bottleAmount--;
       this.throwNewBottleAllowedCheck = false;
-    }
-  }
-
-  throwNewBottleAllowed() {
-    if ((this.throwNewBottleAllowedCheck = true)) {
-      this.throwNewBottleAllowedCheck = false;
-      setInterval(() => {
-        this.throwNewBottleAllowedCheck = true;
-      }, 1500);
     }
   }
 
@@ -206,10 +198,11 @@ class World {
         if (enemy.isColliding(ThrowableObject)) {
           ThrowableObject.splashingBottle(ThrowableObject);
           enemy.animateDeadChicken();
-          setTimeout(() => {
-            this.killChicken(enemy);
-          }, 1000);
+          this.killChicken(enemy);
+          this.pauseRunInterval();
+          setTimeout(() => this.resumeRunInterval(), 2000);
           this.removeDeadChicken(enemy);
+
           this.throwNewBottleAllowedCheck = true;
         }
       });

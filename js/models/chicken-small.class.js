@@ -2,6 +2,7 @@ class ChickenSmall extends MovableObject {
   y = 335;
   height = 80;
   width = 60;
+  acceleration = 4;
   chickenIsDead = false;
   jumpInterval = null;
   // speedY = 15;
@@ -25,20 +26,19 @@ class ChickenSmall extends MovableObject {
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
-
+    this.y = 335;
+    // this.acceleration = 4;
     // this.x = -1000 + Math.random() * 500;
-    this.x = 400 + Math.random() * 3000;
-    // this.x = 400 + Math.random() * 100;
+    // this.x = 1000 + Math.random() * 3000;
+    this.x = 600 + Math.random() * 100;
     this.speed = 1 + Math.random() * 1;
-    // this.applyGravity();
+    this.applyGravity(this.y);
 
     this.animate();
     this.animateDeadChicken();
   }
 
   animate() {
-    // setStoppableInterval(this.moveLeftFunction, 1000 / 60);
-    // setStoppableInterval(this.moveLeft, 1000 / 60);
     this.moveLeftInterval = setInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
@@ -47,30 +47,47 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_WALKING);
     }, 200);
 
-    // if (!this.jumpInterval) {
-    //   this.jumpInterval = setInterval(() => {
-    //     this.chickenSmallJump();
-    //   }, 2000);
-    // }
+    this.jumpIntervall = setInterval(() => {
+      // if (!this.isAboveGround() && !this.chickenIsDead) {
+
+      // }
+      this.speedY = 20;
+    }, 2000);
   }
 
   moveLeftFunction() {
     super.moveLeft();
   }
 
-  chickenSmallJump() {
-    this.speedY = 15;
-    this.applyGravity();
+  // chickenSmallJump() {
+  //   this.speedY = 15;
+  //   this.applyGravity();
 
-    // Prüfen, ob das Huhn den Boden erreicht hat und das Intervall beenden
-    if (this.y <= 335) {
-      clearInterval(this.jumpInterval);
-      this.jumpInterval = null; // Intervall beendet, setzen Sie die Flagge zurück
-      this.animate();
-    }
+  //   // Prüfen, ob das Huhn den Boden erreicht hat und das Intervall beenden
+  //   if (this.y <= 335) {
+  //     clearInterval(this.jumpInterval);
+  //     this.jumpInterval = null; // Intervall beendet, setzen Sie die Flagge zurück
+  //     this.animate();
+  //   }
 
-    console.log('this.y:', this.y);
-  }
+  //   console.log('this.y:', this.y);
+  // }
+
+  // chickenSmallJump() {
+  //   this.speedY = 20;
+  //   if (this.speedY > 0) {
+  //     this.y -= this.speedY;
+  //     this.speedY -= this.acceleration;
+  //     console.log(this.y);
+  //     console.log(this.speedY);
+  //   }
+
+  //   if (this.y <= 335) {
+  //     clearInterval(this.jumpInterval);
+  //     this.jumpInterval = null;
+  //     this.animate();
+  //   }
+  // }
 
   animateDeadChicken() {
     if (this.chickenIsDead) {

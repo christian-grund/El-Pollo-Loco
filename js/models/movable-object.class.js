@@ -15,12 +15,12 @@ class MovableObject extends DrawableObject {
     right: 0,
   };
 
-  applyGravity() {
+  applyGravity(y) {
     setInterval(() => {
-      // if (this.isAboveGround() || this.speedY > 0 || this.chickenSmallJumpUp() || this.deadChickenFallsDown()) {
-      if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown()) {
+      if (this.isAboveGround() || this.chickenSmallAboveGround(y) || this.speedY > 0 || this.deadChickenFallsDown()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+        // console.log('this.y:', this.y);
       }
     }, 1000 / 25);
   }
@@ -36,20 +36,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  // chickenIsJumping() {
-  //   console.log('chickenIsJumping this.height:', this.height);
-  //   return this.y < this.height;
-  // }
-
-  chickenSmallJumpUp() {
-    if (this instanceof ChickenSmall) {
-      if (this.y <= 335) {
-        // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
-        console.log('chickenSmallJumpUp this.y:', this.y);
-        return true; // Huhn ist noch in der Luft
-      }
-    }
-    return false; // Huhn ist nicht mehr in der Luft
+  chickenSmallAboveGround(y) {
+    // if (this instanceof ChickenSmall) {
+    //   if (this.y < 335) {
+    //     // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
+    //     console.log('Chicken is above ground');
+    //     return true; // Huhn ist noch in der Luft
+    //   } else {
+    //     console.log('Chicken is not above ground');
+    //     // return (this.y = 335);
+    //     return false; // Huhn ist nicht mehr in der Luft
+    //   }
+    // }
   }
 
   deadChickenFallsDown() {

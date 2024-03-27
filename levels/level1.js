@@ -18,7 +18,7 @@ function initLevel() {
       // new ChickenSmall(),
       // new ChickenSmall(),
       // new ChickenSmall(),
-      // new ChickenSmall(),
+      new ChickenSmall(),
     ];
   }
 

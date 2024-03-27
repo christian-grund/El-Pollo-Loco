@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
-let mute = true;
+let mute = false;
 let fullscreenEnabled = false;
 let start_screen_sound = new Audio('audio/del-rio-bravo.mp3');
 let game_lost_sound = new Audio('audio/game_lost.mp3');
