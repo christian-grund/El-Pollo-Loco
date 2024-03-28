@@ -2,10 +2,10 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
-let mute = false;
+// let mute = false;
 let fullscreenEnabled = false;
-let start_screen_sound = new Audio('audio/del-rio-bravo.mp3');
-let game_lost_sound = new Audio('audio/game_lost.mp3');
+let start_screen_sound = audioData[0];
+let game_lost_sound = audioData[1];
 
 // window.onload =
 function startScreenSound() {
@@ -134,17 +134,17 @@ function closeStory() {
   document.getElementById('info-button').style.filter = '';
 }
 
-function toggleMute() {
-  mute = !mute;
-  console.log('mute:', mute);
-  let soundButton = document.getElementById('mute-button');
+// function toggleMute() {
+//   mute = !mute;
+//   console.log('mute:', mute);
+//   let soundButton = document.getElementById('mute-button');
 
-  if (mute) {
-    soundButton.style.backgroundImage = 'url("img/10_other/sound_off.svg")';
-  } else {
-    soundButton.style.backgroundImage = 'url("img/10_other/sound_on.svg")';
-  }
-}
+//   if (mute) {
+//     soundButton.style.backgroundImage = 'url("img/10_other/sound_off.svg")';
+//   } else {
+//     soundButton.style.backgroundImage = 'url("img/10_other/sound_on.svg")';
+//   }
+// }
 
 function toggleFullscreen() {
   let fullscreen = document.getElementById('game-container');

@@ -37,17 +37,15 @@ class MovableObject extends DrawableObject {
   }
 
   chickenSmallAboveGround(y) {
-    // if (this instanceof ChickenSmall) {
-    //   if (this.y < 335) {
-    //     // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
-    //     console.log('Chicken is above ground');
-    //     return true; // Huhn ist noch in der Luft
-    //   } else {
-    //     console.log('Chicken is not above ground');
-    //     // return (this.y = 335);
-    //     return false; // Huhn ist nicht mehr in der Luft
-    //   }
-    // }
+    if (this instanceof ChickenSmall) {
+      if (this.y < 335) {
+        // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
+        return true; // Huhn ist noch in der Luft
+      } else {
+        return (this.y = 335);
+        // return false; // Huhn ist nicht mehr in der Luft
+      }
+    }
   }
 
   deadChickenFallsDown() {

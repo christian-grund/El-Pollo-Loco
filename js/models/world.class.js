@@ -15,9 +15,9 @@ class World {
   throwableObjects = [];
   bottleAmount = 0;
   coinAmount = 0;
-  coin_collect_sound = new Audio('audio/coin_collect.mp3');
-  bottle_collect_sound = new Audio('audio/bottle_collect.mp3');
-  bottle_refill_sound = new Audio('audio/bottles_refilled.mp3');
+  coin_collect_sound = audioData[2];
+  bottle_collect_sound = audioData[3];
+  bottle_refill_sound = audioData[4];
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -99,7 +99,9 @@ class World {
         !enemy.chickenIsDead
       ) {
         this.killChicken(enemy);
-        this.character.jump();
+        setTimeout(() => {
+          this.character.jump();
+        }, 100);
         this.removeDeadChicken(enemy);
       } else if (this.character.y >= 180) {
         this.character.speedY = 0;

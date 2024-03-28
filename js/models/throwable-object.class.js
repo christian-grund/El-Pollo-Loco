@@ -5,8 +5,8 @@ class ThrowableObject extends MovableObject {
   world;
   speedX = 25;
   world;
-  throwing_sound = new Audio('audio/throwing.mp3');
-  bottle_splash_sound = new Audio('audio/bottle_splash.mp3');
+  throwing_sound = audioData[4];
+  bottle_splash_sound = audioData[4];
 
   IMAGES_BOTTLE_ROTATION = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',

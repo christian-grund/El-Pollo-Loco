@@ -9,11 +9,11 @@ class ChickenSmall extends MovableObject {
   world;
   offset = {
     top: -30,
-    right: -25,
+    right: 0,
     bottom: -30,
-    left: -15,
+    left: 0,
   };
-  chick_defeated = new Audio('audio/chick.mp3');
+  chick_defeated = audioData[12];
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -29,8 +29,8 @@ class ChickenSmall extends MovableObject {
     this.y = 335;
     // this.acceleration = 4;
     // this.x = -1000 + Math.random() * 500;
-    this.x = 500 + Math.random() * 3000;
-    // this.x = 600 + Math.random() * 100;
+    // this.x = 500 + Math.random() * 3000;
+    this.x = 1600 + Math.random() * 100;
     this.speed = 1 + Math.random() * 1;
     // this.applyGravity(this.y);
 
@@ -52,7 +52,7 @@ class ChickenSmall extends MovableObject {
 
       // }
       this.speedY = 20;
-    }, 2000);
+    }, 5000);
   }
 
   moveLeftFunction() {

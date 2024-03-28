@@ -11,10 +11,10 @@ class Character extends MovableObject {
     bottom: 50,
     right: 35,
   };
-  walking_sound = new Audio('audio/running.mp3');
-  jumping_sound = new Audio('audio/jump.mp3');
-  hurt_sound = new Audio('audio/hurt.mp3');
-  snoring_sound = new Audio('audio/snoring.mp3');
+  walking_sound = audioData[5];
+  jumping_sound = audioData[6];
+  hurt_sound = audioData[7];
+  snoring_sound = audioData[8];
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
