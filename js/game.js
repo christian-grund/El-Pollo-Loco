@@ -4,13 +4,9 @@ let keyboard = new Keyboard();
 let intervalIDs = [];
 // let mute = false;
 let fullscreenEnabled = false;
-let start_screen_sound = audioData[0];
 let game_lost_sound = audioData[1];
 
 // window.onload =
-function startScreenSound() {
-  // start_screen_sound.play();
-}
 
 function init() {
   canvas = document.getElementById('canvas');
@@ -18,13 +14,14 @@ function init() {
   initLevel();
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
-  mute = false;
-  start_screen_sound.pause();
+  pauseStartScreenSound();
+  playGameSound();
 }
 
 function gameOver() {
   console.log('game over');
   let endscreenText = document.getElementById('endscreen-text');
+  pauseGameSound();
 
   if (world.character.energy <= 0) {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
@@ -33,19 +30,17 @@ function gameOver() {
     game_lost_sound.play();
     setTimeout(() => {
       game_lost_sound.pause();
-      // start_screen_sound.play();
+      // playStartScreenSound();
     }, 6000);
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
-    // start_screen_sound.play();
+    // playStartScreenSound();
   }
-  // clearInterval(world.runInterval);
   setTimeout(() => {
     clearAllIntervals();
   }, 7010);
 
   showEndscreen();
-  // this.stopGame();
 }
 
 function showStartscreen() {
@@ -53,7 +48,7 @@ function showStartscreen() {
   document.getElementById('startscreen').style.display = 'flex';
   document.getElementById('top-left-buttons').style.display = 'flex';
   document.getElementById('startscreen-top-button').style.display = 'flex';
-  // start_screen_sound.play();
+  // playStartScreenSound();
 }
 
 function showCanvas() {

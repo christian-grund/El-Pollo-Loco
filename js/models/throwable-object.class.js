@@ -5,8 +5,6 @@ class ThrowableObject extends MovableObject {
   world;
   speedX = 25;
   world;
-  throwing_sound = audioData[4];
-  bottle_splash_sound = audioData[4];
 
   IMAGES_BOTTLE_ROTATION = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -32,6 +30,7 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.height = 60;
     this.width = 50;
+    this.ground = 180;
     this.animate();
   }
 
@@ -48,18 +47,14 @@ class ThrowableObject extends MovableObject {
   }
 
   splashingBottle() {
-    if (!mute) {
-      this.bottle_splash_sound.play();
-    }
+    playBottleSplashSound();
     this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
   }
 
   throw(otherDirection) {
     this.speedY = 20;
     this.applyGravity();
-    if (!mute) {
-      this.throwing_sound.play();
-    }
+    playThrowingSound();
     if (world) {
       setInterval(() => {
         if (this.isAboveGround()) {

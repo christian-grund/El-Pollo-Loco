@@ -18,22 +18,25 @@ let audioData = [
   new Audio('audio/endboss_hurt.mp3'),
   new Audio('audio/endboss_defeated.mp3'),
   new Audio('audio/game_won.mp3'),
+  new Audio('audio/endboss_attak.mp3'),
+  new Audio('audio/backgroundsong.mp3'),
 ];
 
-// bottle;
-
 function toggleMuteButton() {
-  mute = !mute;
-  console.log('mute:', mute);
+  // Verhindern Sie die Standardaktion des Buttons
+
   let soundButton = document.getElementById('mute-button');
 
-  if (mute) {
+  if (!mute) {
     soundButton.style.backgroundImage = 'url("img/10_other/sound_off.svg")';
     muteSound();
   } else {
     soundButton.style.backgroundImage = 'url("img/10_other/sound_on.svg")';
     unmuteSound();
   }
+
+  // Fokus vom Button entfernen
+  soundButton.blur();
 }
 
 function muteSound() {
@@ -41,13 +44,114 @@ function muteSound() {
     audio.muted = true;
     audio.pause();
   });
-  mute = false;
+  console.log('muteSound');
+  mute = true;
+  console.log('mute:', mute);
 }
 
 function unmuteSound() {
   audioData.forEach((audio) => {
     audio.muted = false;
-    audio.play();
   });
-  mute = true;
+  console.log('unmuteSound');
+  mute = false;
+  console.log('mute:', mute);
+}
+
+function playStartScreenSound() {
+  audioData[0].play();
+}
+
+function pauseStartScreenSound() {
+  audioData[0].pause();
+}
+
+function playGameLostSound() {
+  audioData[1].play();
+}
+
+function playCoinCollectSound() {
+  audioData[2].cloneNode(true).play();
+  // audioData[2].play();
+}
+
+function playBottleCollectSound() {
+  audioData[3].cloneNode(true).play();
+}
+
+function playBottleRefillSound() {
+  audioData[4].play();
+}
+
+function playWalkingSound() {
+  audioData[5].play();
+}
+
+function pauseWalkingSound() {
+  audioData[5].pause();
+}
+
+function playJumpingSound() {
+  audioData[6].play();
+}
+
+function playHurtSound() {
+  audioData[7].play();
+}
+
+function playSnoringSound() {
+  audioData[8].play();
+}
+
+function pauseSnoringSound() {
+  audioData[8].pause();
+}
+
+function playThrowingSound() {
+  audioData[9].play();
+}
+
+function playBottleSplashSound() {
+  audioData[10].play();
+}
+
+function playNormalChickenDefeatedSound() {
+  audioData[11].cloneNode(true).play();
+}
+
+function playSmallChickenDefeatedSound() {
+  audioData[12].cloneNode(true).play();
+}
+
+function playEndossAttakSound() {
+  audioData[13].play();
+}
+
+function playEndbossHurtSound() {
+  audioData[14].play();
+}
+
+function playEndbossDefeatedSound() {
+  audioData[15].play();
+}
+
+function playGameWonSound() {
+  audioData[16].play();
+}
+
+function playEndbossAttakSound() {
+  audioData[17].play();
+}
+
+function pauseEndbossAttakSound() {
+  audioData[17].pause();
+}
+
+function playGameSound() {
+  audioData[18].volume = 0.25;
+  audioData[18].play();
+}
+
+function pauseGameSound() {
+  audioData[18].pause();
 }

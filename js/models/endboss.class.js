@@ -14,10 +14,6 @@ class Endboss extends MovableObject {
     bottom: 100,
     right: 10,
   };
-  endboss_attak = new Audio('audio/endboss_attak.mp3');
-  endboss_hurt = new Audio('audio/endboss_hurt.mp3');
-  endboss_defeated = new Audio('audio/endboss_defeated.mp3');
-  game_won = new Audio('audio/game_won.mp3');
 
   IMAGES_WALKING = [
     'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -77,9 +73,10 @@ class Endboss extends MovableObject {
     this.endbossAlertAnimation = setInterval(() => {
       if (world.character.x < 3400) {
         this.playAnimation(this.IMAGES_ALERT);
-        console.log('IMAGES_ALERT');
       } else if (world.character.x > 3400) {
         this.hadFirstContact = true;
+        playEndbossAttakSound();
+        setTimeout(() => pauseEndbossAttakSound(), 3000);
       }
     }, 200);
 
@@ -95,7 +92,6 @@ class Endboss extends MovableObject {
         if (world.level.endboss[0].x - world.character.x <= 500 && world.level.endboss[0].x - world.character.x > 250) {
           this.moveLeft();
           this.playAnimation(this.IMAGES_WALKING);
-          console.log('IMAGES_WALKING');
         } else if (
           world.character.x - world.level.endboss[0].x <= 800 &&
           world.character.x - world.level.endboss[0].x >= 450
@@ -120,8 +116,8 @@ class Endboss extends MovableObject {
   }
 
   endbossIsHit() {
-    this.energy -= 3;
-    this.endboss_hurt.play();
+    this.energy -= 10;
+    playEndbossHurtSound();
     this.endbossIsHurt = true;
     setTimeout(() => (this.endbossIsHurt = false), 1000);
 
@@ -141,9 +137,10 @@ class Endboss extends MovableObject {
     if (this.endbossDead) {
       clearInterval(world.runInterval);
       clearInterval(this.endbossAnimation);
+      playEndbossDefeatedSound();
       if (!mute) {
-        this.endboss_defeated.play();
-        setTimeout(() => this.game_won.play(), 2000);
+        // this.endboss_defeated.play();
+        setTimeout(() => playGameWonSound(), 2000);
       }
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
@@ -153,7 +150,6 @@ class Endboss extends MovableObject {
   }
 
   stopEndbossAnimation() {
-    console.log('stopEndbossAnimation');
     clearInterval(this.endbossAnimation);
   }
 }

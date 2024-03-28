@@ -11,10 +11,10 @@ function initLevel() {
 
   function createEnemies() {
     return [
-      new ChickenNormal(),
-      new ChickenNormal(),
-      new ChickenNormal(),
-      new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
+      // new ChickenNormal(),
       new ChickenSmall(),
       new ChickenSmall(),
       new ChickenSmall(),

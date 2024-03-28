@@ -13,7 +13,6 @@ class ChickenSmall extends MovableObject {
     bottom: -30,
     left: 0,
   };
-  chick_defeated = audioData[12];
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -27,16 +26,21 @@ class ChickenSmall extends MovableObject {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
     this.y = 335;
+    this.ground = 335;
     // this.acceleration = 4;
     // this.x = -1000 + Math.random() * 500;
     // this.x = 500 + Math.random() * 3000;
-    this.x = 1600 + Math.random() * 100;
+    this.x = 700 + Math.random() * 100;
     this.speed = 1 + Math.random() * 1;
-    // this.applyGravity(this.y);
+    this.applyGravity();
 
     this.animate();
     this.animateDeadChicken();
   }
+
+  calculateInterval = () => {
+    return 1000 + Math.random() * 1000;
+  };
 
   animate() {
     this.moveLeftInterval = setInterval(() => {
@@ -47,12 +51,14 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_WALKING);
     }, 200);
 
-    this.jumpIntervall = setInterval(() => {
-      // if (!this.isAboveGround() && !this.chickenIsDead) {
-
-      // }
-      this.speedY = 20;
-    }, 5000);
+    this.jumpInterval = setInterval(() => {
+      let jumpHeight = 15 + Math.random() * 15;
+      // let interval = this.calculateInterval();
+      if (!this.chickenIsDead) {
+        this.speedY = jumpHeight;
+        this.y -= 1;
+      }
+    }, this.calculateInterval());
   }
 
   moveLeftFunction() {
@@ -98,10 +104,7 @@ class ChickenSmall extends MovableObject {
 
   playChickenSound() {
     if (!mute) {
-      this.chick_defeated.play();
-      setTimeout(() => {
-        console.log('hello');
-      }, 1000);
+      playSmallChickenDefeatedSound();
     }
   }
 

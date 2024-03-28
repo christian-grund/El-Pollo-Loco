@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
   energy = 100;
   energyEndboss = 100;
   world;
+  ground = 180;
 
   lastHit = 0;
   offset = {
@@ -15,47 +16,44 @@ class MovableObject extends DrawableObject {
     right: 0,
   };
 
-  applyGravity(y) {
+  applyGravity(object) {
     setInterval(() => {
-      if (this.isAboveGround() || this.chickenSmallAboveGround(y) || this.speedY > 0 || this.deadChickenFallsDown()) {
+      // if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown(object)) {
+      if (this.isAboveGround() || this.deadChickenFallsDown(object)) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
         // console.log('this.y:', this.y);
+      } else {
+        this.y = this.ground;
       }
     }, 1000 / 25);
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) {
-      // Throwable Object should always fall
-      if (this.y < 350) {
-        return true;
-      }
-    } else {
-      return this.y < 180;
-    }
+    return this.y < this.ground;
   }
 
-  chickenSmallAboveGround(y) {
-    if (this instanceof ChickenSmall) {
-      if (this.y < 335) {
-        // Überprüfen, ob das Huhn in der Luft ist (nicht unterhalb des Bodens)
-        return true; // Huhn ist noch in der Luft
-      } else {
-        return (this.y = 335);
-        // return false; // Huhn ist nicht mehr in der Luft
-      }
-    }
-  }
+  // isAboveGround() {
+  //   if (this instanceof ThrowableObject) {
+  //     // Throwable Object should always fall
+  //     if (this.y < 350) {
+  //       return true;
+  //     }
+  //   } else {
+  //     return this.y < 180;
+  //   }
+  // }
 
   deadChickenFallsDown() {
-    if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
+    // if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
+    if (object) {
       return this.y < 1000;
     }
   }
 
   jump() {
     this.speedY = 22.5;
+    this.y -= 1;
   }
 
   playAnimation(images) {
@@ -98,9 +96,7 @@ class MovableObject extends DrawableObject {
       gameOver();
     } else {
       this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;
-      if (!mute) {
-        this.hurt_sound.play();
-      }
+      playHurtSound();
     }
   }
 

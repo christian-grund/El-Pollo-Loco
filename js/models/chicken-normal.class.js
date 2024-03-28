@@ -10,8 +10,6 @@ class ChickenNormal extends MovableObject {
     bottom: -30,
     left: 0,
   };
-  // chicken_defeated = new Audio('audio/chicken.mp3');
-  chicken_defeated = audioData[11];
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -24,7 +22,7 @@ class ChickenNormal extends MovableObject {
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
-
+    this.ground = 335;
     // this.x = 750;
     this.x = 500 + Math.random() * 3000;
     this.speed = 1 + Math.random() * 1;
@@ -51,7 +49,7 @@ class ChickenNormal extends MovableObject {
 
   playChickenSound() {
     if (!mute) {
-      this.chicken_defeated.play();
+      playNormalChickenDefeatedSound();
     }
   }
 

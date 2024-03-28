@@ -11,10 +11,6 @@ class Character extends MovableObject {
     bottom: 50,
     right: 35,
   };
-  walking_sound = audioData[5];
-  jumping_sound = audioData[6];
-  hurt_sound = audioData[7];
-  snoring_sound = audioData[8];
 
   IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -95,13 +91,11 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.walking_sound.pause();
+      pauseWalkingSound();
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
-        // if (!mute) {
-        // this.jumping_sound.play();
-        // }
+        // playJumpingSound();
       }
 
       if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D) {
@@ -112,17 +106,13 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        if (!mute) {
-          this.walking_sound.play();
-        }
+        playWalkingSound();
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        if (!mute) {
-          this.walking_sound.play();
-        }
+        playWalkingSound();
       } else {
         this.idleCounter += 1000 / 60;
       }
@@ -130,7 +120,6 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      // this.playAnimation(this.IMAGES_LONG_IDLE);
       if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
@@ -139,18 +128,14 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.idleCounter > this.IDLE_LIMIT) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        // if (!mute) {
-        //   this.snoring_sound.play();
-        // }
+        // playSnoringSound();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        // RIGHT true or LEFT true
-        // Walk animation
         this.playAnimation(this.IMAGES_WALKING);
       } else {
         this.playAnimation(this.IMAGES_IDLE);
       }
       if (this.idleCounter < this.IDLE_LIMIT) {
-        this.snoring_sound.pause();
+        pauseSnoringSound();
       }
     }, 150);
   }

@@ -15,9 +15,9 @@ class World {
   throwableObjects = [];
   bottleAmount = 0;
   coinAmount = 0;
-  coin_collect_sound = audioData[2];
-  bottle_collect_sound = audioData[3];
-  bottle_refill_sound = audioData[4];
+  // coin_collect_sound = audioData[2];
+  // bottle_collect_sound = audioData[3];
+  // bottle_refill_sound = audioData[4];
 
   constructor(canvas, keyboard) {
     // following functions are executed repeatedly
@@ -111,7 +111,6 @@ class World {
   }
 
   killChicken(enemy) {
-    console.log('killChicken enemy:', enemy);
     enemy.chickenIsDead = true;
     enemy.animateDeadChicken();
     enemy.playChickenSound();
@@ -119,7 +118,13 @@ class World {
   }
 
   deadChickenFallDown(enemy) {
-    setTimeout(() => enemy.applyGravity(), 750);
+    setTimeout(() => {
+      const enemyIndex = this.world.level.enemies.indexOf(enemy);
+      console.log(enemyIndex);
+      if (enemyIndex > -1) {
+        enemy.applyGravity(enemyIndex);
+      }
+    }, 750);
   }
 
   removeDeadChicken(enemy) {
@@ -144,7 +149,7 @@ class World {
           this.removeCollectedObject(index);
           this.statusBarBottle.bottleCollected();
           if (!mute) {
-            this.bottle_collect_sound.cloneNode(true).play();
+            playBottleCollectSound();
           }
         }
       } else {
@@ -154,7 +159,7 @@ class World {
             this.removeCollectedObject(index);
             this.statusBarCoin.coinCollected();
             if (!mute) {
-              this.coin_collect_sound.cloneNode(true).play();
+              playCoinCollectSound();
             }
           }
         }
@@ -238,7 +243,7 @@ class World {
         this.bottleAmount = 5;
         this.statusBarBottle.tradedCoinsToRefillBottles();
         this.statusBarCoin.tradedCoinsToRefillBottles();
-        this.bottle_refill_sound.play();
+        playBottleRefillSound();
       }
     }
   }
