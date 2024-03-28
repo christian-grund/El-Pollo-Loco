@@ -44,11 +44,11 @@ class MovableObject extends DrawableObject {
   //   }
   // }
 
-  deadChickenFallsDown() {
+  deadChickenFallsDown(object) {
     // if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
-    if (object) {
-      return this.y < 1000;
-    }
+    // if (object) {
+    //   return this.y < 1000;
+    // }
   }
 
   jump() {

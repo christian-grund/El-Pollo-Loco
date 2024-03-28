@@ -30,7 +30,7 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.height = 60;
     this.width = 50;
-    this.ground = 180;
+    this.ground = 350;
     this.animate();
   }
 
@@ -55,6 +55,7 @@ class ThrowableObject extends MovableObject {
     this.speedY = 20;
     this.applyGravity();
     playThrowingSound();
+
     if (world) {
       setInterval(() => {
         if (this.isAboveGround()) {

@@ -15,12 +15,8 @@ class World {
   throwableObjects = [];
   bottleAmount = 0;
   coinAmount = 0;
-  // coin_collect_sound = audioData[2];
-  // bottle_collect_sound = audioData[3];
-  // bottle_refill_sound = audioData[4];
 
   constructor(canvas, keyboard) {
-    // following functions are executed repeatedly
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -43,7 +39,6 @@ class World {
         this.jumpOnChicken();
         this.checkThrowColissions();
         this.checkTradeCoinsToRefillBottles();
-        // console.log('runInterval');
       }
     }, 100);
     this.throwInterval = setInterval(() => {
@@ -59,17 +54,17 @@ class World {
     this.isRunIntervalPaused = false;
   }
 
-  togglePause() {
-    if (!this.paused) {
-      clearInterval(this.runInterval);
-      clearInterval(this.level.endboss.endbossAnimation);
-      this.level.endboss.stopEndbossAnimation();
-      this.paused = true;
-    } else {
-      this.run(); // Fortsetzen des Intervalls
-      this.paused = false;
-    }
-  }
+  // togglePause() {
+  //   if (!this.paused) {
+  //     clearInterval(this.runInterval);
+  //     clearInterval(this.level.endboss.endbossAnimation);
+  //     this.level.endboss.stopEndbossAnimation();
+  //     this.paused = true;
+  //   } else {
+  //     this.run(); // Fortsetzen des Intervalls
+  //     this.paused = false;
+  //   }
+  // }
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
@@ -156,6 +151,7 @@ class World {
         if (this.collectingCoin(object)) {
           if (this.character.isColliding(object, index)) {
             this.coinAmount++;
+            console.log('coinAmount:', this.coinAmount);
             this.removeCollectedObject(index);
             this.statusBarCoin.coinCollected();
             if (!mute) {
@@ -237,9 +233,10 @@ class World {
   }
 
   checkTradeCoinsToRefillBottles() {
-    if (this.coinAmount == 5) {
+    if (this.coinAmount == 10) {
       if (this.keyboard.R) {
         this.coinAmount = 0;
+
         this.bottleAmount = 5;
         this.statusBarBottle.tradedCoinsToRefillBottles();
         this.statusBarCoin.tradedCoinsToRefillBottles();
@@ -260,7 +257,7 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
 
-    if (this.coinAmount == 5 && !this.keyboard.R) {
+    if (this.coinAmount == 10 && !this.keyboard.R) {
       this.ctx.fillStyle = 'white';
       this.ctx.font = '24px zabars';
       this.ctx.fillText('Press R to refill bottles!', 260, 87);

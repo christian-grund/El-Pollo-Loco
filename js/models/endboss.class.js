@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTAK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 3800;
+    this.x = 5250;
     this.speed = 50;
 
     this.animate();
@@ -71,9 +71,9 @@ class Endboss extends MovableObject {
 
   animate() {
     this.endbossAlertAnimation = setInterval(() => {
-      if (world.character.x < 3400) {
+      if (world.character.x < 4800) {
         this.playAnimation(this.IMAGES_ALERT);
-      } else if (world.character.x > 3400) {
+      } else if (world.character.x > 4800) {
         this.hadFirstContact = true;
         playEndbossAttakSound();
         setTimeout(() => pauseEndbossAttakSound(), 3000);
@@ -116,7 +116,7 @@ class Endboss extends MovableObject {
   }
 
   endbossIsHit() {
-    this.energy -= 10;
+    this.energy -= 3;
     playEndbossHurtSound();
     this.endbossIsHurt = true;
     setTimeout(() => (this.endbossIsHurt = false), 1000);
@@ -137,11 +137,9 @@ class Endboss extends MovableObject {
     if (this.endbossDead) {
       clearInterval(world.runInterval);
       clearInterval(this.endbossAnimation);
+      pauseGameSound();
       playEndbossDefeatedSound();
-      if (!mute) {
-        // this.endboss_defeated.play();
-        setTimeout(() => playGameWonSound(), 2000);
-      }
+      setTimeout(() => playGameWonSound(), 2000);
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);

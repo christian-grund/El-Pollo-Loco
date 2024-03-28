@@ -51,7 +51,7 @@ class StatusBarCoin extends DrawableObject {
    * Increases the percentage of collected coins and updates the bottle status bar image
    */
   coinCollected() {
-    this.percentageCoins += 20;
+    this.percentageCoins += 10;
     if (this.percentageCoins > 100) {
       this.percentageCoins = 100;
     }
