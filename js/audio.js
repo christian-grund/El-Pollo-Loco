@@ -19,6 +19,7 @@ let audioData = [
   new Audio('audio/endboss_defeated.mp3'),
   new Audio('audio/game_won.mp3'),
   new Audio('audio/endboss_attak.mp3'),
+  new Audio('audio/endboss_fight.mp3'),
   new Audio('audio/backgroundsong.mp3'),
 ];
 
@@ -147,11 +148,21 @@ function pauseEndbossAttakSound() {
   audioData[17].pause();
 }
 
+function playEndbossFightSound() {
+  let audio = audioData[18];
+  audio.loop = true;
+  audio.play();
+}
+
+function pauseEndbossFightSound() {
+  audioData[18].pause();
+}
+
 function playGameSound() {
-  audioData[18].volume = 0.25;
-  audioData[18].play();
+  audioData[19].volume = 0.25;
+  audioData[19].play();
 }
 
 function pauseGameSound() {
-  audioData[18].pause();
+  audioData[19].pause();
 }

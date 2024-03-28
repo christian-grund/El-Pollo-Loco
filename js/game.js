@@ -21,9 +21,10 @@ function init() {
 function gameOver() {
   console.log('game over');
   let endscreenText = document.getElementById('endscreen-text');
-  pauseGameSound();
 
   if (world.character.energy <= 0) {
+    pauseGameSound();
+    pauseEndbossFightSound();
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
     clearInterval(world.runInterval);
     clearInterval(world.level.endboss.endbossAnimation);
@@ -33,6 +34,7 @@ function gameOver() {
       // playStartScreenSound();
     }, 6000);
   } else {
+    pauseEndbossFightSound();
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
     // playStartScreenSound();
   }

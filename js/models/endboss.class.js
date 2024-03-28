@@ -75,8 +75,12 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_ALERT);
       } else if (world.character.x > 4800) {
         this.hadFirstContact = true;
+        pauseGameSound();
         playEndbossAttakSound();
-        setTimeout(() => pauseEndbossAttakSound(), 3000);
+        setTimeout(() => {
+          pauseEndbossAttakSound();
+          playEndbossFightSound();
+        }, 3000);
       }
     }, 200);
 
@@ -116,7 +120,7 @@ class Endboss extends MovableObject {
   }
 
   endbossIsHit() {
-    this.energy -= 3;
+    this.energy -= 6;
     playEndbossHurtSound();
     this.endbossIsHurt = true;
     setTimeout(() => (this.endbossIsHurt = false), 1000);
@@ -137,7 +141,7 @@ class Endboss extends MovableObject {
     if (this.endbossDead) {
       clearInterval(world.runInterval);
       clearInterval(this.endbossAnimation);
-      pauseGameSound();
+      pauseEndbossFightSound();
       playEndbossDefeatedSound();
       setTimeout(() => playGameWonSound(), 2000);
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
