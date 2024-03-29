@@ -1,12 +1,12 @@
+/**
+ * Represents a small chicken enemy.
+ * @extends MovableObject
+ */
 class ChickenSmall extends MovableObject {
   y = 345;
   height = 80;
   width = 60;
-  acceleration = 5;
   chickenIsDead = false;
-  isJumping = false;
-  // speedY = 25;
-  world;
   offset = {
     top: -30,
     right: 0,
@@ -18,6 +18,9 @@ class ChickenSmall extends MovableObject {
 
   IMAGE_DEAD = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
+  /**
+   * Constructs a new ChickenSmall object.
+   */
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -30,14 +33,20 @@ class ChickenSmall extends MovableObject {
     this.animateDeadChicken();
   }
 
+  /**
+   * Calculates the interval for chicken jump animation.
+   * @returns {number} The interval for chicken jump animation.
+   */
   calculateInterval = () => {
     return 1500 + Math.random() * 1000;
   };
 
+  /**
+   * Initiates various animations for the chicken.
+   */
   animate() {
     this.moveLeftInterval = setInterval(() => {
       this.moveLeft();
-      console.log('moveLeftInterval');
     }, 1000 / 60);
     setStoppableInterval(this.moveLeftInterval, 1000 / 60);
 
@@ -46,7 +55,7 @@ class ChickenSmall extends MovableObject {
     }, 200);
 
     this.jumpInterval = setInterval(() => {
-      let jumpHeight = 20 + Math.random() * 15;
+      let jumpHeight = 15 + Math.random() * 12.5;
       if (!this.chickenIsDead) {
         this.speedY = jumpHeight;
         this.y -= 1;
@@ -54,10 +63,9 @@ class ChickenSmall extends MovableObject {
     }, this.calculateInterval());
   }
 
-  moveLeftFunction() {
-    super.moveLeft();
-  }
-
+  /**
+   * Animates the dead chicken.
+   */
   animateDeadChicken() {
     if (this.chickenIsDead) {
       this.loadImage(this.IMAGE_DEAD);
@@ -66,12 +74,18 @@ class ChickenSmall extends MovableObject {
     }
   }
 
+  /**
+   * Plays the sound for defeated chicken.
+   */
   playChickenSound() {
     if (!mute) {
       playSmallChickenDefeatedSound();
     }
   }
 
+  /**
+   * Removes intervals associated with dead chicken animation.
+   */
   removeDeadChickenInterval() {
     clearInterval(this.moveLeftInterval);
     clearInterval(this.walkAnimationInterval);

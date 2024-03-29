@@ -1,3 +1,7 @@
+/**
+ * Represents a status bar for coins.
+ * @extends DrawableObject
+ */
 class StatusBarCoin extends DrawableObject {
   IMAGES_COIN = [
     'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
@@ -11,7 +15,7 @@ class StatusBarCoin extends DrawableObject {
   percentageCoins = 0;
 
   /**
-   * Constructs a new status bar for coins with default attributes and loads initial image
+   * Constructs a new StatusBarCoin object.
    */
   constructor() {
     super().loadImages(this.IMAGES_COIN);
@@ -23,13 +27,17 @@ class StatusBarCoin extends DrawableObject {
     this.setPercentageCoins();
   }
 
+  /**
+   * Sets the image of the coin status bar based on the percentage of collected coins.
+   */
   setPercentageCoins() {
-    // this.percentage = percentage; // 0 ... 5;
     let path = this.IMAGES_COIN[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
+
   /**
-   * Resolves number of image in IMAGES_BOTTLE array dependent on the percentage of collected coins
+   * Resolves the index of the image in IMAGES_COIN array based on the percentage of collected coins.
+   * @returns {number} The index of the image.
    */
   resolveImageIndex() {
     if (this.percentageCoins == 100) {
@@ -48,7 +56,7 @@ class StatusBarCoin extends DrawableObject {
   }
 
   /**
-   * Increases the percentage of collected coins and updates the bottle status bar image
+   * Increases the percentage of collected coins and updates the coin status bar image.
    */
   coinCollected() {
     this.percentageCoins += 10;
@@ -59,6 +67,9 @@ class StatusBarCoin extends DrawableObject {
     this.setPercentageCoins();
   }
 
+  /**
+   * Resets the percentage of collected coins to 0 and updates the coin status bar image.
+   */
   tradedCoinsToRefillBottles() {
     this.percentageCoins = 0;
     this.setPercentageCoins();

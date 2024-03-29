@@ -1,3 +1,7 @@
+/**
+ * Represents a throwable object.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
   direction;
   splash = false;
@@ -22,6 +26,11 @@ class ThrowableObject extends MovableObject {
     'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
   ];
 
+  /**
+   * Constructs a new ThrowableObject object.
+   * @param {number} x - The x coordinate of the throwable object.
+   * @param {number} y - The y coordinate of the throwable object.
+   */
   constructor(x, y) {
     super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
     this.loadImages(this.IMAGES_BOTTLE_ROTATION);
@@ -34,23 +43,36 @@ class ThrowableObject extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Initiates the animation for the throwable object.
+   */
   animate() {
     setInterval(() => {
       this.flyingBottle();
     }, 150);
   }
 
+  /**
+   * Animates the flying bottle.
+   */
   flyingBottle() {
     if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
     }
   }
 
+  /**
+   * Animates the splashing bottle.
+   */
   splashingBottle() {
     playBottleSplashSound();
     this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
   }
 
+  /**
+   * Throws the throwable object.
+   * @param {boolean} otherDirection - Indicates whether to throw in the opposite direction.
+   */
   throw(otherDirection) {
     this.speedY = 20;
     this.applyGravity();

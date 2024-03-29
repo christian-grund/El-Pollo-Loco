@@ -1,28 +1,40 @@
+/**
+ * Represents a drawable object.
+ */
 class DrawableObject {
   x = 150;
   y = 155;
   height = 150;
   width = 125;
   img;
-  imageCache = {}; // JSON Array
+  imageCache = {};
   currentImage = 0;
 
-  // loadImage('img/test.png');
+  /**
+   * Loads an image for the drawable object.
+   * @param {string} path - The path to the image.
+   */
   loadImage(path) {
-    this.img = new Image(); // document.getElementById('image') <img id="image">
+    this.img = new Image();
     this.img.src = path;
   }
 
-  // arr = array
-  // @param (Array) arr = ['img/image1.png', 'img/image2.png']
+  /**
+   * Loads multiple images for the drawable object.
+   * @param {string[]} arr - An array of paths to the images.
+   */
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();
       img.src = path;
-      this.imageCache[path] = img; // spricht img im JSON Array an
+      this.imageCache[path] = img;
     });
   }
 
+  /**
+   * Draws the drawable object on the canvas context.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   draw(ctx) {
     try {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

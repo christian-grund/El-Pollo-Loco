@@ -1,4 +1,12 @@
+/**
+ * Represents a status bar for the end boss.
+ * @extends DrawableObject
+ */
 class StatusBarEndboss extends DrawableObject {
+  /**
+   * Array of image paths for the end boss life status bar.
+   * @type {string[]}
+   */
   IMAGES_LIFE_ENDBOSS = [
     'img/7_statusbars/2_statusbar_endboss/green/green0.png',
     'img/7_statusbars/2_statusbar_endboss/green/green20.png',
@@ -8,8 +16,15 @@ class StatusBarEndboss extends DrawableObject {
     'img/7_statusbars/2_statusbar_endboss/green/green100.png',
   ];
 
+  /**
+   * Percentage of end boss life.
+   * @type {number}
+   */
   percentage = 100;
 
+  /**
+   * Constructs a new StatusBarEndboss object.
+   */
   constructor() {
     super().loadImages(this.IMAGES_LIFE_ENDBOSS);
     this.x = 500;
@@ -20,13 +35,21 @@ class StatusBarEndboss extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Sets the percentage of end boss life and updates the status bar image.
+   * @param {number} percentage - The percentage of end boss life.
+   */
   setPercentage(percentage) {
-    this.percentage = percentage; // 0 ... 5;
+    this.percentage = percentage;
     let path = this.IMAGES_LIFE_ENDBOSS[this.resolveImageIndex()];
     this.img = this.imageCache[path];
     this.visible = this.percentage < 100;
   }
 
+  /**
+   * Resolves the index of the image in IMAGES_LIFE_ENDBOSS array based on the percentage of end boss life.
+   * @returns {number} The index of the image.
+   */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

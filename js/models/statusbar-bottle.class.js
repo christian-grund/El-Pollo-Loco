@@ -1,3 +1,7 @@
+/**
+ * Represents a status bar for bottles.
+ * @extends DrawableObject
+ */
 class StatusBarBottle extends DrawableObject {
   IMAGES_BOTTLE = [
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -23,14 +27,17 @@ class StatusBarBottle extends DrawableObject {
     this.setpercentageBottles();
   }
 
+  /**
+   * Sets the image of the bottle status bar based on the percentage of collected bottles.
+   */
   setpercentageBottles() {
-    // this.percentageBottles = percentageBottles; // 0 ... 5;
     let path = this.IMAGES_BOTTLE[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
   /**
    * Resolves number of image in IMAGES_BOTTLE array dependent on the percentage of collected bottles
+   * * @returns {number} The index of the image.
    */
   resolveImageIndex() {
     if (this.percentageBottles == 100) {
@@ -49,26 +56,32 @@ class StatusBarBottle extends DrawableObject {
   }
 
   /**
-   * Increases the percentage of collected bottles and updates the bottle status bar image
+   * Increments the percentage of collected bottles when a bottle is collected.
    */
   bottleCollected() {
     this.percentageBottles += 20;
     if (this.percentageBottles > 100) {
       this.percentageBottles = 100;
     }
-    this.setpercentageBottles();
+    this.setPercentageBottles();
   }
 
+  /**
+   * Decrements the percentage of collected bottles when a bottle is thrown.
+   */
   bottleThrown() {
     this.percentageBottles -= 20;
     if (this.percentageBottles < 0) {
       this.percentageBottles = 0;
     }
-    this.setpercentageBottles();
+    this.setPercentageBottles();
   }
 
+  /**
+   * Sets the percentage of collected bottles to 100% when coins are traded to refill bottles.
+   */
   tradedCoinsToRefillBottles() {
     this.percentageBottles = 100;
-    this.setpercentageBottles();
+    this.setPercentageBottles();
   }
 }

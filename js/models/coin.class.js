@@ -1,3 +1,7 @@
+/**
+ * Represents a coin collectible object.
+ * @extends CollectableObject
+ */
 class Coin extends CollectableObject {
   IMAGES_COINS = ['img/8_coin/coin_1.png', 'img/8_coin/coin_2.png'];
 
@@ -8,6 +12,9 @@ class Coin extends CollectableObject {
     right: 40,
   };
 
+  /**
+   * Constructs a new Coin object.
+   */
   constructor() {
     super().loadImage('img/8_coin/coin_1.png');
     this.loadImages(this.IMAGES_COINS);
@@ -17,6 +24,9 @@ class Coin extends CollectableObject {
     this.animate();
   }
 
+  /**
+   * Initiates the animation for the coin.
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.IMAGES_COINS);
