@@ -12,6 +12,7 @@ function init() {
   ctx = canvas.getContext('2d');
   pauseStartScreenSound();
   playGameSound();
+  intervalIDs = [];
 }
 
 function gameOver() {
@@ -26,7 +27,7 @@ function gameOver() {
     pauseEndbossFightSound();
     playStartScreenSound();
   }
-
+  stopGame();
   setTimeout(() => clearAllIntervals(), 1000);
   showEndscreen();
 }
@@ -179,5 +180,5 @@ function stopGame() {
 }
 
 function clearAllIntervals() {
-  for (let i = 1; i < 99; i++) window.clearInterval(i);
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }

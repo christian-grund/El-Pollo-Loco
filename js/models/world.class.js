@@ -56,7 +56,11 @@ class World {
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !enemy.chickenIsDead && (!this.character.isAboveGround() || this.character.isJumpingUp() || !this.character.isWalking())) {
+      if (
+        this.character.isColliding(enemy) &&
+        !enemy.chickenIsDead &&
+        ((!this.character.isAboveGround() && this.character.energy >= 0) || this.character.isJumpingUp() || !this.character.isWalking())
+      ) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
       }
@@ -228,8 +232,6 @@ class World {
       this.ctx.fillText('Press R to refill bottles!', 260, 87);
     }
 
-    // draw wird immer wieder aufgerufen
-    // this kann nicht in der Funktion selbst stehen, deshalb wird es mit Zuweisung einer Variable deklariert
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -254,39 +256,32 @@ class World {
     this.addObjectsToMap(this.level.collectableObjects);
   }
 
-  // o = object
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
-  // mo = movable object
-  // prüft, ob mo otherDirection gesetzt ist
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
 
     mo.draw(this.ctx);
-    // mo.drawBlueFrame(this.ctx);
-    // mo.drawRedFrame(this.ctx);
-
-    // prüft, ob context im oberen Teil der Funktion verändert wurde
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
 
   flipImage(mo) {
-    this.ctx.save(); // aktuelle Einstellungen/Eigenschaften von Context werden gespeichert ("Screenshot")
-    this.ctx.translate(mo.width, 0); // Element wird zur Seite verschoben, damit es beim spiegeln keinen Sprung gibt
-    this.ctx.scale(-1, 1); // Ab hier wird alles spiegelverkehrt eingefügt
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
 
   flipImageBack(mo) {
-    mo.x = mo.x * -1; // Setzt Spiegelung zurück für nachfolgende Objekte
-    this.ctx.restore(); // Änderungen werden Rückgängig gemacht
+    mo.x = mo.x * -1;
+    this.ctx.restore();
   }
 }
