@@ -54,18 +54,6 @@ class World {
     this.isRunIntervalPaused = false;
   }
 
-  // togglePause() {
-  //   if (!this.paused) {
-  //     clearInterval(this.runInterval);
-  //     clearInterval(this.level.endboss.endbossAnimation);
-  //     this.level.endboss.stopEndbossAnimation();
-  //     this.paused = true;
-  //   } else {
-  //     this.run(); // Fortsetzen des Intervalls
-  //     this.paused = false;
-  //   }
-  // }
-
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (
@@ -107,7 +95,6 @@ class World {
 
   killChicken(enemy) {
     enemy.chickenIsDead = true;
-    console.log('enemy.chickenIsDead:', enemy.chickenIsDead);
     enemy.animateDeadChicken();
     enemy.playChickenSound();
   }
@@ -141,7 +128,6 @@ class World {
         if (this.collectingCoin(object)) {
           if (this.character.isColliding(object, index)) {
             this.coinAmount++;
-            console.log('coinAmount:', this.coinAmount);
             this.removeCollectedObject(index);
             this.statusBarCoin.coinCollected();
             if (!mute) {
@@ -249,7 +235,7 @@ class World {
 
     if (this.coinAmount == 10 && !this.keyboard.R) {
       this.ctx.fillStyle = 'white';
-      this.ctx.font = '24px zabars';
+      this.ctx.font = '18px mayan';
       this.ctx.fillText('Press R to refill bottles!', 260, 87);
     }
 

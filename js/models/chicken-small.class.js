@@ -1,5 +1,5 @@
 class ChickenSmall extends MovableObject {
-  y = 335;
+  y = 345;
   height = 80;
   width = 60;
   acceleration = 5;
@@ -25,7 +25,7 @@ class ChickenSmall extends MovableObject {
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
-    this.ground = 335;
+    this.ground = 345;
     this.x = 1000 + Math.random() * 5000;
     this.speed = 2 + Math.random() * 1;
     this.applyGravity();
@@ -48,7 +48,7 @@ class ChickenSmall extends MovableObject {
     }, 200);
 
     this.jumpInterval = setInterval(() => {
-      let jumpHeight = 15 + Math.random() * 15;
+      let jumpHeight = 20 + Math.random() * 15;
       if (!this.chickenIsDead) {
         this.speedY = jumpHeight;
         this.y -= 1;

@@ -19,7 +19,6 @@ function init() {
 }
 
 function gameOver() {
-  console.log('game over');
   let endscreenText = document.getElementById('endscreen-text');
 
   if (world.character.energy <= 0) {
@@ -131,18 +130,6 @@ function closeStory() {
   document.getElementById('info-button').style.filter = '';
 }
 
-// function toggleMute() {
-//   mute = !mute;
-//   console.log('mute:', mute);
-//   let soundButton = document.getElementById('mute-button');
-
-//   if (mute) {
-//     soundButton.style.backgroundImage = 'url("img/10_other/sound_off.svg")';
-//   } else {
-//     soundButton.style.backgroundImage = 'url("img/10_other/sound_on.svg")';
-//   }
-// }
-
 function toggleFullscreen() {
   let fullscreen = document.getElementById('game-container');
   let canvas = document.getElementById('canvas');
@@ -193,10 +180,8 @@ function exitFullscreen() {
 }
 
 function setStoppableInterval(fn, time) {
-  console.log('intervalIDs:', intervalIDs);
   let id = setInterval(fn, time);
   intervalIDs.push(id);
-  console.log('intervalIDs', intervalIDs);
 }
 
 function stopGame() {

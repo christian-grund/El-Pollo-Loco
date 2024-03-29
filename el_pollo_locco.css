@@ -64,12 +64,25 @@ p {
   margin-block-end: 0;
 }
 
+a {
+  color: rgb(255, 209, 16);
+}
+
+a:hover {
+  color: rgb(255, 186, 0);
+}
+
+.mobile-wrapper {
+  /* position: relative;
+  overflow: auto;
+  height: 100%; */
+}
+
 /* === Game Container === */
 #game-container {
   position: relative;
-  /* display: block; */
-  /* width: 720px;
-  height: 480px; */
+  /* overflow: auto; */
+  /* height: 100vh; */
 }
 
 /* === Startscreen === */
@@ -427,7 +440,7 @@ canvas {
   background-color: #fff;
   border-radius: 24px;
   padding: 24px;
-  margin: 100px 24px 0 24px;
+  margin: 100px 24px;
 }
 
 .imprintAndDataPrivacy p {
@@ -519,26 +532,16 @@ canvas {
 
 @media (max-width: 650px) {
   #overlay-rotate-device {
-    display: flex;
+    display: flex !important;
+  }
+
+  #game-container {
+    display: none !important;
   }
 }
 
 @media (max-width: 600px) {
-  .mobile-btns {
-    display: none;
-  }
-
   .imprintAndDataPrivacy {
     margin: 50px 12px 0 12px;
   }
 }
-
-/* .hover-text {
-  position: absolute;
-  bottom: -45px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  font-size: 24px;
-  /* transition: opacity 0.15s ease-in-out; 
-}*/

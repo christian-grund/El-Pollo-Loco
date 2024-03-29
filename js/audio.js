@@ -24,8 +24,6 @@ let audioData = [
 ];
 
 function toggleMuteButton() {
-  // Verhindern Sie die Standardaktion des Buttons
-
   let soundButton = document.getElementById('mute-button');
 
   if (!mute) {
@@ -36,7 +34,6 @@ function toggleMuteButton() {
     unmuteSound();
   }
 
-  // Fokus vom Button entfernen
   soundButton.blur();
 }
 
@@ -45,18 +42,14 @@ function muteSound() {
     audio.muted = true;
     audio.pause();
   });
-  console.log('muteSound');
   mute = true;
-  console.log('mute:', mute);
 }
 
 function unmuteSound() {
   audioData.forEach((audio) => {
     audio.muted = false;
   });
-  console.log('unmuteSound');
   mute = false;
-  console.log('mute:', mute);
 }
 
 function playStartScreenSound() {

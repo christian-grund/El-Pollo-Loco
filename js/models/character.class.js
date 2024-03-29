@@ -95,7 +95,7 @@ class Character extends MovableObject {
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
-        // playJumpingSound();
+        playJumpingSound();
       }
 
       if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D) {
@@ -128,7 +128,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.idleCounter > this.IDLE_LIMIT) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        // playSnoringSound();
+        playSnoringSound();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       } else {
