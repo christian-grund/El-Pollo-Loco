@@ -53,7 +53,8 @@ function unmuteSound() {
 }
 
 function playStartScreenSound() {
-  setTimeout(() => audioData[0].play(), 2500);
+  // setTimeout(() => audioData[0].play(), 2000);
+  audioData[0].play();
 }
 
 function pauseStartScreenSound() {

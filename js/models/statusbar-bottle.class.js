@@ -24,13 +24,13 @@ class StatusBarBottle extends DrawableObject {
     this.width = 200;
     this.height = 60;
 
-    this.setpercentageBottles();
+    this.setPercentageBottles();
   }
 
   /**
    * Sets the image of the bottle status bar based on the percentage of collected bottles.
    */
-  setpercentageBottles() {
+  setPercentageBottles() {
     let path = this.IMAGES_BOTTLE[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }

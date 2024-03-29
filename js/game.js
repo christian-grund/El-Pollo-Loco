@@ -17,7 +17,6 @@ function init() {
 
 function gameOver() {
   let endscreenText = document.getElementById('endscreen-text');
-  console.log('game-over');
   pauseSnoringSound();
   if (world.character.energy <= 0) {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
@@ -25,10 +24,11 @@ function gameOver() {
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
     pauseEndbossFightSound();
-    playStartScreenSound();
   }
-  stopGame();
-  setTimeout(() => clearAllIntervals(), 1000);
+  setTimeout(() => {
+    playStartScreenSound();
+    clearAllIntervals();
+  }, 2000);
   showEndscreen();
 }
 
@@ -36,7 +36,6 @@ function characterDiedSounds() {
   pauseGameSound();
   pauseEndbossFightSound();
   playGameLostSound();
-  playStartScreenSound();
 }
 
 function showStartscreen() {
