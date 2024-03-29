@@ -56,11 +56,7 @@ class World {
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        !enemy.chickenIsDead &&
-        (!this.character.isAboveGround() || this.character.isJumpingUp() || !this.character.isWalking())
-      ) {
+      if (this.character.isColliding(enemy) && !enemy.chickenIsDead && (!this.character.isAboveGround() || this.character.isJumpingUp() || !this.character.isWalking())) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
       }
@@ -75,16 +71,9 @@ class World {
 
   jumpOnChicken() {
     this.level.enemies.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        this.character.isJumpingDown() &&
-        !this.character.isHurt() &&
-        !enemy.chickenIsDead
-      ) {
+      if (this.character.isColliding(enemy) && this.character.isJumpingDown() && !this.character.isHurt() && !enemy.chickenIsDead) {
         this.killChicken(enemy);
-        setTimeout(() => {
-          this.character.jump();
-        }, 100);
+        setTimeout(() => this.character.jump(), 100);
         this.removeDeadChicken(enemy);
       } else if (this.character.y >= 180) {
         this.character.speedY = 0;

@@ -2,11 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let intervalIDs = [];
-// let mute = false;
 let fullscreenEnabled = false;
-let game_lost_sound = audioData[1];
-
-// window.onload =
 
 function init() {
   canvas = document.getElementById('canvas');
@@ -20,28 +16,26 @@ function init() {
 
 function gameOver() {
   let endscreenText = document.getElementById('endscreen-text');
-
+  console.log('game-over');
+  pauseSnoringSound();
   if (world.character.energy <= 0) {
-    pauseGameSound();
-    pauseEndbossFightSound();
     endscreenText.src = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
-    clearInterval(world.runInterval);
-    clearInterval(world.level.endboss.endbossAnimation);
-    game_lost_sound.play();
-    setTimeout(() => {
-      game_lost_sound.pause();
-      playStartScreenSound();
-    }, 3000);
+    characterDiedSounds();
   } else {
-    pauseEndbossFightSound();
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
+    pauseEndbossFightSound();
     playStartScreenSound();
   }
-  setTimeout(() => {
-    clearAllIntervals();
-  }, 7010);
 
+  setTimeout(() => clearAllIntervals(), 1000);
   showEndscreen();
+}
+
+function characterDiedSounds() {
+  pauseGameSound();
+  pauseEndbossFightSound();
+  playGameLostSound();
+  playStartScreenSound();
 }
 
 function showStartscreen() {
@@ -49,7 +43,6 @@ function showStartscreen() {
   document.getElementById('startscreen').style.display = 'flex';
   document.getElementById('top-left-buttons').style.display = 'flex';
   document.getElementById('startscreen-top-button').style.display = 'flex';
-  // playStartScreenSound();
 }
 
 function showCanvas() {
@@ -73,8 +66,7 @@ function toggleInstructions() {
   let instructionsButton = document.getElementById('control-button');
   if (instructions.style.display === 'none') {
     instructions.style.display = 'flex';
-    instructionsButton.style.filter =
-      'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
+    instructionsButton.style.filter = 'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
     document.addEventListener('click', closeInstructionsOutside);
   } else {
     instructions.style.display = 'none';
@@ -100,8 +92,7 @@ function toggleStory() {
 
   if (story.style.display === 'none') {
     story.style.display = 'flex';
-    storyButton.style.filter =
-      'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
+    storyButton.style.filter = 'invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%)';
     playButton.style.display = 'none';
     document.addEventListener('click', closeStoryOutside);
   } else {
@@ -140,23 +131,22 @@ function toggleFullscreen() {
   if (!fullscreenEnabled) {
     enterFullscreen(fullscreen);
     fullscreenButton.style.backgroundImage = 'url("img/10_other/fullscreen_close.svg")';
-    canvas.style.width = '100vw';
-    canvas.style.height = '100vh';
-    startscreen.style.width = '100vw';
-    startscreen.style.height = '100vh';
-    endscreen.style.width = '100vw';
-    endscreen.style.height = '100vh';
+    setElementSize(canvas, startscreen, endscreen, '100vw', '100vh');
   } else {
     exitFullscreen();
     fullscreenButton.style.backgroundImage = 'url("img/10_other/fullscreen_open.svg")';
-    canvas.style.width = '';
-    canvas.style.height = '';
-    startscreen.style.width = '';
-    startscreen.style.height = '';
-    endscreen.style.width = '';
-    endscreen.style.height = '';
+    setElementSize(canvas, startscreen, endscreen, '', '');
   }
   fullscreenEnabled = !fullscreenEnabled;
+}
+
+function setElementSize(canvas, startscreen, endscreen, width, height) {
+  startscreen.style.width = width;
+  startscreen.style.height = height;
+  canvas.style.width = width;
+  canvas.style.height = height;
+  endscreen.style.width = width;
+  endscreen.style.height = height;
 }
 
 function enterFullscreen(element) {

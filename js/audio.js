@@ -53,7 +53,7 @@ function unmuteSound() {
 }
 
 function playStartScreenSound() {
-  audioData[0].play();
+  setTimeout(() => audioData[0].play(), 2500);
 }
 
 function pauseStartScreenSound() {
@@ -64,9 +64,12 @@ function playGameLostSound() {
   audioData[1].play();
 }
 
+function pauseGameLostSound() {
+  audioData[1].pause();
+}
+
 function playCoinCollectSound() {
   audioData[2].cloneNode(true).play();
-  // audioData[2].play();
 }
 
 function playBottleCollectSound() {
