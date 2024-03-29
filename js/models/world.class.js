@@ -107,19 +107,9 @@ class World {
 
   killChicken(enemy) {
     enemy.chickenIsDead = true;
+    console.log('enemy.chickenIsDead:', enemy.chickenIsDead);
     enemy.animateDeadChicken();
     enemy.playChickenSound();
-    this.deadChickenFallDown(enemy);
-  }
-
-  deadChickenFallDown(enemy) {
-    setTimeout(() => {
-      const enemyIndex = this.world.level.enemies.indexOf(enemy);
-      console.log(enemyIndex);
-      if (enemyIndex > -1) {
-        enemy.applyGravity(enemyIndex);
-      }
-    }, 750);
   }
 
   removeDeadChicken(enemy) {
@@ -305,7 +295,7 @@ class World {
 
     mo.draw(this.ctx);
     // mo.drawBlueFrame(this.ctx);
-    mo.drawRedFrame(this.ctx);
+    // mo.drawRedFrame(this.ctx);
 
     // prüft, ob context im oberen Teil der Funktion verändert wurde
     if (mo.otherDirection) {

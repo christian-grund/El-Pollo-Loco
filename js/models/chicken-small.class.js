@@ -2,10 +2,10 @@ class ChickenSmall extends MovableObject {
   y = 335;
   height = 80;
   width = 60;
-  acceleration = 4;
+  acceleration = 5;
   chickenIsDead = false;
-  jumpInterval = null;
-  // speedY = 15;
+  isJumping = false;
+  // speedY = 25;
   world;
   offset = {
     top: -30,
@@ -25,11 +25,9 @@ class ChickenSmall extends MovableObject {
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
     this.loadImages(this.IMAGES_WALKING);
-    this.y = 335;
     this.ground = 335;
     this.x = 1000 + Math.random() * 5000;
-    // this.x = 700 + Math.random() * 100;
-    this.speed = 1 + Math.random() * 1;
+    this.speed = 2 + Math.random() * 1;
     this.applyGravity();
 
     this.animate();
@@ -37,7 +35,7 @@ class ChickenSmall extends MovableObject {
   }
 
   calculateInterval = () => {
-    return 1000 + Math.random() * 1000;
+    return 1500 + Math.random() * 1000;
   };
 
   animate() {
@@ -62,40 +60,11 @@ class ChickenSmall extends MovableObject {
     super.moveLeft();
   }
 
-  // chickenSmallJump() {
-  //   this.speedY = 15;
-  //   this.applyGravity();
-
-  //   // Prüfen, ob das Huhn den Boden erreicht hat und das Intervall beenden
-  //   if (this.y <= 335) {
-  //     clearInterval(this.jumpInterval);
-  //     this.jumpInterval = null; // Intervall beendet, setzen Sie die Flagge zurück
-  //     this.animate();
-  //   }
-
-  //   console.log('this.y:', this.y);
-  // }
-
-  // chickenSmallJump() {
-  //   this.speedY = 20;
-  //   if (this.speedY > 0) {
-  //     this.y -= this.speedY;
-  //     this.speedY -= this.acceleration;
-  //     console.log(this.y);
-  //     console.log(this.speedY);
-  //   }
-
-  //   if (this.y <= 335) {
-  //     clearInterval(this.jumpInterval);
-  //     this.jumpInterval = null;
-  //     this.animate();
-  //   }
-  // }
-
   animateDeadChicken() {
     if (this.chickenIsDead) {
       this.loadImage(this.IMAGE_DEAD);
       this.removeDeadChickenInterval();
+      return this.y < 1000;
     }
   }
 
@@ -108,5 +77,6 @@ class ChickenSmall extends MovableObject {
   removeDeadChickenInterval() {
     clearInterval(this.moveLeftInterval);
     clearInterval(this.walkAnimationInterval);
+    clearInterval(this.animate);
   }
 }

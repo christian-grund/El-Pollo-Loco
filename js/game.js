@@ -31,12 +31,12 @@ function gameOver() {
     game_lost_sound.play();
     setTimeout(() => {
       game_lost_sound.pause();
-      // playStartScreenSound();
-    }, 6000);
+      playStartScreenSound();
+    }, 3000);
   } else {
     pauseEndbossFightSound();
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
-    // playStartScreenSound();
+    playStartScreenSound();
   }
   setTimeout(() => {
     clearAllIntervals();

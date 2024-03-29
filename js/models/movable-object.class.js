@@ -16,13 +16,11 @@ class MovableObject extends DrawableObject {
     right: 0,
   };
 
-  applyGravity(object) {
+  applyGravity() {
     setInterval(() => {
-      // if (this.isAboveGround() || this.speedY > 0 || this.deadChickenFallsDown(object)) {
-      if (this.isAboveGround() || this.deadChickenFallsDown(object)) {
+      if (this.isAboveGround()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
-        // console.log('this.y:', this.y);
       } else {
         this.y = this.ground;
       }
@@ -31,24 +29,6 @@ class MovableObject extends DrawableObject {
 
   isAboveGround() {
     return this.y < this.ground;
-  }
-
-  // isAboveGround() {
-  //   if (this instanceof ThrowableObject) {
-  //     // Throwable Object should always fall
-  //     if (this.y < 350) {
-  //       return true;
-  //     }
-  //   } else {
-  //     return this.y < 180;
-  //   }
-  // }
-
-  deadChickenFallsDown(object) {
-    // if (this instanceof ChickenNormal || this instanceof ChickenSmall) {
-    // if (object) {
-    //   return this.y < 1000;
-    // }
   }
 
   jump() {

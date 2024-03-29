@@ -117,11 +117,11 @@ function playBottleSplashSound() {
 }
 
 function playNormalChickenDefeatedSound() {
-  audioData[11].cloneNode(true).play();
+  audioData[11].play();
 }
 
 function playSmallChickenDefeatedSound() {
-  audioData[12].cloneNode(true).play();
+  audioData[12].play();
 }
 
 function playEndossAttakSound() {
