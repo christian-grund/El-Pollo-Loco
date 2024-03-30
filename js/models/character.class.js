@@ -69,11 +69,7 @@ class Character extends MovableObject {
     'img/2_character_pepe/5_dead/D-57.png',
   ];
 
-  IMAGES_HURT = [
-    'img/2_character_pepe/4_hurt/H-41.png',
-    'img/2_character_pepe/4_hurt/H-42.png',
-    'img/2_character_pepe/4_hurt/H-43.png',
-  ];
+  IMAGES_HURT = ['img/2_character_pepe/4_hurt/H-41.png', 'img/2_character_pepe/4_hurt/H-42.png', 'img/2_character_pepe/4_hurt/H-43.png'];
 
   constructor() {
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -83,8 +79,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
-    // this.applyGravity();
-    this.applyGravity(this.y);
+    this.applyGravity();
+    // this.applyGravity(this.y);
 
     this.animate();
   }

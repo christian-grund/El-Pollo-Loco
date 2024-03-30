@@ -26,7 +26,6 @@ function gameOver() {
   clearAllIntervals();
   startScreenSoundInterval = setInterval(() => {
     playStartScreenSound();
-    console.log('startScreenSoundInterval');
   }, 1000 / 25);
   showEndscreen();
 }

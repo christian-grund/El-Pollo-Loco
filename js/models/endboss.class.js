@@ -4,7 +4,6 @@ class Endboss extends MovableObject {
   y = 55;
   world;
   energy = 100;
-
   endbossIsHurt = false;
   endbossIsDead = false;
   hadFirstContact = false;
@@ -82,15 +81,19 @@ class Endboss extends MovableObject {
         }
         if (world.level.endboss[0].x - world.character.x <= 500 && world.level.endboss[0].x - world.character.x > 250) {
           this.moveLeft();
+          this.otherDirection = false;
           this.playAnimation(this.IMAGES_WALKING);
         } else if (world.character.x - world.level.endboss[0].x <= 800 && world.character.x - world.level.endboss[0].x >= 450) {
           this.moveRight();
+          this.otherDirection = true;
           this.playAnimation(this.IMAGES_WALKING);
         } else if (world.level.endboss[0].x - world.character.x <= 250 && world.level.endboss[0].x - world.character.x >= 0) {
           this.moveLeft();
+          this.otherDirection = false;
           this.playAnimation(this.IMAGES_ATTAK);
         } else if (world.character.x - world.level.endboss[0].x <= 450 && world.character.x - world.level.endboss[0].x >= 0) {
           this.moveRight();
+          this.otherDirection = true;
           this.playAnimation(this.IMAGES_ATTAK);
         }
       }
@@ -121,6 +124,7 @@ class Endboss extends MovableObject {
       clearInterval(this.endbossAnimation);
       pauseEndbossFightSound();
       playEndbossDefeatedSound();
+      pauseSnoringSound();
       setTimeout(() => playGameWonSound(), 2000);
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 150);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
