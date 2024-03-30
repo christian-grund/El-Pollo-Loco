@@ -10,9 +10,8 @@ function init() {
   initLevel();
   world = new World(canvas, keyboard);
   ctx = canvas.getContext('2d');
+  clearInterval(this.startScreenSoundInterval);
   pauseStartScreenSound();
-  playGameSound();
-  intervalIDs = [];
 }
 
 function gameOver() {
@@ -24,8 +23,11 @@ function gameOver() {
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
   }
-  playStartScreenSound();
   clearAllIntervals();
+  startScreenSoundInterval = setInterval(() => {
+    playStartScreenSound();
+    console.log('startScreenSoundInterval');
+  }, 1000 / 25);
   showEndscreen();
 }
 

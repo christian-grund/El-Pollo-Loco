@@ -39,6 +39,7 @@ class World {
         this.jumpOnChicken();
         this.checkThrowColissions();
         this.checkTradeCoinsToRefillBottles();
+        playGameSound();
       }
     }, 100);
     this.throwInterval = setInterval(() => {
