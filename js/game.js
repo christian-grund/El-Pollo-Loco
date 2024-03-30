@@ -23,19 +23,14 @@ function gameOver() {
     characterDiedSounds();
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
-    pauseEndbossFightSound();
   }
-  setTimeout(() => {
-    playStartScreenSound();
-    clearAllIntervals();
-  }, 2000);
+  playStartScreenSound();
+  clearAllIntervals();
   showEndscreen();
 }
 
 function characterDiedSounds() {
   pauseGameSound();
-  pauseEndbossFightSound();
-  playGameLostSound();
 }
 
 function showStartscreen() {

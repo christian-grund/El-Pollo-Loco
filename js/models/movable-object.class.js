@@ -71,9 +71,12 @@ class MovableObject extends DrawableObject {
 
   hit() {
     this.energy -= 3;
+    console.log('this.energy', this.energy);
     if (this.energy < 0) {
       this.energy = 0;
-      gameOver();
+      pauseEndbossFightSound();
+      playGameLostSound();
+      setTimeout(() => gameOver(), 3000);
     } else {
       this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;
       playHurtSound();
