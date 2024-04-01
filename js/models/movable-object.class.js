@@ -1,5 +1,7 @@
+/**
+ * Represents a movable object in the game.
+ */
 class MovableObject extends DrawableObject {
-  // keyboard = new Keyboard();
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
@@ -17,11 +19,16 @@ class MovableObject extends DrawableObject {
     right: 0,
   };
 
-  constructor(keyboardInstance) {
+  /**
+   * Constructs a new MovableObject.
+   */
+  constructor() {
     super();
-    this.keyboardInstance = keyboardInstance;
   }
 
+  /**
+   * Applies gravity to the object.
+   */
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround()) {
@@ -33,23 +40,37 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * Checks if the object is above the ground.
+   * @returns {boolean} True if the object is above the ground, otherwise false.
+   */
   isAboveGround() {
     return this.y < this.ground;
   }
 
+  /**
+   * Initiates a jump action for the object.
+   */
   jump() {
     this.speedY = 22.5;
     this.y -= 1;
   }
 
+  /**
+   * Plays an animation for the object.
+   * @param {Array} images - Array of image paths for the animation.
+   */
   playAnimation(images) {
-    let i = this.currentImage % images.length; // let i = 0 % 6 (% = mathematische Rest)
-    // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, ...
+    let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
   }
 
+  /**
+   * Plays an animation once for the object.
+   * @param {Array} images - Array of image paths for the animation.
+   */
   playAnimationOnce(images) {
     for (let i = 0; i < images.length; i++) {
       let path = images[i];
@@ -57,24 +78,37 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Moves the object to the right.
+   */
   moveRight() {
     this.x += this.speed;
   }
 
+  /**
+   * Moves the object to the left.
+   */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /**
+   * Checks if the object is colliding with another object.
+   * @param {MovableObject} mo - The other movable object.
+   * @returns {boolean} True if colliding, otherwise false.
+   */
   isColliding(mo) {
-    // return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
     return (
-      this.x + this.width - this.offset.right > mo.x + mo.offset.left && // R->L // Rechteck-Kollision in X-Richtung: Dieser Ausdruck überprüft, ob der rechte Rand des aktuellen Objekts rechts vom linken Rand des anderen Objekts liegt.
-      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && // T->B // Rechteck-Kollision in Y-Richtung: Dieser Ausdruck überprüft, ob der untere Rand des aktuellen Objekts unterhalb des oberen Rands des anderen Objekts liegt.
-      this.x + this.offset.left < mo.x + mo.width - mo.offset.right && // L->R // Rechteck-Kollision in X-Richtung (umgekehrt): Dieser Ausdruck überprüft, ob der linke Rand des aktuellen Objekts links vom rechten Rand des anderen Objekts liegt.
-      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom // B->T // Rechteck-Kollision in Y-Richtung (umgekehrt):Dieser Ausdruck überprüft, ob der obere Rand des aktuellen Objekts über dem unteren Rand des anderen Objekts liegt.
+      this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+      this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     );
   }
 
+  /**
+   * Handles the event when the object is hit.
+   */
   hit() {
     this.energy -= 3;
     if (this.energy < 0) {
@@ -83,11 +117,14 @@ class MovableObject extends DrawableObject {
       playGameLostSound();
       setTimeout(() => gameOver(), 3000);
     } else {
-      this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;
+      this.lastHit = new Date().getTime();
       playHurtSound();
     }
   }
 
+  /**
+   * Removes event listeners.
+   */
   removeEventListeners() {
     if (this.keyboardInstance instanceof Keyboard) {
       this.keyboardInstance.unbindPressEvents();
@@ -96,31 +133,52 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Checks if the object is hurt.
+   * @returns {boolean} True if hurt, otherwise false.
+   */
   isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-    timepassed = timepassed / 1000; // Difference in s
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
+  /**
+   * Checks if the object is dead.
+   * @returns {boolean} True if dead, otherwise false.
+   */
   isDead() {
-    return this.energy == 0; // returns true or false
+    return this.energy == 0;
   }
 
+  /**
+   * Checks if the object is on the ground.
+   * @returns {boolean} True if on the ground, otherwise false.
+   */
   isOnGround() {
-    // if (this.speedY == -25) {
-    //   this.speedY = 0;
-    // }
     return this.speedY == 0;
   }
 
+  /**
+   * Checks if the object is jumping up.
+   * @returns {boolean} True if jumping up, otherwise false.
+   */
   isJumpingUp() {
     return this.speedY > 0;
   }
 
+  /**
+   * Checks if the object is walking.
+   * @returns {boolean} True if walking, otherwise false.
+   */
   isWalking() {
     return this.speed > 0;
   }
 
+  /**
+   * Checks if the object is jumping down.
+   * @returns {boolean} True if jumping down, otherwise false.
+   */
   isJumpingDown() {
     if (this.speedY <= -25) {
       this.speedY = 0;

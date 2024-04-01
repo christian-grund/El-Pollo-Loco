@@ -20,7 +20,6 @@ class Coin extends CollectableObject {
     this.loadImages(this.IMAGES_COINS);
     this.x = 500 + Math.random() * 4000;
     this.y = 125 + Math.random() * 75;
-
     this.animate();
   }
 
@@ -28,8 +27,6 @@ class Coin extends CollectableObject {
    * Initiates the animation for the coin.
    */
   animate() {
-    setInterval(() => {
-      this.playAnimation(this.IMAGES_COINS);
-    }, 400);
+    setInterval(() => this.playAnimation(this.IMAGES_COINS), 400);
   }
 }

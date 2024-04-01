@@ -1,3 +1,6 @@
+/**
+ * Represents a keyboard controller for the game.
+ */
 class Keyboard {
   LEFT = false;
   RIGHT = false;
@@ -11,12 +14,17 @@ class Keyboard {
   THROW_REQUEST_STOP = new Date().getTime();
   THROW_REQUEST_START = 0;
 
+  /**
+   * Constructs a new Keyboard object.
+   */
   constructor() {
     this.bindKeyPressEvents();
     this.bindBtsPressEvents();
-    // this.unbindPressEvents();
   }
 
+  /**
+   * Binds events for key press.
+   */
   bindKeyPressEvents() {
     window.addEventListener('keydown', (e) => {
       if (e.keyCode == 39) {
@@ -75,6 +83,9 @@ class Keyboard {
     });
   }
 
+  /**
+   * Binds events for button press on touch devices.
+   */
   bindBtsPressEvents() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
       e.preventDefault();
