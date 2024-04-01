@@ -80,40 +80,12 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.applyGravity();
-    // this.applyGravity(this.y);
 
     this.animate();
   }
 
   animate() {
-    setInterval(() => {
-      pauseWalkingSound();
-
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump();
-        playJumpingSound();
-      }
-
-      if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D) {
-        if (this.idleCounter > this.IDLE_LIMIT) {
-          this.idleCounter = 0;
-        }
-      }
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-        playWalkingSound();
-      }
-
-      if (this.world.keyboard.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.otherDirection = true;
-        playWalkingSound();
-      } else {
-        this.idleCounter += 1000 / 60;
-      }
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+    setInterval(() => this.moveCharacter(), 1000 / 60);
 
     setInterval(() => {
       if (this.isHurt()) {
@@ -134,5 +106,63 @@ class Character extends MovableObject {
         pauseSnoringSound();
       }
     }, 150);
+  }
+
+  moveCharacter() {
+    if (this.canJump()) {
+      this.jump();
+    }
+    if (this.stopIdleCounter) {
+      this.restartIdleCounter();
+    }
+    if (this.canMoveRight()) {
+      this.moveRight();
+    }
+    if (this.canMoveLeft()) {
+      this.moveLeft();
+    } else {
+      this.idleCounter += 1000 / 60;
+    }
+    pauseWalkingSound();
+    this.world.camera_x = -this.x + 100;
+  }
+
+  canJump() {
+    return this.world.keyboard.SPACE && !this.isAboveGround();
+  }
+
+  jump() {
+    super.jump();
+    playJumpingSound();
+  }
+
+  stopIdleCounter() {
+    return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D;
+  }
+
+  restartIdleCounter() {
+    if (this.idleCounter > this.IDLE_LIMIT) {
+      this.idleCounter = 0;
+    }
+  }
+
+  canMoveRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.energy >= 1;
+  }
+
+  moveRight() {
+    super.moveRight();
+    this.otherDirection = false;
+    playWalkingSound();
+  }
+
+  canMoveLeft() {
+    return this.world.keyboard.LEFT && this.x > 0 && this.energy >= 1;
+  }
+
+  moveLeft() {
+    super.moveLeft();
+    this.otherDirection = true;
+    playWalkingSound();
   }
 }

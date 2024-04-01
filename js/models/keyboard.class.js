@@ -14,6 +14,7 @@ class Keyboard {
   constructor() {
     this.bindKeyPressEvents();
     this.bindBtsPressEvents();
+    // this.unbindPressEvents();
   }
 
   bindKeyPressEvents() {
@@ -124,5 +125,21 @@ class Keyboard {
       e.preventDefault();
       this.R = false;
     });
+  }
+
+  unbindPressEvents() {
+    console.log('keyboard unbindPressEvents');
+    unbindKeyPressEvents();
+    unbindBtsPressEvents();
+  }
+
+  unbindKeyPressEvents() {
+    window.removeEventListener('keydown', this.keyDownHandler);
+    window.removeEventListener('keyup', this.keyUpHandler);
+  }
+
+  unbindPressEvents() {
+    document.getElementById('btnLeft').removeEventListener('touchstart', this.btnLeftTouchStartHandler);
+    document.getElementById('btnLeft').removeEventListener('touchend', this.btnLeftTouchEndHandler);
   }
 }

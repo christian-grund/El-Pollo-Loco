@@ -501,22 +501,23 @@ canvas {
   h1 {
     display: none;
   }
-  canvas {
-    height: 100vh;
-  }
-
-  .mobile-btns {
-    display: flex !important;
-  }
 
   #game-container {
-    height: 100vh;
+    height: 100dvh;
     width: auto;
+    overflow: visible;
+  }
+  canvas {
+    height: 100vh;
   }
 
   #startscreen,
   #enscreen {
     height: 100% !important;
+  }
+
+  .mobile-btns {
+    display: flex !important;
   }
 }
 
@@ -542,6 +543,6 @@ canvas {
 
 @media (max-width: 600px) {
   .imprintAndDataPrivacy {
-    margin: 50px 12px 0 12px;
+    margin: 50px 12px;
   }
 }

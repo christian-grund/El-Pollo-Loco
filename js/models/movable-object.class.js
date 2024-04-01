@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+  // keyboard = new Keyboard();
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
@@ -15,6 +16,11 @@ class MovableObject extends DrawableObject {
     bottom: 0,
     right: 0,
   };
+
+  constructor(keyboardInstance) {
+    super();
+    this.keyboardInstance = keyboardInstance;
+  }
 
   applyGravity() {
     setInterval(() => {
@@ -71,15 +77,23 @@ class MovableObject extends DrawableObject {
 
   hit() {
     this.energy -= 3;
-    console.log('this.energy', this.energy);
     if (this.energy < 0) {
       this.energy = 0;
       pauseEndbossFightSound();
       playGameLostSound();
+      callUnbindPressEvents();
       setTimeout(() => gameOver(), 3000);
     } else {
       this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;
       playHurtSound();
+    }
+  }
+
+  removeEventListeners() {
+    if (this.keyboardInstance instanceof Keyboard) {
+      this.keyboardInstance.unbindPressEvents();
+    } else {
+      console.error('Keyboard instance not available!');
     }
   }
 
