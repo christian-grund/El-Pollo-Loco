@@ -1,3 +1,7 @@
+/**
+ * Represents the endboss of the game.
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
   height = 400;
   width = 250;
@@ -39,9 +43,11 @@ class Endboss extends MovableObject {
   ];
 
   IMAGES_HURT = ['img/4_enemie_boss_chicken/4_hurt/G21.png', 'img/4_enemie_boss_chicken/4_hurt/G22.png', 'img/4_enemie_boss_chicken/4_hurt/G23.png'];
-
   IMAGES_DEAD = ['img/4_enemie_boss_chicken/5_dead/G24.png', 'img/4_enemie_boss_chicken/5_dead/G25.png', 'img/4_enemie_boss_chicken/5_dead/G26.png'];
 
+  /**
+   * Constructs a new Endboss object.
+   */
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -51,28 +57,44 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.x = 5250;
     this.speed = 50;
-
     this.animate();
   }
 
+  /**
+   * Initiates the animation of the end boss.
+   */
   animate() {
     this.endbossAlertAnimation = setInterval(() => this.endbossAlertInterval(), 200);
     this.endbossAnimation = setInterval(() => this.endbossAnimationInterval(), 200);
   }
 
+  /**
+   * Handles the end boss alert animation interval.
+   */
   endbossAlertInterval() {
     if (this.isBelowAlertPointX()) this.playAnimation(this.IMAGES_ALERT);
     else if (this.isOverAlertPointX()) this.happensOverAlertPointX();
   }
 
+  /**
+   * Checks if the character is below the alert point X.
+   * @returns {boolean} True if character is below alert point X, otherwise false.
+   */
   isBelowAlertPointX() {
     return world.character.x < 4800;
   }
 
+  /**
+   * Checks if the character is over the alert point X.
+   * @returns {boolean} True if character is over alert point X, otherwise false.
+   */
   isOverAlertPointX() {
     return world.character.x > 4800;
   }
 
+  /**
+   * Handles the situation when character is over the alert point X.
+   */
   happensOverAlertPointX() {
     this.hadFirstContact = true;
     pauseGameSound();
@@ -82,6 +104,9 @@ class Endboss extends MovableObject {
     }, 3000);
   }
 
+  /**
+   * Handles the end boss animation interval.
+   */
   endbossAnimationInterval() {
     pauseGameSound();
     if (this.hadFirstContact) {
@@ -97,6 +122,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Plays the hurt animation of the end boss.
+   */
   endbossIsHurtAnimation() {
     this.playAnimation(this.IMAGES_HURT);
     this.speed = 0;
@@ -104,58 +132,100 @@ class Endboss extends MovableObject {
     return;
   }
 
+  /**
+   * Checks if the end boss is far to the left of the character.
+   * @returns {boolean} True if the end boss is far to the left of the character, otherwise false.
+   */
   isLeftAndFar() {
     return world.level.endboss[0].x - world.character.x > 500;
   }
 
+  /**
+   * Checks if the end boss is far to the right of the character.
+   * @returns {boolean} True if the end boss is far to the right of the character, otherwise false.
+   */
   isRightAndFar() {
     return world.character.x - world.level.endboss[0].x > 800;
   }
 
+  /**
+   * Plays the alert animation of the end boss.
+   */
   alertAnimation() {
     this.playAnimation(this.IMAGES_ALERT);
   }
 
+  /**
+   * Checks if the end boss is near to the left of the character.
+   * @returns {boolean} True if the end boss is near to the left of the character, otherwise false.
+   */
   isLeftAndNear() {
     return world.level.endboss[0].x - world.character.x <= 500 && world.level.endboss[0].x - world.character.x > 250;
   }
 
+  /**
+   * Moves the end boss to the left and initiates walking animation.
+   */
   moveLeftAndWalk() {
     this.moveLeft();
     this.otherDirection = false;
     this.playAnimation(this.IMAGES_WALKING);
   }
 
+  /**
+   * Checks if the end boss is near to the right of the character.
+   * @returns {boolean} True if the end boss is near to the right of the character, otherwise false.
+   */
   isRightAndNear() {
     return world.character.x - world.level.endboss[0].x <= 800 && world.character.x - world.level.endboss[0].x >= 450;
   }
 
+  /**
+   * Moves the end boss to the right and initiates walking animation.
+   */
   moveRightAndWalk() {
     this.moveRight();
     this.otherDirection = true;
     this.playAnimation(this.IMAGES_WALKING);
   }
 
+  /**
+   * Checks if the end boss is close to the left of the character.
+   * @returns {boolean} True if the end boss is close to the left of the character, otherwise false.
+   */
   isLeftAndClose() {
     return world.level.endboss[0].x - world.character.x <= 250 && world.level.endboss[0].x - world.character.x >= 0;
   }
 
+  /**
+   * Moves the end boss to the left and initiates attack animation.
+   */
   moveLeftAndAttak() {
     this.moveLeft();
     this.otherDirection = false;
     this.playAnimation(this.IMAGES_ATTAK);
   }
 
+  /**
+   * Checks if the end boss is close to the right of the character.
+   * @returns {boolean} True if the end boss is close to the right of the character, otherwise false.
+   */
   isRightAndClose() {
     return world.character.x - world.level.endboss[0].x <= 450 && world.character.x - world.level.endboss[0].x >= 0;
   }
 
+  /**
+   * Moves the end boss to the right and initiates attack animation.
+   */
   moveRightAndAttak() {
     this.moveRight();
     this.otherDirection = true;
     this.playAnimation(this.IMAGES_ATTAK);
   }
 
+  /**
+   * Handles the event when the end boss is hit.
+   */
   endbossIsHit() {
     this.energy -= 7.5;
     playEndbossHurtSound();
@@ -170,10 +240,16 @@ class Endboss extends MovableObject {
     this.setStatusBarEndboss();
   }
 
+  /**
+   * Updates the status bar for the end boss.
+   */
   setStatusBarEndboss() {
     world.statusBarEndboss.setPercentage(this.energy);
   }
 
+  /**
+   * Handles the event when the end boss is killed.
+   */
   endbossIsKilled() {
     if (this.endbossDead) {
       clearInterval(world.runInterval);
