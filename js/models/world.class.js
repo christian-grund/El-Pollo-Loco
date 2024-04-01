@@ -146,7 +146,7 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck) {
+    if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck && this.character.energy >= 1) {
       let bottleIndex;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
       bottle.throw(this.character.otherDirection);

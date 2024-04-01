@@ -16,7 +16,6 @@ class ChickenNormal extends MovableObject {
   };
 
   IMAGES_WALKING = ['img/3_enemies_chicken/chicken_normal/1_walk/1_w.png', 'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png', 'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'];
-
   IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
   /**
@@ -36,13 +35,8 @@ class ChickenNormal extends MovableObject {
    * Initiates various animations for the chicken.
    */
   animate() {
-    this.moveLeftInterval = setInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-
-    this.walkAnimationInterval = setInterval(() => {
-      this.playAnimation(this.IMAGES_WALKING);
-    }, 200);
+    this.moveLeftInterval = setInterval(() => this.moveLeft(), 1000 / 60);
+    this.walkAnimationInterval = setInterval(() => this.playAnimation(this.IMAGES_WALKING), 200);
   }
 
   /**

@@ -15,7 +15,6 @@ class ChickenSmall extends MovableObject {
   };
 
   IMAGES_WALKING = ['img/3_enemies_chicken/chicken_small/1_walk/1_w.png', 'img/3_enemies_chicken/chicken_small/1_walk/2_w.png', 'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'];
-
   IMAGE_DEAD = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
   /**
@@ -28,39 +27,36 @@ class ChickenSmall extends MovableObject {
     this.x = 1000 + Math.random() * 5000;
     this.speed = 2 + Math.random() * 1;
     this.applyGravity();
-
     this.animate();
     this.animateDeadChicken();
+  }
+
+  /**
+   * Initiates various animations for the chicken.
+   */
+  animate() {
+    this.moveLeftInterval = setInterval(() => this.moveLeft(), 1000 / 60);
+    this.walkAnimationInterval = setInterval(() => this.playAnimation(this.IMAGES_WALKING), 200);
+    this.jumpInterval = setInterval(() => this.jump(), this.calculateInterval());
+  }
+
+  /**
+   * Performs a jump of the chicken character.
+   */
+  jump() {
+    let jumpHeight = 15 + Math.random() * 12.5;
+    if (!this.chickenIsDead) {
+      this.speedY = jumpHeight;
+      this.y -= 1;
+    }
   }
 
   /**
    * Calculates the interval for chicken jump animation.
    * @returns {number} The interval for chicken jump animation.
    */
-  calculateInterval = () => {
+  calculateInterval() {
     return 1500 + Math.random() * 1000;
-  };
-
-  /**
-   * Initiates various animations for the chicken.
-   */
-  animate() {
-    this.moveLeftInterval = setInterval(() => {
-      this.moveLeft();
-    }, 1000 / 60);
-    setStoppableInterval(this.moveLeftInterval, 1000 / 60);
-
-    this.walkAnimationInterval = setInterval(() => {
-      this.playAnimation(this.IMAGES_WALKING);
-    }, 200);
-
-    this.jumpInterval = setInterval(() => {
-      let jumpHeight = 15 + Math.random() * 12.5;
-      if (!this.chickenIsDead) {
-        this.speedY = jumpHeight;
-        this.y -= 1;
-      }
-    }, this.calculateInterval());
   }
 
   /**

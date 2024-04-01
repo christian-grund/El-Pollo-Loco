@@ -1,0 +1,155 @@
+.game-story {
+  position: absolute;
+  top: 50px;
+  left: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 620px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: rgb(255, 209, 16);
+}
+
+.game-story p {
+  font-size: 24px;
+  letter-spacing: 1.1;
+}
+
+.game-story h2 {
+  margin-top: -8px;
+}
+
+.game-story-close {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.game-story-close img {
+  height: 24px;
+  cursor: pointer;
+  margin-bottom: -100px;
+  z-index: 2;
+}
+
+.imprint-body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(255, 186, 0);
+}
+
+.imprintAndDataPrivacy {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  margin: 100px 24px;
+}
+
+.imprintAndDataPrivacy p {
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 8px;
+}
+
+#overlay-rotate-device {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 48px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(255, 186, 0);
+  z-index: 10;
+}
+
+#overlay-rotate-device img {
+  height: 200px;
+}
+
+#overlay-rotate-device p {
+  font-size: 48px;
+}
+
+/* Smartphones - - - - - - - - - - */
+@media only screen and (max-width: 720px) {
+  h1 {
+    display: none;
+  }
+
+  #game-container {
+    width: 100vw !important;
+  }
+
+  #startscreen,
+  #endscreen {
+    width: 100% !important;
+    /* height: auto;
+    max-height: 480px; */
+  }
+
+  canvas {
+    width: 100%;
+  }
+
+  .mobile-btns {
+    display: flex !important;
+  }
+}
+/* Smartphones - - - - - - - - - - */
+@media only screen and (max-height: 480px) {
+  h1 {
+    display: none;
+  }
+
+  #game-container {
+    height: 100dvh;
+    width: auto;
+    overflow: visible;
+  }
+  canvas {
+    height: 100vh;
+  }
+
+  #startscreen,
+  #enscreen {
+    height: 100% !important;
+  }
+
+  .mobile-btns {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 720px) {
+  #startscreen,
+  #endscreen,
+  canvas {
+    width: 100%;
+    height: calc((100vw / 720) * 480);
+    aspect-ratio: 720 / 480;
+  }
+}
+
+@media (max-width: 650px) {
+  #overlay-rotate-device {
+    display: flex !important;
+  }
+
+  #game-container {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .imprintAndDataPrivacy {
+    margin: 50px 12px;
+  }
+}

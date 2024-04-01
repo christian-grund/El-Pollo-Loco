@@ -1,25 +1,5 @@
 /* === Global === */
 @font-face {
-  font-family: 'mexikana';
-  src: url('fonts/mexicana.ttf');
-}
-
-@font-face {
-  font-family: 'zabars';
-  src: url('fonts/zabars.ttf');
-}
-
-@font-face {
-  font-family: 'tacomodern';
-  src: url('fonts/tacomodern.TTF');
-}
-
-@font-face {
-  font-family: 'patternsanddots';
-  src: url('fonts/patternsanddots.TTF');
-}
-
-@font-face {
   font-family: 'tacobox';
   src: url('fonts/tacobox.TTF');
 }
@@ -123,11 +103,8 @@ a:hover {
 }
 
 .startscreen-top-button button:hover {
-  /* transform: scale(1.05);
-  background-color: rgb(255, 186, 0);
-  font-size: 30px; */
-  transform: translateY(-3px); /* Hebt den Button leicht an */
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Vergrößerter Schatten */
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 186, 0);
 }
 
@@ -189,10 +166,6 @@ a:hover {
   background-image: url('img/10_other/sound_on.svg');
 }
 
-#pause-button {
-  background-image: url('img/10_other/pause_circle.svg');
-}
-
 #fullscreen-button {
   background-image: url('img/10_other/fullscreen_open.svg');
 }
@@ -201,8 +174,7 @@ a:hover {
 #control-button:hover,
 #privacy-button:hover,
 #mute-button:hover,
-#fullscreen-button:hover,
-#pause-button:hover {
+#fullscreen-button:hover {
   filter: invert(83%) sepia(55%) saturate(3105%) hue-rotate(359deg) brightness(103%) contrast(103%);
 }
 
@@ -233,7 +205,6 @@ canvas {
   position: relative;
   width: 720px;
   height: 480px;
-  /* justify-content: center; */
   background-image: url('img/5_background/second_half_background.png');
   background-size: cover;
   background-position: center;
@@ -261,8 +232,8 @@ canvas {
 .endscreen-top-buttons button:hover {
   cursor: pointer;
   background-color: rgb(255, 198, 0);
-  transform: translateY(-3px); /* Hebt den Button leicht an */
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Vergrößerter Schatten */
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 186, 0);
 }
 
@@ -386,163 +357,4 @@ canvas {
 .keyboard-key-r span {
   padding-left: 98px;
   font-size: 20px;
-}
-
-.game-story {
-  position: absolute;
-  top: 50px;
-  left: 34px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  width: 620px;
-  /* height: 480px;
-  overflow-y: auto; */
-  padding: 16px;
-  border-radius: 16px;
-  background-color: rgb(255, 209, 16);
-}
-
-.game-story p {
-  font-size: 24px;
-  /* font-family: 'mayan'; */
-  letter-spacing: 1.1;
-}
-
-.game-story h2 {
-  margin-top: -8px;
-}
-
-.game-story-close {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.game-story-close img {
-  height: 24px;
-  cursor: pointer;
-  margin-bottom: -100px;
-  z-index: 2;
-}
-
-.imprint-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  background-color: rgb(255, 186, 0);
-}
-
-.imprintAndDataPrivacy {
-  display: flex;
-  flex-direction: column;
-  max-width: 1024px;
-  background-color: #fff;
-  border-radius: 24px;
-  padding: 24px;
-  margin: 100px 24px;
-}
-
-.imprintAndDataPrivacy p {
-  font-family: Arial, Helvetica, sans-serif;
-  padding-bottom: 8px;
-}
-
-#overlay-rotate-device {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 0;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 48px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(255, 186, 0);
-  z-index: 10;
-}
-
-#overlay-rotate-device img {
-  height: 200px;
-}
-
-#overlay-rotate-device p {
-  font-size: 48px;
-}
-
-/* Smartphones - - - - - - - - - - */
-@media only screen and (max-width: 720px) {
-  h1 {
-    display: none;
-  }
-
-  #game-container {
-    width: 100vw !important;
-  }
-
-  #startscreen,
-  #endscreen {
-    width: 100% !important;
-    /* height: auto;
-    max-height: 480px; */
-  }
-
-  canvas {
-    width: 100%;
-  }
-
-  .mobile-btns {
-    display: flex !important;
-  }
-}
-/* Smartphones - - - - - - - - - - */
-@media only screen and (max-height: 480px) {
-  h1 {
-    display: none;
-  }
-
-  #game-container {
-    height: 100dvh;
-    width: auto;
-    overflow: visible;
-  }
-  canvas {
-    height: 100vh;
-  }
-
-  #startscreen,
-  #enscreen {
-    height: 100% !important;
-  }
-
-  .mobile-btns {
-    display: flex !important;
-  }
-}
-
-@media (max-width: 720px) {
-  #startscreen,
-  #endscreen,
-  canvas {
-    width: 100%;
-    height: calc((100vw / 720) * 480);
-    aspect-ratio: 720 / 480;
-  }
-}
-
-@media (max-width: 650px) {
-  #overlay-rotate-device {
-    display: flex !important;
-  }
-
-  #game-container {
-    display: none !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .imprintAndDataPrivacy {
-    margin: 50px 12px;
-  }
 }
