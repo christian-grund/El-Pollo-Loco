@@ -81,7 +81,6 @@ class MovableObject extends DrawableObject {
       this.energy = 0;
       pauseEndbossFightSound();
       playGameLostSound();
-      callUnbindPressEvents();
       setTimeout(() => gameOver(), 3000);
     } else {
       this.lastHit = new Date().getTime(); // Zeit in ms seit dem 01.01.1970;

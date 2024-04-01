@@ -36,11 +36,6 @@ function characterDiedSounds() {
   pauseGameSound();
 }
 
-function callUnbindPressEvents() {
-  console.log('callUnbindPressEvents');
-  keyboard.unbindPressEvents();
-}
-
 function showStartscreen() {
   document.getElementById('endscreen').style.display = 'none';
   document.getElementById('startscreen').style.display = 'flex';
