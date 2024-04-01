@@ -56,48 +56,104 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    this.endbossAlertAnimation = setInterval(() => {
-      if (world.character.x < 4800) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (world.character.x > 4800) {
-        this.hadFirstContact = true;
-        pauseGameSound();
-        playEndbossAttakSound();
-        setTimeout(() => {
-          pauseEndbossAttakSound();
-        }, 3000);
-      }
-    }, 200);
+    this.endbossAlertAnimation = setInterval(() => this.endbossAlertInterval(), 200);
+    this.endbossAnimation = setInterval(() => this.endbossAnimationInterval(), 200);
+  }
 
-    this.endbossAnimation = setInterval(() => {
-      if (this.hadFirstContact) {
-        clearInterval(this.endbossAlertAnimation);
-        playEndbossFightSound();
-        if (this.endbossIsHurt) {
-          this.playAnimation(this.IMAGES_HURT);
-          this.speed = 0;
-          setTimeout(() => (this.speed = 50), 1000);
-          return;
-        }
-        if (world.level.endboss[0].x - world.character.x <= 500 && world.level.endboss[0].x - world.character.x > 250) {
-          this.moveLeft();
-          this.otherDirection = false;
-          this.playAnimation(this.IMAGES_WALKING);
-        } else if (world.character.x - world.level.endboss[0].x <= 800 && world.character.x - world.level.endboss[0].x >= 450) {
-          this.moveRight();
-          this.otherDirection = true;
-          this.playAnimation(this.IMAGES_WALKING);
-        } else if (world.level.endboss[0].x - world.character.x <= 250 && world.level.endboss[0].x - world.character.x >= 0) {
-          this.moveLeft();
-          this.otherDirection = false;
-          this.playAnimation(this.IMAGES_ATTAK);
-        } else if (world.character.x - world.level.endboss[0].x <= 450 && world.character.x - world.level.endboss[0].x >= 0) {
-          this.moveRight();
-          this.otherDirection = true;
-          this.playAnimation(this.IMAGES_ATTAK);
-        }
-      }
-    }, 200);
+  endbossAlertInterval() {
+    if (this.isBelowAlertPointX()) this.playAnimation(this.IMAGES_ALERT);
+    else if (this.isOverAlertPointX()) this.happensOverAlertPointX();
+  }
+
+  isBelowAlertPointX() {
+    return world.character.x < 4800;
+  }
+
+  isOverAlertPointX() {
+    return world.character.x > 4800;
+  }
+
+  happensOverAlertPointX() {
+    this.hadFirstContact = true;
+    pauseGameSound();
+    playEndbossAttakSound();
+    setTimeout(() => {
+      pauseEndbossAttakSound();
+    }, 3000);
+  }
+
+  endbossAnimationInterval() {
+    pauseGameSound();
+    if (this.hadFirstContact) {
+      clearInterval(this.endbossAlertAnimation);
+      playEndbossFightSound();
+      if (this.endbossIsHurt) this.endbossIsHurtAnimation();
+      if (this.isLeftAndFar()) this.alertAnimation();
+      if (this.isRightAndFar()) this.alertAnimation();
+      if (this.isLeftAndNear()) this.moveLeftAndWalk();
+      else if (this.isRightAndNear()) this.moveRightAndWalk();
+      else if (this.isLeftAndClose()) this.moveLeftAndAttak();
+      else if (this.isRightAndClose()) this.moveRightAndAttak();
+    }
+  }
+
+  endbossIsHurtAnimation() {
+    this.playAnimation(this.IMAGES_HURT);
+    this.speed = 0;
+    setTimeout(() => (this.speed = 50), 1000);
+    return;
+  }
+
+  isLeftAndFar() {
+    return world.level.endboss[0].x - world.character.x > 500;
+  }
+
+  isRightAndFar() {
+    return world.character.x - world.level.endboss[0].x > 800;
+  }
+
+  alertAnimation() {
+    this.playAnimation(this.IMAGES_ALERT);
+  }
+
+  isLeftAndNear() {
+    return world.level.endboss[0].x - world.character.x <= 500 && world.level.endboss[0].x - world.character.x > 250;
+  }
+
+  moveLeftAndWalk() {
+    this.moveLeft();
+    this.otherDirection = false;
+    this.playAnimation(this.IMAGES_WALKING);
+  }
+
+  isRightAndNear() {
+    return world.character.x - world.level.endboss[0].x <= 800 && world.character.x - world.level.endboss[0].x >= 450;
+  }
+
+  moveRightAndWalk() {
+    this.moveRight();
+    this.otherDirection = true;
+    this.playAnimation(this.IMAGES_WALKING);
+  }
+
+  isLeftAndClose() {
+    return world.level.endboss[0].x - world.character.x <= 250 && world.level.endboss[0].x - world.character.x >= 0;
+  }
+
+  moveLeftAndAttak() {
+    this.moveLeft();
+    this.otherDirection = false;
+    this.playAnimation(this.IMAGES_ATTAK);
+  }
+
+  isRightAndClose() {
+    return world.character.x - world.level.endboss[0].x <= 450 && world.character.x - world.level.endboss[0].x >= 0;
+  }
+
+  moveRightAndAttak() {
+    this.moveRight();
+    this.otherDirection = true;
+    this.playAnimation(this.IMAGES_ATTAK);
   }
 
   endbossIsHit() {
@@ -131,9 +187,5 @@ class Endboss extends MovableObject {
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);
     }
-  }
-
-  stopEndbossAnimation() {
-    clearInterval(this.endbossAnimation);
   }
 }
