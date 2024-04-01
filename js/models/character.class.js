@@ -1,3 +1,6 @@
+/**
+ * Represents the character in the game.
+ */
 class Character extends MovableObject {
   height = 250;
   y = 180;
@@ -71,6 +74,9 @@ class Character extends MovableObject {
 
   IMAGES_HURT = ['img/2_character_pepe/4_hurt/H-41.png', 'img/2_character_pepe/4_hurt/H-42.png', 'img/2_character_pepe/4_hurt/H-43.png'];
 
+  /**
+   * Constructs a new Character object.
+   */
   constructor() {
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_IDLE);
@@ -80,15 +86,20 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.applyGravity();
-
     this.animate();
   }
 
+  /**
+   * Initiates animations for the character.
+   */
   animate() {
     setInterval(() => this.moveCharacter(), 1000 / 60);
     setInterval(() => this.playAnimationsCharacter(), 150);
   }
 
+  /**
+   * Moves the character based on keyboard inputs.
+   */
   moveCharacter() {
     if (this.canJump()) this.jump();
     if (this.stopIdleCounter) this.restartIdleCounter();
@@ -99,45 +110,76 @@ class Character extends MovableObject {
     this.world.camera_x = -this.x + 100;
   }
 
+  /**
+   * Checks if the character can jump.
+   * @returns {boolean} True if the character can jump, otherwise false.
+   */
   canJump() {
     return this.world.keyboard.SPACE && !this.isAboveGround() && this.energy >= 1;
   }
 
+  /**
+   * Initiates a jump action for the character.
+   */
   jump() {
     super.jump();
     playJumpingSound();
   }
 
+  /**
+   * Checks if the idle counter should stop.
+   * @returns {boolean} True if the idle counter should stop, otherwise false.
+   */
   stopIdleCounter() {
     return this.world.keyboard.LEFT || this.world.keyboard.RIGHT || this.world.keyboard.SPACE || this.world.keyboard.D;
   }
 
+  /**
+   * Restarts the idle counter if it exceeds the idle limit.
+   */
   restartIdleCounter() {
     if (this.idleCounter > this.IDLE_LIMIT) {
       this.idleCounter = 0;
     }
   }
 
+  /**
+   * Checks if the character can move to the right.
+   * @returns {boolean} True if the character can move right, otherwise false.
+   */
   canMoveRight() {
     return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.energy >= 1;
   }
 
+  /**
+   * Moves the character to the right.
+   */
   moveRight() {
     super.moveRight();
     this.otherDirection = false;
     playWalkingSound();
   }
 
+  /**
+   * Checks if the character can move to the left.
+   * @returns {boolean} True if the character can move left, otherwise false.
+   */
   canMoveLeft() {
     return this.world.keyboard.LEFT && this.x > 0 && this.energy >= 1;
   }
 
+  /**
+   * Moves the character to the left.
+   */
   moveLeft() {
     super.moveLeft();
     this.otherDirection = true;
     playWalkingSound();
   }
 
+  /**
+   * Plays animations for the character.
+   */
   playAnimationsCharacter() {
     if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
     else if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
@@ -147,18 +189,29 @@ class Character extends MovableObject {
       playSnoringSound();
     } else if (this.canMoveLeftOrRight()) this.playAnimation(this.IMAGES_WALKING);
     else this.playAnimation(this.IMAGES_IDLE);
-
     if (this.belowIdleLimit()) pauseSnoringSound();
   }
 
+  /**
+   * Checks if the idle counter exceeds the idle limit.
+   * @returns {boolean} True if the idle counter exceeds the idle limit, otherwise false.
+   */
   overIdleLimit() {
     return this.idleCounter > this.IDLE_LIMIT;
   }
 
+  /**
+   * Checks if the idle counter is below the idle limit.
+   * @returns {boolean} True if the idle counter is below the idle limit, otherwise false.
+   */
   belowIdleLimit() {
     return this.idleCounter < this.IDLE_LIMIT;
   }
 
+  /**
+   * Checks if the character can move left or right.
+   * @returns {boolean} True if the character can move left or right, otherwise false.
+   */
   canMoveLeftOrRight() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
   }
