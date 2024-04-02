@@ -1,12 +1,17 @@
 .game-story {
   position: absolute;
   top: 50px;
-  left: 34px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  width: 620px;
+  width: 80%;
+  height: 70vh;
+  overflow-y: auto;
   padding: 16px;
   border-radius: 16px;
   background-color: rgb(255, 209, 16);
@@ -14,7 +19,6 @@
 
 .game-story p {
   font-size: 24px;
-  letter-spacing: 1.1;
 }
 
 .game-story h2 {
@@ -91,16 +95,10 @@
   #startscreen,
   #endscreen {
     width: 100% !important;
-    /* height: auto;
-    max-height: 480px; */
   }
 
   canvas {
     width: 100%;
-  }
-
-  .mobile-btns {
-    display: flex !important;
   }
 }
 /* Smartphones - - - - - - - - - - */
@@ -110,12 +108,13 @@
   }
 
   #game-container {
-    height: 100dvh;
+    height: calc(100dvh - 8px);
     width: auto;
     overflow: visible;
+    padding-top: 4px;
   }
   canvas {
-    height: 100vh;
+    height: 100% !important;
   }
 
   #startscreen,
@@ -135,6 +134,37 @@
     width: 100%;
     height: calc((100vw / 720) * 480);
     aspect-ratio: 720 / 480;
+  }
+
+  .game-story h2 {
+    font-size: 24px;
+  }
+
+  .game-story p {
+    font-size: 16px;
+  }
+
+  .keyboard-instructions {
+    width: 220px;
+    left: 8px;
+  }
+
+  .keyboard-key p,
+  .keyboard-key-space p {
+    font-size: 20px;
+  }
+
+  .keyboard-key-space p {
+    padding-left: 8px;
+  }
+
+  .keyboard-key img,
+  .keyboard-key-space img {
+    height: 30px;
+  }
+
+  .keyboard-key-r span {
+    font-size: 16px;
   }
 }
 

@@ -33,6 +33,10 @@
   text-shadow: 8px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+.textsites-h1 {
+  font-size: 36px;
+}
+
 h2 {
   font-size: 28px;
   font-weight: bold;
@@ -52,22 +56,13 @@ a:hover {
   color: rgb(255, 186, 0);
 }
 
-.mobile-wrapper {
-  /* position: relative;
-  overflow: auto;
-  height: 100%; */
-}
-
 /* === Game Container === */
 #game-container {
   position: relative;
-  /* overflow: auto; */
-  /* height: 100vh; */
 }
 
 /* === Startscreen === */
 #startscreen {
-  /* position: relative; */
   width: 720px;
   height: 480px;
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
@@ -180,18 +175,12 @@ a:hover {
 
 /* === Canvas === */
 #canvas-container {
-  /* position: relative; */
   display: block;
-  /* width: 100%;
-  height: 100%; */
   width: 720px;
   height: 480px;
 }
 
 canvas {
-  /* position: absolute;
-  top: 0;
-  left: 0; */
   display: block;
   width: 100%;
   height: 100%;
