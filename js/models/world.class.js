@@ -2,7 +2,7 @@ class World {
   character = new Character();
   level = level1;
   canvas;
-  ctx; // Sammlung/Framework von JS, mit dem man auf Canvas Objekte hinzufügen/malen kann
+  ctx;
   keyboard;
   camera_x = 0;
   levelEnd = false;
@@ -39,12 +39,14 @@ class World {
         this.jumpOnChicken();
         this.checkThrowColissions();
         this.checkTradeCoinsToRefillBottles();
-        playGameSound();
       }
     }, 100);
     this.throwInterval = setInterval(() => {
       this.checkThrowObjects();
     }, 100);
+    // this.backgroundMusicInterval = setInterval(() => {
+    //   playGameSound();
+    // }, interval);
   }
 
   pauseRunInterval() {
@@ -57,21 +59,27 @@ class World {
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        !enemy.chickenIsDead &&
-        ((!this.character.isAboveGround() && this.character.energy >= 0) || this.character.isJumpingUp() || !this.character.isWalking())
-      ) {
+      if (this.characterCollidingWithEnemy(enemy)) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
       }
     });
     this.level.endboss.forEach((endboss) => {
-      if (this.character.isColliding(endboss) && !endboss.endbossIsDead) {
+      if (this.characterCollidingWithEndboss(endboss)) {
         this.character.hit();
         this.statusBarHealth.setPercentage(this.character.energy);
       }
     });
+  }
+
+  characterCollidingWithEnemy(enemy) {
+    return (
+      this.character.isColliding(enemy) && !enemy.chickenIsDead && ((!this.character.isAboveGround() && this.character.energy >= 0) || this.character.isJumpingUp() || !this.character.isWalking())
+    );
+  }
+
+  characterCollidingWithEndboss(endboss) {
+    return this.character.isColliding(endboss) && !endboss.endbossIsDead;
   }
 
   jumpOnChicken() {

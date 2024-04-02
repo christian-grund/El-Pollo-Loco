@@ -1,7 +1,6 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let intervalIDs = [];
 let fullscreenEnabled = false;
 
 function init() {
@@ -12,6 +11,7 @@ function init() {
   ctx = canvas.getContext('2d');
   clearInterval(this.startScreenSoundInterval);
   pauseStartScreenSound();
+  playGameSound();
 }
 
 function gameOver() {
@@ -23,9 +23,7 @@ function gameOver() {
   } else {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
   }
-
   clearAllIntervals();
-
   startScreenSoundInterval = setInterval(() => {
     playStartScreenSound();
   }, 1000 / 25);

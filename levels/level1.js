@@ -1,14 +1,18 @@
+/**
+ * Represents the first level of the game.
+ */
 let level1;
 
+/**
+ * Initializes the first level of the game.
+ */
 function initLevel() {
-  level1 = new Level(
-    createEnemies(),
-    createEndboss(),
-    createClouds(),
-    createCollectableObjects(),
-    createBackgroundObjects()
-  );
+  level1 = new Level(createEnemies(), createEndboss(), createClouds(), createCollectableObjects(), createBackgroundObjects());
 
+  /**
+   * Creates enemies for the level.
+   * @returns {Array} An array of enemy objects.
+   */
   function createEnemies() {
     return [
       new ChickenNormal(),
@@ -26,14 +30,26 @@ function initLevel() {
     ];
   }
 
+  /**
+   * Creates the end boss for the level.
+   * @returns {Array} An array containing the end boss object.
+   */
   function createEndboss() {
     return [new Endboss()];
   }
 
+  /**
+   * Creates clouds for the level.
+   * @returns {Array} An array of cloud objects.
+   */
   function createClouds() {
     return [new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud()];
   }
 
+  /**
+   * Creates collectable objects for the level.
+   * @returns {Array} An array of collectable object instances.
+   */
   function createCollectableObjects() {
     return [
       new Bottle(),
@@ -51,9 +67,14 @@ function initLevel() {
       new Coin(),
       new Coin(),
       new Coin(),
+      new Coin(),
     ];
   }
 
+  /**
+   * Creates background objects for the level.
+   * @returns {Array} An array of background object instances.
+   */
   function createBackgroundObjects() {
     return [
       new BackgroundObject('img/5_background/layers/air.png', -719),

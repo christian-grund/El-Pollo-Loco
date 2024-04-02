@@ -108,7 +108,6 @@ class Endboss extends MovableObject {
    * Handles the end boss animation interval.
    */
   endbossAnimationInterval() {
-    pauseGameSound();
     if (this.hadFirstContact) {
       clearInterval(this.endbossAlertAnimation);
       playEndbossFightSound();
@@ -255,8 +254,8 @@ class Endboss extends MovableObject {
       clearInterval(world.runInterval);
       clearInterval(this.endbossAnimation);
       pauseEndbossFightSound();
-      playEndbossDefeatedSound();
       pauseSnoringSound();
+      playEndbossDefeatedSound();
       setTimeout(() => playGameWonSound(), 2000);
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 150);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);

@@ -53,7 +53,7 @@ function unmuteSound() {
 }
 
 function playStartScreenSound() {
-  audioData[0].volume = 0.5;
+  // audioData[0].volume = 0.5;
   audioData[0].play();
 }
 
