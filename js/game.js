@@ -30,6 +30,15 @@ function gameOver() {
   showEndscreen();
 }
 
+function restartGame() {
+  showCanvas();
+  initLevel();
+  world = new World(canvas, keyboard);
+  clearInterval(this.startScreenSoundInterval);
+  pauseStartScreenSound();
+  playGameSound();
+}
+
 function characterDiedSounds() {
   pauseGameSound();
 }

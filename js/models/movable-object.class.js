@@ -113,23 +113,14 @@ class MovableObject extends DrawableObject {
     this.energy -= 3;
     if (this.energy < 0) {
       this.energy = 0;
+      pauseHurtSound();
+      // world.pauseRunInterval();
       pauseEndbossFightSound();
       playGameLostSound();
       setTimeout(() => gameOver(), 3000);
     } else {
       this.lastHit = new Date().getTime();
       playHurtSound();
-    }
-  }
-
-  /**
-   * Removes event listeners.
-   */
-  removeEventListeners() {
-    if (this.keyboardInstance instanceof Keyboard) {
-      this.keyboardInstance.unbindPressEvents();
-    } else {
-      console.error('Keyboard instance not available!');
     }
   }
 

@@ -143,6 +143,13 @@ function playHurtSound() {
 }
 
 /**
+ * Pauses the hurt sound effect.
+ */
+function pauseHurtSound() {
+  audioData[7].pause();
+}
+
+/**
  * Plays the snoring sound effect.
  */
 function playSnoringSound() {
@@ -230,6 +237,7 @@ function pauseEndbossAttakSound() {
  * Plays the sound effect for endboss fight.
  */
 function playEndbossFightSound() {
+  console.log('playEndbossFightSound');
   let audio = audioData[18];
   audio.loop = true;
   audio.play();

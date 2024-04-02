@@ -110,7 +110,7 @@ class Endboss extends MovableObject {
   endbossAnimationInterval() {
     if (this.hadFirstContact) {
       clearInterval(this.endbossAlertAnimation);
-      playEndbossFightSound();
+      this.endbossFightSound();
       if (this.endbossIsHurt) this.endbossIsHurtAnimation();
       if (this.isLeftAndFar()) this.alertAnimation();
       if (this.isRightAndFar()) this.alertAnimation();
@@ -121,6 +121,13 @@ class Endboss extends MovableObject {
     }
   }
 
+  endbossFightSound() {
+    if (world.character.energy >= 1) {
+      playEndbossFightSound();
+    } else {
+      pauseEndbossFightSound();
+    }
+  }
   /**
    * Plays the hurt animation of the end boss.
    */
@@ -251,11 +258,12 @@ class Endboss extends MovableObject {
    */
   endbossIsKilled() {
     if (this.endbossDead) {
-      clearInterval(world.runInterval);
       clearInterval(this.endbossAnimation);
+      clearInterval(this.endbossAlertAnimation);
       pauseEndbossFightSound();
       pauseSnoringSound();
       playEndbossDefeatedSound();
+      pauseHurtSound();
       setTimeout(() => playGameWonSound(), 2000);
       this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 150);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
