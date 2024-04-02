@@ -44,9 +44,6 @@ class World {
     this.throwInterval = setInterval(() => {
       this.checkThrowObjects();
     }, 100);
-    // this.backgroundMusicInterval = setInterval(() => {
-    //   playGameSound();
-    // }, interval);
   }
 
   pauseRunInterval() {
@@ -85,15 +82,23 @@ class World {
 
   jumpOnChicken() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && this.character.isJumpingDown() && !this.character.isHurt() && !enemy.chickenIsDead) {
+      if (this.characterJumpsOnChicken(enemy)) {
         this.killChicken(enemy);
         setTimeout(() => this.character.jump(), 100);
         this.removeDeadChicken(enemy);
-      } else if (this.character.y >= 180) {
+      } else if (this.characterLandsOnGround()) {
         this.character.speedY = 0;
         this.character.y = 180;
       }
     });
+  }
+
+  characterJumpsOnChicken(enemy) {
+    return this.character.isColliding(enemy) && this.character.isJumpingDown() && !this.character.isHurt() && !enemy.chickenIsDead;
+  }
+
+  characterLandsOnGround() {
+    return this.character.y >= 180;
   }
 
   killChicken(enemy) {
@@ -105,10 +110,7 @@ class World {
   removeDeadChicken(enemy) {
     setTimeout(() => {
       const index = this.world.level.enemies.indexOf(enemy);
-
-      if (index > -1) {
-        this.world.level.enemies.splice(index, 1);
-      }
+      if (index > -1) this.world.level.enemies.splice(index, 1);
     }, 3000);
   }
 
@@ -236,16 +238,24 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
 
-    if (this.coinAmount == 10 && !this.keyboard.R) {
-      this.ctx.fillStyle = 'white';
-      this.ctx.font = '18px mayan';
-      this.ctx.fillText('Press R to refill bottles!', 260, 87);
+    if (this.allCoinsCollected()) {
+      this.drawInfoRefillPossible();
     }
 
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  allCoinsCollected() {
+    return this.coinAmount == 10 && !this.keyboard.R;
+  }
+
+  drawInfoRefillPossible() {
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = '18px mayan';
+    this.ctx.fillText('Press R to refill bottles!', 260, 87);
   }
 
   addFixedObjectsToMap() {

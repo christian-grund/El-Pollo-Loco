@@ -24,9 +24,7 @@ function gameOver() {
     endscreenText.src = 'img/9_intro_outro_screens/game_over/game over!.png';
   }
   clearAllIntervals();
-  startScreenSoundInterval = setInterval(() => {
-    playStartScreenSound();
-  }, 1000 / 25);
+  startScreenSoundInterval = setInterval(() => playStartScreenSound(), 1000 / 25);
   showEndscreen();
 }
 

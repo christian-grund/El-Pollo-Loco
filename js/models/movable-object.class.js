@@ -114,7 +114,6 @@ class MovableObject extends DrawableObject {
     if (this.energy < 0) {
       this.energy = 0;
       pauseHurtSound();
-      // world.pauseRunInterval();
       pauseEndbossFightSound();
       playGameLostSound();
       setTimeout(() => gameOver(), 3000);

@@ -121,8 +121,12 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Plays the end boss fight sound if the character's energy is more than zero.
+   * Otherwise, pauses the end boss fight sound.
+   */
   endbossFightSound() {
-    if (world.character.energy >= 1) {
+    if (world.character.energy > 0) {
       playEndbossFightSound();
     } else {
       pauseEndbossFightSound();
