@@ -269,7 +269,7 @@ class Endboss extends MovableObject {
       playEndbossDefeatedSound();
       pauseHurtSound();
       setTimeout(() => playGameWonSound(), 2000);
-      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 150);
+      this.endbossDeadAnimation = setInterval(() => this.playAnimation(this.IMAGES_DEAD), 250);
       setTimeout(() => clearInterval(this.endbossDeadAnimation), 4000);
       setTimeout(() => world.level.endboss.splice(0, 1), 4000);
       setTimeout(() => gameOver(), 8000);

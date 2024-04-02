@@ -47,7 +47,6 @@ class World {
   }
 
   pauseRunInterval() {
-    console.log('pauseRunInterval');
     this.isRunIntervalPaused = true;
   }
 
@@ -57,16 +56,10 @@ class World {
 
   checkEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.characterCollidingWithEnemy(enemy)) {
-        this.character.hit();
-        this.statusBarHealth.setPercentage(this.character.energy);
-      }
+      if (this.characterCollidingWithEnemy(enemy)) this.characterCollidedWithEnemy();
     });
     this.level.endboss.forEach((endboss) => {
-      if (this.characterCollidingWithEndboss(endboss)) {
-        this.character.hit();
-        this.statusBarHealth.setPercentage(this.character.energy);
-      }
+      if (this.characterCollidingWithEndboss(endboss)) this.characterCollidedWithEnemy();
     });
   }
 
@@ -76,20 +69,19 @@ class World {
     );
   }
 
+  characterCollidedWithEnemy() {
+    this.character.hit();
+    this.statusBarHealth.setPercentage(this.character.energy);
+  }
+
   characterCollidingWithEndboss(endboss) {
     return this.character.isColliding(endboss) && !endboss.endbossIsDead;
   }
 
   jumpOnChicken() {
     this.level.enemies.forEach((enemy) => {
-      if (this.characterJumpsOnChicken(enemy)) {
-        this.killChicken(enemy);
-        setTimeout(() => this.character.jump(), 100);
-        this.removeDeadChicken(enemy);
-      } else if (this.characterLandsOnGround()) {
-        this.character.speedY = 0;
-        this.character.y = 180;
-      }
+      if (this.characterJumpsOnChicken(enemy)) this.characterJumpedOnChicken(enemy);
+      else if (this.characterLandsOnGround()) this.characterLandedOnGround();
     });
   }
 
@@ -97,8 +89,19 @@ class World {
     return this.character.isColliding(enemy) && this.character.isJumpingDown() && !this.character.isHurt() && !enemy.chickenIsDead;
   }
 
+  characterJumpedOnChicken(enemy) {
+    this.killChicken(enemy);
+    setTimeout(() => this.character.jump(), 100);
+    this.removeDeadChicken(enemy);
+  }
+
   characterLandsOnGround() {
     return this.character.y >= 180;
+  }
+
+  characterLandedOnGround() {
+    this.character.speedY = 0;
+    this.character.y = 180;
   }
 
   killChicken(enemy) {
@@ -120,27 +123,11 @@ class World {
 
   checkCollection() {
     this.level.collectableObjects.forEach((object, index) => {
-      if (this.collectingBottle(object)) {
-        if (this.character.isColliding(object, index)) {
-          this.bottleAmount++;
-          this.removeCollectedObject(index);
-          this.statusBarBottle.bottleCollected();
-          if (!mute) {
-            playBottleCollectSound();
-          }
+      if (this.collectingBottle(object))
+        if (this.character.isColliding(object, index)) this.hasCollectedBottle(index);
+        else {
+          if (this.collectingCoin(object)) if (this.character.isColliding(object, index)) this.hasCollectedCoin(index);
         }
-      } else {
-        if (this.collectingCoin(object)) {
-          if (this.character.isColliding(object, index)) {
-            this.coinAmount++;
-            this.removeCollectedObject(index);
-            this.statusBarCoin.coinCollected();
-            if (!mute) {
-              playCoinCollectSound();
-            }
-          }
-        }
-      }
     });
   }
 
@@ -148,8 +135,26 @@ class World {
     return collectableObject instanceof Bottle;
   }
 
+  hasCollectedBottle(index) {
+    this.bottleAmount++;
+    this.removeCollectedObject(index);
+    this.statusBarBottle.bottleCollected();
+    if (!mute) {
+      playBottleCollectSound();
+    }
+  }
+
   collectingCoin(collectableObject) {
     return collectableObject instanceof Coin;
+  }
+
+  hasCollectedCoin(index) {
+    this.coinAmount++;
+    this.removeCollectedObject(index);
+    this.statusBarCoin.coinCollected();
+    if (!mute) {
+      playCoinCollectSound();
+    }
   }
 
   removeCollectedObject(index) {
@@ -157,7 +162,7 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck && this.character.energy >= 1) {
+    if (this.checkThrowPossible()) {
       let bottleIndex;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, bottleIndex);
       bottle.throw(this.character.otherDirection);
@@ -168,48 +173,67 @@ class World {
     }
   }
 
+  checkThrowPossible() {
+    return this.keyboard.D && this.bottleAmount > 0 && this.throwNewBottleAllowedCheck && this.character.energy >= 1;
+  }
+
   checkThrowColissions() {
-    this.throwableObjects.forEach((ThrowableObject, index) => {
+    this.throwableObjects.forEach((ThrowableObject) => {
       this.throwNewBottleAllowedCheck = false;
 
-      if (!ThrowableObject.isAboveGround()) {
-        ThrowableObject.splashingBottle();
-        this.removeThrownBottle(ThrowableObject);
-        this.throwNewBottleAllowedCheck = true;
-      }
+      if (this.bottleHitsGround(ThrowableObject)) this.bottleHittedGround(ThrowableObject, this.throwNewBottleAllowedCheck);
 
       this.level.enemies.forEach((enemy) => {
-        if (enemy.isColliding(ThrowableObject)) {
-          ThrowableObject.splashingBottle(ThrowableObject);
-          enemy.animateDeadChicken();
-          this.killChicken(enemy);
-          this.removeDeadChicken(enemy);
-          this.pauseRunInterval();
-          setTimeout(() => this.resumeRunInterval(), 100);
-
-          this.throwNewBottleAllowedCheck = true;
-        }
+        if (this.bottleHitsChicken(enemy, ThrowableObject)) this.bottleHittedChicken(enemy, ThrowableObject, this.throwNewBottleAllowedCheck);
       });
 
       this.level.endboss.forEach((endboss) => {
-        if (endboss.isColliding(ThrowableObject)) {
-          ThrowableObject.splashingBottle();
-          this.removeThrownBottle(ThrowableObject);
-          endboss.endbossIsHit();
-          ThrowableObject.speedY = 0;
-          ThrowableObject.speedX = 0;
-          setTimeout(() => (this.throwNewBottleAllowedCheck = true), 1000);
-        }
+        if (this.bottleHitsEndboss(endboss, ThrowableObject)) this.bottleHittedEndboss(endboss, ThrowableObject, this.throwNewBottleAllowedCheck);
       });
     });
+  }
+
+  bottleHitsGround(ThrowableObject) {
+    return !ThrowableObject.isAboveGround();
+  }
+
+  bottleHittedGround(ThrowableObject, throwNewBottleAllowedCheck) {
+    ThrowableObject.splashingBottle();
+    this.removeThrownBottle(ThrowableObject);
+    this.throwNewBottleAllowedCheck = true;
+  }
+
+  bottleHitsChicken(enemy, ThrowableObject) {
+    return enemy.isColliding(ThrowableObject);
+  }
+
+  bottleHittedChicken(enemy, ThrowableObject, throwNewBottleAllowedCheck) {
+    ThrowableObject.splashingBottle(ThrowableObject);
+    enemy.animateDeadChicken();
+    this.killChicken(enemy);
+    this.removeDeadChicken(enemy);
+    this.pauseRunInterval();
+    setTimeout(() => this.resumeRunInterval(), 100);
+    this.throwNewBottleAllowedCheck = true;
+  }
+
+  bottleHitsEndboss(endboss, ThrowableObject) {
+    return endboss.isColliding(ThrowableObject);
+  }
+
+  bottleHittedEndboss(endboss, ThrowableObject, throwNewBottleAllowedCheck) {
+    ThrowableObject.splashingBottle();
+    this.removeThrownBottle(ThrowableObject);
+    endboss.endbossIsHit();
+    ThrowableObject.speedY = 0;
+    ThrowableObject.speedX = 0;
+    setTimeout(() => (this.throwNewBottleAllowedCheck = true), 1000);
   }
 
   removeThrownBottle(ThrowableObject) {
     setTimeout(() => {
       let index = this.throwableObjects.indexOf(ThrowableObject);
-      if (index !== -1) {
-        this.throwableObjects.splice(index, 1);
-      }
+      if (index !== -1) this.throwableObjects.splice(index, 1);
     }, 250);
   }
 
@@ -217,7 +241,6 @@ class World {
     if (this.coinAmount == 10) {
       if (this.keyboard.R) {
         this.coinAmount = 0;
-
         this.bottleAmount = 5;
         this.statusBarBottle.tradedCoinsToRefillBottles();
         this.statusBarCoin.tradedCoinsToRefillBottles();
@@ -231,17 +254,12 @@ class World {
     this.ctx.translate(this.camera_x, 0);
     this.addMovableObjectsToMap();
     this.ctx.translate(-this.camera_x, 0); // Back
-    // - - - - - Space for fixed Objects - - - - -
     this.addFixedObjectsToMap();
     this.ctx.translate(this.camera_x, 0); // Forward
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
-
-    if (this.allCoinsCollected()) {
-      this.drawInfoRefillPossible();
-    }
-
+    if (this.allCoinsCollected()) this.drawInfoRefillPossible();
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
