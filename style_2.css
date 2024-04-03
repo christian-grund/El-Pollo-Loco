@@ -89,16 +89,17 @@
   }
 
   #game-container {
-    width: 100vw !important;
+    width: calc(100% - 16px);
   }
 
   #startscreen,
   #endscreen {
-    width: 100% !important;
+    max-width: 720px !important;
   }
 
   canvas {
-    width: 100%;
+    /* width: calc(100% - 16px) !important; */
+    width: 100% !important;
   }
 }
 /* Smartphones - - - - - - - - - - */
@@ -109,8 +110,6 @@
 
   #game-container {
     height: calc(100dvh - 8px);
-    width: auto;
-    overflow: visible;
     padding-top: 4px;
   }
   canvas {
@@ -118,8 +117,9 @@
   }
 
   #startscreen,
-  #enscreen {
+  #endscreen {
     height: 100% !important;
+    width: calc(100vh * (720 / 480));
   }
 
   .mobile-btns {

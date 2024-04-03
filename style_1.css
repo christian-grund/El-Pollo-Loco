@@ -63,6 +63,7 @@ a:hover {
 
 /* === Startscreen === */
 #startscreen {
+  display: block;
   width: 720px;
   height: 480px;
   background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
@@ -257,14 +258,14 @@ canvas {
   display: none;
   justify-content: space-between;
   align-items: center;
-  bottom: 100px;
+  bottom: 70px;
   z-index: 5;
 }
 
 .mobile-btns-left,
 .mobile-btns-right {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   padding: 16px;
 }
 
@@ -272,10 +273,10 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 20px;
   background-color: rgb(255, 209, 16);
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   flex-shrink: 0;
   font-size: 32px;
